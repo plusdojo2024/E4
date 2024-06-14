@@ -3,62 +3,44 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
 	private int id;
-	private String mail_address;
+	private String mailAddress;
 	private String password;
 	private String name;
-	private String birth_date;
-	private String tel_num;
-	private int prefecture_id;
-	private int event_category;
-	private int outdoor_level;
-	private String register_year;
+	private String birthDate;
+	private String telNum;
+	private int prefectureId;
+	private int eventCategory;
+	private int outdoorLevel;
+	private String registerYear;
 	private int evaluation;
-	private int technic_param;
-	private int cook_param;
-	private int communication_param;
-	private int participants_amount;
-	private int hosted_amount;
-	private int icon_id;
+	private int technicParam;
+	private int cookPparam;
+	private int communicationParam;
+	private int participantsAmount;
+	private int hostedAmount;
+	private int iconId;
 
-
-
-	public Users(
-			int id,
-			String mail_address,
-			String password,
-			String name,
-			String birth_date,
-			String tel_num,
-			int prefecture_id,
-			int event_category,
-			int outdoor_level,
-			String register_year,
-			int evaluation,
-			int technic_param,
-			int cook_param,
-			int communication_param,
-			int participants_amount,
-			int hosted_amount,
-			int icon_id
-			) {
-
+	public Users(int id, String mailAddress, String password, String name, String birthDate, String telNum,
+			int prefectureId, int eventCategory, int outdoorLevel, String registerYear, int evaluation,
+			int technicParam, int cookPparam, int communicationParam, int participantsAmount, int hostedAmount,
+			int iconId) {
 		this.id = id;
-		this.mail_address = mail_address;
+		this.mailAddress = mailAddress;
 		this.password = password;
 		this.name = name;
-		this.birth_date = birth_date;
-		this.tel_num = tel_num;
-		this.prefecture_id = prefecture_id;
-		this.event_category = event_category;
-		this.outdoor_level = outdoor_level;
-		this.register_year = register_year;
+		this.birthDate = birthDate;
+		this.telNum = telNum;
+		this.prefectureId = prefectureId;
+		this.eventCategory = eventCategory;
+		this.outdoorLevel = outdoorLevel;
+		this.registerYear = registerYear;
 		this.evaluation = evaluation;
-		this.technic_param = technic_param;
-		this.cook_param = cook_param;
-		this.communication_param = communication_param;
-		this.participants_amount = participants_amount;
-		this.hosted_amount = hosted_amount;
-		this.icon_id = icon_id;
+		this.technicParam = technicParam;
+		this.cookPparam = cookPparam;
+		this.communicationParam = communicationParam;
+		this.participantsAmount = participantsAmount;
+		this.hostedAmount = hostedAmount;
+		this.iconId = iconId;
 	}
 	public int getId() {
 		return id;
@@ -66,11 +48,11 @@ public class Users implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getMail_address() {
-		return mail_address;
+	public String getMailAddress() {
+		return mailAddress;
 	}
-	public void setMail_address(String mail_address) {
-		this.mail_address = mail_address;
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
 	}
 	public String getPassword() {
 		return password;
@@ -84,41 +66,41 @@ public class Users implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getBirth_date() {
-		return birth_date;
+	public String getBirthDate() {
+		return birthDate;
 	}
-	public void setBirth_date(String birth_date) {
-		this.birth_date = birth_date;
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
 	}
-	public String getTel_num() {
-		return tel_num;
+	public String getTelNum() {
+		return telNum;
 	}
-	public void setTel_num(String tel_num) {
-		this.tel_num = tel_num;
+	public void setTelNum(String telNum) {
+		this.telNum = telNum;
 	}
-	public int getPrefecture_id() {
-		return prefecture_id;
+	public int getPrefectureId() {
+		return prefectureId;
 	}
-	public void setPrefecture_id(int prefecture_id) {
-		this.prefecture_id = prefecture_id;
+	public void setPrefectureId(int prefectureId) {
+		this.prefectureId = prefectureId;
 	}
-	public int getEvent_category() {
-		return event_category;
+	public int getEventCategory() {
+		return eventCategory;
 	}
-	public void setEvent_category(int event_category) {
-		this.event_category = event_category;
+	public void setEventCategory(int eventCategory) {
+		this.eventCategory = eventCategory;
 	}
-	public int getOutdoor_level() {
-		return outdoor_level;
+	public int getOutdoorLevel() {
+		return outdoorLevel;
 	}
-	public void setOutdoor_level(int outdoor_level) {
-		this.outdoor_level = outdoor_level;
+	public void setOutdoorLevel(int outdoorLevel) {
+		this.outdoorLevel = outdoorLevel;
 	}
-	public String getRegister_year() {
-		return register_year;
+	public String getRegisterYear() {
+		return registerYear;
 	}
-	public void setRegister_year(String register_year) {
-		this.register_year = register_year;
+	public void setRegisterYear(String registerYear) {
+		this.registerYear = registerYear;
 	}
 	public int getEvaluation() {
 		return evaluation;
@@ -126,41 +108,44 @@ public class Users implements Serializable {
 	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
 	}
-	public int getTechnic_param() {
-		return technic_param;
+	public int getTechnicParam() {
+		return technicParam;
 	}
-	public void setTechnic_param(int technic_param) {
-		this.technic_param = technic_param;
+	public void setTechnicParam(int technicParam) {
+		this.technicParam = technicParam;
 	}
-	public int getCook_param() {
-		return cook_param;
+	public int getCookPparam() {
+		return cookPparam;
 	}
-	public void setCook_param(int cook_param) {
-		this.cook_param = cook_param;
+	public void setCookPparam(int cookPparam) {
+		this.cookPparam = cookPparam;
 	}
-	public int getCommunication_param() {
-		return communication_param;
+	public int getCommunicationParam() {
+		return communicationParam;
 	}
-	public void setCommunication_param(int communication_param) {
-		this.communication_param = communication_param;
+	public void setCommunicationParam(int communicationParam) {
+		this.communicationParam = communicationParam;
 	}
-	public int getParticipants_amount() {
-		return participants_amount;
+	public int getParticipantsAmount() {
+		return participantsAmount;
 	}
-	public void setParticipants_amount(int participants_amount) {
-		this.participants_amount = participants_amount;
+	public void setParticipantsAmount(int participantsAmount) {
+		this.participantsAmount = participantsAmount;
 	}
-	public int getHosted_amount() {
-		return hosted_amount;
+	public int getHostedAmount() {
+		return hostedAmount;
 	}
-	public void setHosted_amount(int hosted_amount) {
-		this.hosted_amount = hosted_amount;
+	public void setHostedAmount(int hostedAmount) {
+		this.hostedAmount = hostedAmount;
 	}
-	public int getIcon_id() {
-		return icon_id;
+	public int getIconId() {
+		return iconId;
 	}
-	public void setIcon_id(int icon_id) {
-		this.icon_id = icon_id;
+	public void setIconId(int iconId) {
+		this.iconId = iconId;
 	}
 
 }
+
+
+
