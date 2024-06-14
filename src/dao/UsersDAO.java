@@ -128,7 +128,7 @@ public class UsersDAO {
 				pStmt.setString(9, users. getRegisterYear());
 				pStmt.setInt(10, users.getEvaluation());
 				pStmt.setInt(11, users.getTechnicParam());
-				pStmt.setInt(12, users.getCookPparam());
+				pStmt.setInt(12, users.getCookParam());
 				pStmt.setInt(13, users.getCommunicationParam());
 				pStmt.setInt(14, users.getParticipantsAmount());
 				pStmt.setInt(15, users.getHostedAmount());
@@ -170,7 +170,7 @@ public class UsersDAO {
 				String sql;
 
 				for(int prefectureId :prefectures) {
-					sql = "INSERT INTO users VALUES (NULL, ?, ?)";
+					sql = "INSERT INTO users_prefecture VALUES (NULL, ?, ?)";
 					PreparedStatement pStmt = conn.prepareStatement(sql);
 
 					// SQL文を完成させる
@@ -202,4 +202,200 @@ public class UsersDAO {
 			// 結果を返す
 			return result;
 		}
+		public boolean update(Users users,String telNum,int prefectureId,int eventCategory,ArrayList<Integer> prefectures) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+
+				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
+				String sql = "UPDATE users SET TEL_NUM = ?,PREFECTURE_ID = ?,EVENT_CATEGORY = ? WHERE USER_ID = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				// SQL文を完成させる
+				pStmt.setString(1, telNum);
+				pStmt.setInt(2, prefectureId);
+				pStmt.setInt(3, eventCategory);
+				pStmt.setInt(4, users.getId());
+
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+
+				//都道府県更新
+				sql = "DELETE FROM users_prefecture WHERE user_id = ?";
+
+				// SQL文を完成させる
+				pStmt.setInt(1, users.getId());
+				for(int newPrefectureId :prefectures) {
+					sql = "INSERT INTO user_prefecture VALUES (NULL, ?, ?)";
+
+					// SQL文を完成させる
+					pStmt.setInt(1, users.getId());
+					pStmt.setInt(2, newPrefectureId);
+
+					if (pStmt.executeUpdate() != 1) {
+						return false;
+					}
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				result = false;
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+						result = false;
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
+		public boolean reviewParamUpdate(Users users,int evaluation,int communicationParam,int technicParam,int cookParam,int targetUserId) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+
+				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
+				String sql = "UPDATE users SET EVALUATION = ?,COMMUNICATION_PARAM = ?,TECHINIC_PARAM = ?, COOK_PARAM = ? WHERE USER_ID = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				// SQL文を完成させる
+
+				pStmt.setInt(1,users.getEvaluation() + evaluation);
+				pStmt.setInt(2,users.getCommunicationParam() + communicationParam);
+				pStmt.setInt(3,users.getTechnicParam() + technicParam);
+				pStmt.setInt(4,users.getCookParam() + cookParam);
+				pStmt.setInt(5, targetUserId);
+
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				result = false;
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+						result = false;
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
+		public boolean setIconUpdate(Users users,int iconId) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+
+				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
+				String sql = "UPDATE users SET ICON_ID = ? WHERE USER_ID = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				// SQL文を完成させる
+
+				pStmt.setInt(1,users.getIconId());
+				pStmt.setInt(2,users.getId());
+
+				// SQL文を実行する
+				if (pStmt.executeUpdate() == 1) {
+					result = true;
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				result = false;
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+						result = false;
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
+		public String fetchAchievements(String userId ) {
+			Connection conn = null;
+			String result ="";
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+
+				// SQL文を準備する
+				String sql = "SELECT name,register_year,hosted_amount,participants_amount,communication_param,technic_param,cook_param FROM user WHERE id = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+
+				pStmt.setString(1,userId);
+
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+				//評価等を配列に入れて終了（アイコン設定画面）
+				//月曜日ここから
+                String[] result = new String[7];
+				result = rs.getString("mail_address");
+
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
 }

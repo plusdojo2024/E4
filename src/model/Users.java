@@ -14,16 +14,16 @@ public class Users implements Serializable {
 	private String registerYear;
 	private int evaluation;
 	private int technicParam;
-	private int cookPparam;
+	private int cookParam;
 	private int communicationParam;
 	private int participantsAmount;
 	private int hostedAmount;
 	private int iconId;
-
 	public Users(int id, String mailAddress, String password, String name, String birthDate, String telNum,
 			int prefectureId, int eventCategory, int outdoorLevel, String registerYear, int evaluation,
-			int technicParam, int cookPparam, int communicationParam, int participantsAmount, int hostedAmount,
+			int technicParam, int cookParam, int communicationParam, int participantsAmount, int hostedAmount,
 			int iconId) {
+		super();
 		this.id = id;
 		this.mailAddress = mailAddress;
 		this.password = password;
@@ -36,7 +36,7 @@ public class Users implements Serializable {
 		this.registerYear = registerYear;
 		this.evaluation = evaluation;
 		this.technicParam = technicParam;
-		this.cookPparam = cookPparam;
+		this.cookParam = cookParam;
 		this.communicationParam = communicationParam;
 		this.participantsAmount = participantsAmount;
 		this.hostedAmount = hostedAmount;
@@ -114,11 +114,11 @@ public class Users implements Serializable {
 	public void setTechnicParam(int technicParam) {
 		this.technicParam = technicParam;
 	}
-	public int getCookPparam() {
-		return cookPparam;
+	public int getCookParam() {
+		return cookParam;
 	}
-	public void setCookPparam(int cookPparam) {
-		this.cookPparam = cookPparam;
+	public void setCookParam(int cookParam) {
+		this.cookParam = cookParam;
 	}
 	public int getCommunicationParam() {
 		return communicationParam;
@@ -146,6 +146,3 @@ public class Users implements Serializable {
 	}
 
 }
-
-
-
