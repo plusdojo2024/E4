@@ -6,17 +6,9 @@ public class Event implements Serializable{
 	int id;
 	String eventName;
 	String eventDescription;
-	String holdingSchedule;
-	int leastCount;
-	int maxCount;
-	int prefectureId;
-	String detailAddress;
-	String locationName;
-	int eventCategory;
-
 	public Event(int id, String eventName, String eventDescription, String holdingSchedule, int leastCount,
 			int maxCount, int prefectureId, String detailAddress, String locationName, int eventCategory,
-			int holdingUserId) {
+			int holdingUserId, int status) {
 		super();
 		this.id = id;
 		this.eventName = eventName;
@@ -29,9 +21,17 @@ public class Event implements Serializable{
 		this.locationName = locationName;
 		this.eventCategory = eventCategory;
 		this.holdingUserId = holdingUserId;
+		this.status = status;
 	}
+	String holdingSchedule;
+	int leastCount;
+	int maxCount;
+	int prefectureId;
+	String detailAddress;
+	String locationName;
+	int eventCategory;
 	int holdingUserId;
-
+    int status;
 	public int getId() {
 		return id;
 	}
@@ -98,5 +98,10 @@ public class Event implements Serializable{
 	public void setHoldingUserId(int holdingUserId) {
 		this.holdingUserId = holdingUserId;
 	}
-
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

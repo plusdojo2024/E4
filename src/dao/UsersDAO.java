@@ -32,7 +32,9 @@ public class UsersDAO {
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();
 
-				if(password.equals(rs.getString("password"))){
+				if(rs.next() == false) {
+					return false;
+				} else if(password.equals(rs.getString("password"))){
 					result = true;
 				}
 
