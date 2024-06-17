@@ -11,7 +11,7 @@ import model.Users;
 
 
 public class UsersDAO {
-	// ログインの成功失敗を判定
+	// ログイン失敗かどうか判定する
 		public boolean isLoginSuccess(String mailAddress,String password) {
 			Connection conn = null;
 			boolean result = false;
@@ -157,6 +157,7 @@ public class UsersDAO {
 			return result;
 		}
 
+		//参加可能範囲の情報
 		public boolean insertSearchPrefecture(int userId,ArrayList<Integer> prefectures) {
 			Connection conn = null;
 			boolean result = false;
@@ -264,6 +265,7 @@ public class UsersDAO {
 			return result;
 		}
 
+		//評価の更新
 		public boolean reviewParamUpdate(Users users,int evaluation,int communicationParam,int technicParam,int cookParam,int targetUserId) {
 			Connection conn = null;
 			boolean result = false;
@@ -355,9 +357,9 @@ public class UsersDAO {
 			return result;
 		}
 
-		public String fetchAchievements(String userId ) {
+		public String[] fetchAchievements(String userId ) {
 			Connection conn = null;
-			String result ="";
+			String[] result = new String[7];
 
 			try {
 				// JDBCドライバを読み込む
@@ -376,8 +378,58 @@ public class UsersDAO {
 				rs.next();
 				//評価等を配列に入れて終了（アイコン設定画面）
 				//月曜日ここから
-                String[] result = new String[7];
-				result = rs.getString("mail_address");
+				result[0] = rs.getString("name");
+				result[1] = rs.getString("register_year");
+                result[2] = Integer.toString(rs.getInt("hosted_amount"));
+                result[3] = Integer.toString(rs.getInt("participants_amount"));
+                result[4] = Integer.toString(rs.getInt("communication_param"));
+                result[5] = Integer.toString(rs.getInt("technic_param"));
+                result[6] = Integer.toString(rs.getInt("cook_param"));
+
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
+        //アイコンの取得
+		public String searchIcon(int userId) {
+			Connection conn = null;
+			String result ="";
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+
+				// SQL文を準備する
+				String sql = "SELECT ac.url"
+						+" FROM icon AS ac INNER JOIN users AS us"
+						+" ON us.icon_id = ac.id"
+						+" WHERE us.id = ?";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+
+				pStmt.setInt(1,userId);
+
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+
+				result = rs.getString("url");
 
 
 			}catch (Exception e) {
