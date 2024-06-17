@@ -359,7 +359,7 @@ public class UsersDAO {
 			return result;
 		}
 
-		public String[] fetchAchievements(String userId ) {
+		public String[] fetchAchievements(int userId ) {
 			Connection conn = null;
 			String[] result = new String[7];
 
@@ -374,7 +374,7 @@ public class UsersDAO {
 				String sql = "SELECT name,register_year,hosted_amount,participants_amount,communication_param,technic_param,cook_param FROM user WHERE id = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
-				pStmt.setString(1,userId);
+				pStmt.setInt(1,userId);
 
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();

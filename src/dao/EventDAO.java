@@ -66,7 +66,6 @@ public class EventDAO {
 
      //ユーザーIDから参加イベントを表示
 	public List<Event> searchuserId(int userId) {
-
 		Connection conn = null;
 		List<Event> cardList = new ArrayList<Event>();
 
@@ -86,21 +85,12 @@ public class EventDAO {
 					+ "WHERE event_user.user_id = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1,userId);
-			pStmt.setInt(2,userId);
-			pStmt.setInt(3,userId);
-			pStmt.setInt(4,userId);
-			pStmt.setInt(5,userId);
-			pStmt.setInt(6,userId);
-			pStmt.setInt(7,userId);
-			pStmt.setInt(8,userId);
-			pStmt.setInt(9,userId);
-			pStmt.setInt(10,userId);
-
+			pStmt.setString(1,"userId");
 
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
 			// 結果表をコレクションにコピーする
+			//火曜日ここから
 			while (rs.next()) {
 			  Event record = new Event(
 			    rs.getString("event_name");
