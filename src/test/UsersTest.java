@@ -40,5 +40,15 @@ public class UsersTest {
 
 		assertEquals(expected, actual);
 	}
+	@Test
+	void ログイン失敗入力無し() throws Exception {
+		String mailAddress = "";
+		String password = "";
+
+		boolean actual = userDao.isLoginSuccess(mailAddress, password);
+		boolean expected = false;
+
+		assertEquals(expected, actual);
+	}
 
 }
