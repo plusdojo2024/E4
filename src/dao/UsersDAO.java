@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.Users;
 
 
+
 public class UsersDAO {
 	// ログイン失敗かどうか判定する
 		public boolean isLoginSuccess(String mailAddress,String password) {
