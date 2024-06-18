@@ -242,7 +242,6 @@ public class EventDAO {
 			pStmt.setString(1, "userId");
 
 			ResultSet rs = pStmt.executeQuery();
-			rs.next();
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Event record = new Event(
@@ -343,9 +342,9 @@ public class EventDAO {
 	}
 
 	//イベントIDからユーザーIDを取得
-	public Event sendParticipant(int eventId) {
+	public List<Integer> sendParticipant(int eventId) {
 		Connection conn = null;
-		Event event = null;
+		List<Integer> cardList = new ArrayList<Integer>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -355,14 +354,16 @@ public class EventDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 			// SQL文を準備する
-			String sql = "SELECT user_id FROM event WHERE id = ?";
+			String sql = "SELECT user_id FROM event_user WHERE event_id = ? AND participation_status = 1";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, "eventId");
 
 			ResultSet rs = pStmt.executeQuery();
-			rs.next();
 
-			rs.getInt("user_id");
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				cardList.add(rs.getInt("user_id"));
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -378,7 +379,7 @@ public class EventDAO {
 		}
 
 		// 結果を返す
-		return event;
+		return cardList;
 	}
 
 }

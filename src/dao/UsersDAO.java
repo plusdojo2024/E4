@@ -453,5 +453,6 @@ public class UsersDAO {
 			// 結果を返す
 			return result;
 		}
-
+		//idからユーザーのインスタンスを返す
+		//水曜日ここから
 }

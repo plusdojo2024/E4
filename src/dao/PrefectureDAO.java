@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PrefectureDAO {
-	//ユーザーIDから都道府県を取得
+	//都道府県IDから都道府県を取得
 		public String searchuserId(int Id) {
 			Connection conn = null;
 			String result ="";
@@ -20,7 +20,7 @@ public class PrefectureDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
-				String sql = "SELECT prefecture.name FROM users INNER JOIN prefecture ON users.prefecture_id = prefecture.id WHERE user_id = ?";
+				String sql = "SELECT name FROM prefecture WHERE id = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				pStmt.setInt(1,Id);
@@ -49,7 +49,7 @@ public class PrefectureDAO {
 			return result;
 		}
 
-		//ユーザーIDから都道府県のウェザーコードを取得
+		//都道府県IDから都道府県のウェザーコードを取得
 				public String fetchWeatherCode(int Id) {
 					Connection conn = null;
 					String result ="";
@@ -62,7 +62,7 @@ public class PrefectureDAO {
 						conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 						// SQL文を準備する
-						String sql = "SELECT user_prefecture.weather_code FROM users INNER JOIN user_prefecture ON users.prefecture_id = user_prefecture.id WHERE user_id = ?";
+						String sql = "SELECT weather_code FROM prefecture WHERE id = ?";
 						PreparedStatement pStmt = conn.prepareStatement(sql);
 
 						pStmt.setInt(1,Id);

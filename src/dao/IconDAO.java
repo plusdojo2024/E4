@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 public class IconDAO {
 
-	//ユーザーIDからアイコン表示
-	public String searchuserId(int userId) {
+	//アイコンIDからurlを取得
+	public String searchuserId(int id) {
 		Connection conn = null;
 		String result ="";
 
@@ -21,15 +21,15 @@ public class IconDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 			// SQL文を準備する
-			String sql = "SELECT ic.url FROM users AS us INNER JOIN icon AS ic ON us.icon_id = ic.id WHERE user_id = ?";
+			String sql = "SELECT url FROM  icon  WHERE id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			pStmt.setInt(1,userId);
+			pStmt.setInt(1,id);
 
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
 
-			result = rs.getString("mail_address");
+			result = rs.getString("url");
 
 
 		}catch (Exception e) {
