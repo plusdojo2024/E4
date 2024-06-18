@@ -21,10 +21,10 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
-				String sql = "SELECT password FROM user WHERE mail_address = ?";
+				String sql = "SELECT password FROM users WHERE mail_address = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				pStmt.setString(1,mailAddress);
@@ -70,7 +70,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
 				String sql = "SELECT id FROM user WHERE mail_address = ?";
@@ -112,7 +112,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
 				String sql = "INSERT INTO users VALUES (NULL, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -169,7 +169,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 				String sql;
 
 				for(int prefectureId :prefectures) {
@@ -205,6 +205,7 @@ public class UsersDAO {
 			// 結果を返す
 			return result;
 		}
+
 		public boolean update(Users users,String telNum,int prefectureId,int eventCategory,ArrayList<Integer> prefectures) {
 			Connection conn = null;
 			boolean result = false;
@@ -214,7 +215,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
 				String sql = "UPDATE users SET TEL_NUM = ?,PREFECTURE_ID = ?,EVENT_CATEGORY = ? WHERE USER_ID = ?";
@@ -277,7 +278,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
 				String sql = "UPDATE users SET EVALUATION = ?,COMMUNICATION_PARAM = ?,TECHINIC_PARAM = ?, COOK_PARAM = ? WHERE USER_ID = ?";
@@ -324,7 +325,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
 				String sql = "UPDATE users SET ICON_ID = ? WHERE USER_ID = ?";
@@ -368,7 +369,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
 				String sql = "SELECT name,register_year,hosted_amount,participants_amount,communication_param,technic_param,cook_param FROM user WHERE id = ?";
@@ -379,7 +380,6 @@ public class UsersDAO {
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();
 				//評価等を配列に入れて終了（アイコン設定画面）
-				//月曜日ここから
 				result[0] = rs.getString("name");
 				result[1] = rs.getString("register_year");
                 result[2] = Integer.toString(rs.getInt("hosted_amount"));
@@ -417,7 +417,7 @@ public class UsersDAO {
 				Class.forName("org.h2.Driver");
 
 				// データベースに接続する
-				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
 				String sql = "SELECT ac.url"

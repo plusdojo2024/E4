@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Bc;
 import model.Event;
 
 public class EventDAO {
@@ -22,7 +21,7 @@ public class EventDAO {
 			Class.forName("org.h2.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/simpleBC", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 			// SQL文を準備する
 			String sql = "INSERT FROM event VALUES (NULL, ?,?,?,?,?,?,?,?,?,?,?)";
@@ -64,7 +63,7 @@ public class EventDAO {
 		return result;
 	}
 
-     //ユーザーIDから参加イベントを表示
+     //ユーザーIDからイベント（未参加）を表示
 	public List<Event> searchuserId(int userId) {
 		Connection conn = null;
 		List<Event> cardList = new ArrayList<Event>();
@@ -74,14 +73,11 @@ public class EventDAO {
 			Class.forName("org.h2.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/BC_PROTTYPE", "sa", "");
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 			// SQL文を準備する
-			String sql = "SELECT ev.event_name,ev.event_description,ev.holding_schedule,ev.least_count,ev.max_count,"
-					+ "prefecture.name,ev.detail_address,ev.location_name,ev.event_category,ev.status  "
-					+ "FROM event AS ev "
+			String sql = "SELECT * FROM event AS ev "
 					+ "INNER JOIN event_user ON ev.id = event_user.event_id "
-					+ "INNER JOIN prefecture ON ev.prefecture_id = prefecture.id "
 					+ "WHERE event_user.user_id = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -90,19 +86,20 @@ public class EventDAO {
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
 			// 結果表をコレクションにコピーする
-			//火曜日ここから
 			while (rs.next()) {
 			  Event record = new Event(
-			    rs.getString("event_name");
-			    rs.getString("event_description");
-				rs.getString("holding_schedule");
-				rs.getInt("least_count");
-				rs.getInt("max_count");
-				rs.getString("name");
-				rs.getString("detail_address");
-				rs.getString("location_name");
-				rs.getInt("event_category");
-				rs.getInt("status");
+			    rs.getInt("id"),
+			    rs.getString("event_name"),
+			    rs.getString("event_description"),
+				rs.getString("holding_schedule"),
+				rs.getInt("least_count"),
+				rs.getInt("max_count"),
+				rs.getInt("prefectureId"),
+				rs.getString("detail_address"),
+				rs.getString("location_name"),
+				rs.getInt("event_category"),
+				rs.getInt("holdingUserId"),
+				rs.getInt("status")
 			  );
 			    cardList.add(record);
 						}
@@ -121,8 +118,64 @@ public class EventDAO {
 		}
 
 		// 結果を返す
-		return result;
+		return cardList;
 	}
+
+	//ユーザーIDからイベント（参加）を表示  途中
+			public List<Event> fetchParticipant(int userId) {
+				Connection conn = null;
+				List<Event> participantList = new ArrayList<Event>();
+
+				try {
+					// JDBCドライバを読み込む
+					Class.forName("org.h2.Driver");
+
+					// データベースに接続する
+					conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
+
+					// SQL文を準備する
+					String sql = "INSERT INTO ";
+
+					PreparedStatement pStmt = conn.prepareStatement(sql);
+					pStmt.setString(1,"userId");
+
+					ResultSet rs = pStmt.executeQuery();
+					rs.next();
+					// 結果表をコレクションにコピーする
+					while (rs.next()) {
+					  Event record = new Event(
+					    rs.getInt("id"),
+					    rs.getString("event_name"),
+					    rs.getString("event_description"),
+						rs.getString("holding_schedule"),
+						rs.getInt("least_count"),
+						rs.getInt("max_count"),
+						rs.getInt("prefectureId"),
+						rs.getString("detail_address"),
+						rs.getString("location_name"),
+						rs.getInt("event_category"),
+						rs.getInt("holdingUserId"),
+						rs.getInt("status")
+					  );
+					  participantList.add(record);
+								}
+				}catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					// データベースを切断
+					if (conn != null) {
+						try {
+							conn.close();
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+				// 結果を返す
+				return participantList;
+			}
 
 
 }
