@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import model.Users;
 
 
-
 public class UsersDAO {
 	// ログイン失敗かどうか判定する
 		public boolean isLoginSuccess(String mailAddress,String password) {
@@ -317,6 +316,7 @@ public class UsersDAO {
 			return result;
 		}
 
+		//アイコンのアップデート
 		public boolean setIconUpdate(Users users,int iconId) {
 			Connection conn = null;
 			boolean result = false;
@@ -361,6 +361,7 @@ public class UsersDAO {
 			return result;
 		}
 
+		//評価されたものを表示
 		public String[] fetchAchievements(int userId ) {
 			Connection conn = null;
 			String[] result = new String[7];

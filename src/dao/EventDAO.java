@@ -342,4 +342,43 @@ public class EventDAO {
 		return true;
 	}
 
+	//イベントIDからユーザーIDを取得
+	public Event sendParticipant(int eventId) {
+		Connection conn = null;
+		Event event = null;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
+
+			// SQL文を準備する
+			String sql = "SELECT user_id FROM event WHERE id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, "eventId");
+
+			ResultSet rs = pStmt.executeQuery();
+			rs.next();
+
+			rs.getInt("user_id");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return event;
+	}
+
 }
