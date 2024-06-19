@@ -33,10 +33,8 @@ public class ProfileServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-				UsersDAO uDao = new UsersDAO();
-				String mailAddress = request.getParameter("");
-				String password = request.getParameter("");
-				if (uDao.isLoginSuccess(mailAddress,password) == false) {
+				HttpSession session = request.getSession();
+				if (session.getAttribute("userid") == null) {
 					response.sendRedirect("Servlet/LoginServlet");
 					return;
 				}
@@ -50,30 +48,36 @@ public class ProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
+				if (session.getAttribute("userid") == null) {
 					response.sendRedirect("Servlet/LoginServlet");
 					return;
 				}
 
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
-				Users users = ;
+				UsersDAO uDao = new UsersDAO();
+				int userid = Integer.valueOf((String)session.getAttribute("userid"));
+				Users users = uDao.fetchUser(userid);
 				String telNum = request.getParameter("tell");
-				int prefectureId = request.getParameter("prefecture");
-				int eventCategory = request.getParameter("switch-1");
+				int prefectureId = Integer.valueOf(request.getParameter("prefecture"));
+				int eventCategory = Integer.valueOf(request.getParameter("switch-1"));
 				ArrayList<Integer> prefectures = new ArrayList<>();
 
 				// splitメソッドを使用して文字列を配列に変換
 		        String[] prefecture_string = request.getParameter("selected_prefectures").split(",");
 
 		        for (int i = 0; i < prefecture_string.length; i++) {
-		            prefectures.add(Integer.parseInt(prefecture_string[i]));
+		            prefectures.add(Integer.valueOf(prefecture_string[i]));
 		        }
 
 				// 更新を行う
-				UsersDAO uDao = new UsersDAO();
+
 				if (request.getParameter("submit").equals("更新")) {
-					uDao.update(users, telNum, prefectureId, eventCategory, prefectures);
+					if(uDao.update(users, telNum, prefectureId, eventCategory, prefectures)) {
+						// 更新が成功した件数を表示する？
+						boolean isUpdateOK = true;
+						request.setAttribute("isUpdateOK", isUpdateOK);
+					}
 				}
 
 				// プロフィールページにフォワードする

@@ -232,8 +232,11 @@
 	        if (!formObj.tell.value || formObj.prefecture.value == 0 || !formObj.selected_prefectures.value || !formObj.switch_2.value) {
 	            errorMessageObj.textContent = '必須項目を入力してください';
 	            event.preventDefault();
-	        } else  {
+	        } else if (${isUpdateOK}.equals("true")){
 	            window.alert('更新に成功しました。');
+	            errorMessageObj.textContent = null;
+	        } else {
+	        	window.alert('更新に失敗しました。');
 	            errorMessageObj.textContent = null;
 	        }
 	    });
