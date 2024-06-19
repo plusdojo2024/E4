@@ -8,6 +8,7 @@ public class Users implements Serializable {
 	private String name;
 	private String birthDate;
 	private String telNum;
+	private int gender;
 	private int prefectureId;
 	private int eventCategory;
 	private int outdoorLevel;
@@ -19,7 +20,7 @@ public class Users implements Serializable {
 	private int participantsAmount;
 	private int hostedAmount;
 	private int iconId;
-	public Users(int id, String mailAddress, String password, String name, String birthDate, String telNum,
+	public Users(int id, String mailAddress, String password, String name, String birthDate, String telNum, int gender,
 			int prefectureId, int eventCategory, int outdoorLevel, String registerYear, int evaluation,
 			int technicParam, int cookParam, int communicationParam, int participantsAmount, int hostedAmount,
 			int iconId) {
@@ -30,6 +31,7 @@ public class Users implements Serializable {
 		this.name = name;
 		this.birthDate = birthDate;
 		this.telNum = telNum;
+		this.gender = gender;
 		this.prefectureId = prefectureId;
 		this.eventCategory = eventCategory;
 		this.outdoorLevel = outdoorLevel;
@@ -77,6 +79,12 @@ public class Users implements Serializable {
 	}
 	public void setTelNum(String telNum) {
 		this.telNum = telNum;
+	}
+	public int getGender() {
+		return gender;
+	}
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 	public int getPrefectureId() {
 		return prefectureId;
@@ -144,5 +152,4 @@ public class Users implements Serializable {
 	public void setIconId(int iconId) {
 		this.iconId = iconId;
 	}
-
 }

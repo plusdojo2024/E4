@@ -453,6 +453,62 @@ public class UsersDAO {
 			// 結果を返す
 			return result;
 		}
+
 		//idからユーザーのインスタンスを返す
-		//水曜日ここから
+		public Users fetchUser(int userId) {
+			Connection conn = null;
+			Users users = null;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
+
+				// SQL文を準備する
+				String sql = "SELECT * FROM users WHERE id = ?";
+
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+				pStmt.setString(1, "userId");
+
+				ResultSet rs = pStmt.executeQuery();
+				rs.next();
+				// 結果表をコレクションにコピーする
+				users = new Users(
+						rs.getInt("id"),
+						rs.getString("mail_address"),
+						rs.getString("password"),
+						rs.getString("name"),
+						rs.getString("birth_date"),
+						rs.getString("tel_num"),
+						rs.getInt("gender"),
+						rs.getInt("prefecture_id"),
+						rs.getInt("event_category"),
+						rs.getInt("outdoor_level"),
+						rs.getString("register_year"),
+						rs.getInt("evaluation"),
+						rs.getInt("techic_param"),
+						rs.getInt("cook_param"),
+						rs.getInt("communication_param"),
+						rs.getInt("participants_amount"),
+						rs.getInt("hosted_amount"),
+						rs.getInt("icon_id"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return users;
+		}
+
 }

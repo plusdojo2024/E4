@@ -382,4 +382,6 @@ public class EventDAO {
 		return cardList;
 	}
 
+	//参加
+
 }
