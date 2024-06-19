@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Communication;
-import model.Event;
 
 public class CommunicationDAO {
 	public List<Communication> searchuserId(int eventId) {
@@ -36,19 +35,12 @@ public class CommunicationDAO {
 			rs.next();
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				Event record = new Event(
+				Communication record = new Communication(
 						rs.getInt("id"),
-						rs.getString("event_name"),
-						rs.getString("event_description"),
-						rs.getString("holding_schedule"),
-						rs.getInt("least_count"),
-						rs.getInt("max_count"),
-						rs.getInt("prefectureId"),
-						rs.getString("detail_address"),
-						rs.getString("location_name"),
-						rs.getInt("event_category"),
-						rs.getInt("holdingUserId"),
-						rs.getInt("status"));
+						rs.getInt("user_is"),
+						rs.getInt("event_id"),
+						rs.getString("posted_time"),
+						rs.getString("content"));
 				communicationList.add(record);
 			}
 		} catch (Exception e) {
@@ -65,6 +57,49 @@ public class CommunicationDAO {
 		}
 
 		// 結果を返す
-		return cardList;
+		return communicationList;
+	}
+	public boolean insert(Communication communication) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
+
+			// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
+			String sql = "INSERT INTO communication VALUES (NULL, ?, ?,?,?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setInt(1, communication.getUser_id());
+			pStmt.setInt(2, communication.getEvent_id());
+			pStmt.setString(3, communication.getPosted_time());
+			pStmt.setString(4, communication.getContent());
+
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
 	}
 }
