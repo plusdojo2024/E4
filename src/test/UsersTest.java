@@ -138,6 +138,16 @@ public class UsersTest {
 	}
 
 	//fetchAchievements
+	@Test
+	void 実績パラメータ取得成功() throws Exception {
+	  int userId = 1;
+	  String actual = userDao.fetchAchievements(userId)[6];
+
+	  String expected = "31";
+
+	  assertEquals(expected, actual);
+	}
+
 	//searchIcon
 	@Test
 	void アイコンの取得成功() throws Exception {
@@ -147,6 +157,15 @@ public class UsersTest {
 	  String expected = "/test";
 	  assertEquals(expected, actual);
 	}
-	//fetchUser
 
+	//fetchUser
+	@Test
+	void ユーザーIDからユーザーの取得成功() throws Exception {
+		  int userId = 2;
+		  Users user =  userDao.fetchUser(userId);
+		  int actual = user.getEvaluation();
+
+		  int expected = 71;
+		  assertEquals(expected, actual);
+		}
 }

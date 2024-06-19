@@ -471,7 +471,7 @@ public class UsersDAO {
 				String sql = "SELECT * FROM users WHERE id = ?";
 
 				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, "userId");
+				pStmt.setInt(1, userId);
 
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();
@@ -489,7 +489,7 @@ public class UsersDAO {
 						rs.getInt("outdoor_level"),
 						rs.getString("register_year"),
 						rs.getInt("evaluation"),
-						rs.getInt("techic_param"),
+						rs.getInt("technic_param"),
 						rs.getInt("cook_param"),
 						rs.getInt("communication_param"),
 						rs.getInt("participants_amount"),
