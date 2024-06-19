@@ -270,7 +270,7 @@ public class UsersDAO {
 		}
 
 		//評価の更新
-		public boolean reviewParamUpdate(Users users,int evaluation,int communicationParam,int technicParam,int cookParam,int targetUserId) {
+		public boolean reviewParamUpdate(Users users,int evaluation,int technicParam,int cookParam,int communicationParam,int targetUserId) {
 			Connection conn = null;
 			boolean result = false;
 

@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Event;
+import model.EventUser;
 
 public class EventDAO {
-	//イベント作成
+	//イベントインスタンスを受け取り、イベントテーブルに登録する
 	public boolean keepEvent(Event event) {
 		Connection conn = null;
 		boolean result = false;
@@ -224,6 +225,7 @@ public class EventDAO {
 		return event;
 	}
 
+	//ユーザーIDからその人が開催しているイベントを取得する
 	public List<Event> searchHoldingEvent(int userId) {
 		Connection conn = null;
 		List<Event> cardList = new ArrayList<Event>();
@@ -383,42 +385,86 @@ public class EventDAO {
 	}
 
 	//参加処理、event_userのステータスを0から1に変更する
-		public boolean update(int eventId,int userId) {
+	public boolean update(int eventId, int userId) {
+		Connection conn = null;
+		boolean result = false;
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
+			// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
+			String sql = "SELECT * FROM EVENT_USER "
+					+ "where event_id = ? and user_id = ? and PARTICIPATION_STATUS  = 0";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			// SQL文を完成させる
+			pStmt.setInt(1, eventId);
+			pStmt.setInt(2, userId);
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					result = false;
+				}
+			}
+		}
+		// 結果を返す
+		return result;
+	}
+
+	//イベントIDからevent_userを検索してリストを返す
+	public List<EventUser> searchUserEvent(int userId) {
 			Connection conn = null;
-			boolean result = false;
+			List<EventUser> eventCardList = new ArrayList<EventUser>();
+
 			try {
 				// JDBCドライバを読み込む
 				Class.forName("org.h2.Driver");
+
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
-				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-				String sql = "SELECT * FROM EVENT_USER "
-						+ "where event_id = ? and user_id = ? and PARTICIPATION_STATUS  = 0";
+
+				// SQL文を準備する
+				String sql = "SELECT * FROM event_user WHERE event_id = ? AND participation_status = 1";
+
 				PreparedStatement pStmt = conn.prepareStatement(sql);
-				// SQL文を完成させる
-				pStmt.setInt(1, eventId);
-				pStmt.setInt(2, userId);
-				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
+				pStmt.setString(1, "userId");
+
+				ResultSet rs = pStmt.executeQuery();
+				// 結果表をコレクションにコピーする
+				while (rs.next()) {
+					EventUser record = new EventUser(
+							rs.getInt("id"),
+							rs.getInt("event_id"),
+							rs.getInt("user_id"),
+							rs.getInt("participation_status"));
+					eventCardList.add(record);
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				result = false;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
 					try {
 						conn.close();
-					}
-					catch (SQLException e) {
+					} catch (SQLException e) {
 						e.printStackTrace();
-						result = false;
 					}
 				}
 			}
+
 			// 結果を返す
-			return result;
+			return eventCardList;
 		}
+
 }
