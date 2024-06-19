@@ -73,7 +73,7 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
-				String sql = "SELECT id FROM user WHERE mail_address = ?";
+				String sql = "SELECT id FROM users WHERE mail_address = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				pStmt.setString(1,mailAddress);
@@ -174,7 +174,7 @@ public class UsersDAO {
 				String sql;
 
 				for(int prefectureId :prefectures) {
-					sql = "INSERT INTO users_prefecture VALUES (NULL, ?, ?)";
+					sql = "INSERT INTO user_prefecture VALUES (NULL, ?, ?)";
 					PreparedStatement pStmt = conn.prepareStatement(sql);
 
 					// SQL文を完成させる
@@ -219,7 +219,7 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-				String sql = "UPDATE users SET TEL_NUM = ?,PREFECTURE_ID = ?,EVENT_CATEGORY = ? WHERE USER_ID = ?";
+				String sql = "UPDATE users SET TEL_NUM = ?,PREFECTURE_ID = ?,EVENT_CATEGORY = ? WHERE ID = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				// SQL文を完成させる
 				pStmt.setString(1, telNum);
@@ -318,7 +318,7 @@ public class UsersDAO {
 		}
 
 		//アイコンのアップデート
-		public boolean setIconUpdate(Users users,int iconId) {
+		public boolean setIconUpdate(Users user,int iconId) {
 			Connection conn = null;
 			boolean result = false;
 
@@ -330,12 +330,12 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-				String sql = "UPDATE users SET ICON_ID = ? WHERE USER_ID = ?";
+				String sql = "UPDATE users SET ICON_ID = ? WHERE ID = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				// SQL文を完成させる
 
-				pStmt.setInt(1,users.getIconId());
-				pStmt.setInt(2,users.getId());
+				pStmt.setInt(1,iconId);
+				pStmt.setInt(2,user.getId());
 
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
@@ -375,7 +375,7 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する
-				String sql = "SELECT name,register_year,hosted_amount,participants_amount,communication_param,technic_param,cook_param FROM user WHERE id = ?";
+				String sql = "SELECT name,register_year,hosted_amount,participants_amount,communication_param,technic_param,cook_param FROM users WHERE id = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				pStmt.setInt(1,userId);
