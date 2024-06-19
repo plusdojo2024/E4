@@ -81,7 +81,7 @@ public class UsersDAO {
 				ResultSet rs = pStmt.executeQuery();
 				rs.next();
 
-				result = rs.getString("mail_address");
+				result = rs.getString("id");
 
 
 			}catch (Exception e) {
@@ -102,7 +102,7 @@ public class UsersDAO {
 			return result;
 		}
 
-
+		//ユーザーのデータを保存
 		public boolean insert(Users users) {
 			Connection conn = null;
 			boolean result = false;
@@ -115,7 +115,7 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-				String sql = "INSERT INTO users VALUES (NULL, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String sql = "INSERT INTO users VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				// SQL文を完成させる
@@ -124,17 +124,18 @@ public class UsersDAO {
 				pStmt.setString(3, users.getName());
 				pStmt.setString(4, users.getBirthDate());
 				pStmt.setString(5, users.getTelNum());
-				pStmt.setInt(6, users.getPrefectureId());
-				pStmt.setInt(7, users.getEventCategory());
-				pStmt.setInt(8, users.getOutdoorLevel());
-				pStmt.setString(9, users. getRegisterYear());
-				pStmt.setInt(10, users.getEvaluation());
-				pStmt.setInt(11, users.getTechnicParam());
-				pStmt.setInt(12, users.getCookParam());
-				pStmt.setInt(13, users.getCommunicationParam());
-				pStmt.setInt(14, users.getParticipantsAmount());
-				pStmt.setInt(15, users.getHostedAmount());
-				pStmt.setInt(16, users.getIconId());
+				pStmt.setInt(6, users.getGender());
+				pStmt.setInt(7, users.getPrefectureId());
+				pStmt.setInt(8, users.getEventCategory());
+				pStmt.setInt(9, users.getOutdoorLevel());
+				pStmt.setString(10, users. getRegisterYear());
+				pStmt.setInt(11, users.getEvaluation());
+				pStmt.setInt(12, users.getTechnicParam());
+				pStmt.setInt(13, users.getCookParam());
+				pStmt.setInt(14, users.getCommunicationParam());
+				pStmt.setInt(15, users.getParticipantsAmount());
+				pStmt.setInt(16, users.getHostedAmount());
+				pStmt.setInt(17, users.getIconId());
 
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {

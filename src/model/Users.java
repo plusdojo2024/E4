@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 
 public class Users implements Serializable {
-	private int id;
+	private Integer id;
 	private String mailAddress;
 	private String password;
 	private String name;
@@ -20,7 +20,7 @@ public class Users implements Serializable {
 	private int participantsAmount;
 	private int hostedAmount;
 	private int iconId;
-	public Users(int id, String mailAddress, String password, String name, String birthDate, String telNum, int gender,
+	public Users(Integer id, String mailAddress, String password, String name, String birthDate, String telNum, int gender,
 			int prefectureId, int eventCategory, int outdoorLevel, String registerYear, int evaluation,
 			int technicParam, int cookParam, int communicationParam, int participantsAmount, int hostedAmount,
 			int iconId) {
