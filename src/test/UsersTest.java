@@ -15,7 +15,7 @@ public class UsersTest {
 	@Test
 	void ログイン成功() throws Exception {
 		String mailAddress = "user1@example.com";
-		String password = "Passw0rd!";
+		String password = "X03MO1qnZdYdgyfeuILPmQ==";
 
 		boolean actual = userDao.isLoginSuccess(mailAddress, password); //実際の実行結果
 		boolean expected = true; //期待する実行結果

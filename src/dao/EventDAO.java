@@ -343,46 +343,7 @@ public class EventDAO {
 		return true;
 	}
 
-	//イベントIDからユーザーIDを取得
-	public List<Integer> sendParticipant(int eventId) {
-		Connection conn = null;
-		List<Integer> cardList = new ArrayList<Integer>();
 
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("org.h2.Driver");
-
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
-
-			// SQL文を準備する
-			String sql = "SELECT user_id FROM event_user WHERE event_id = ? AND participation_status = 1";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "eventId");
-
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-				cardList.add(rs.getInt("user_id"));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		// 結果を返す
-		return cardList;
-	}
 
 	//参加処理、event_userのステータスを0から1に変更する
 	public boolean update(int eventId, int userId) {
@@ -394,8 +355,8 @@ public class EventDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 			// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-			String sql = "SELECT * FROM EVENT_USER "
-					+ "where event_id = ? and user_id = ? and PARTICIPATION_STATUS  = 0";
+			String sql = "SELECT * FROM EVENT_USER where event_id = ? and user_id = ? and PARTICIPATION_STATUS  = 0";
+
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// SQL文を完成させる
 			pStmt.setInt(1, eventId);
