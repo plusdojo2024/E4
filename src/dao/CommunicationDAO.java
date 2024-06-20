@@ -6,14 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Communication;
 
 public class CommunicationDAO {
-	public List<Communication> searchuserId(int eventId) {
+	public ArrayList<Communication> searchuserId(int eventId) {
 		Connection conn = null;
-		List<Communication> communicationList = new ArrayList<Communication>();
+		ArrayList<Communication> communicationList = new ArrayList<Communication>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -29,15 +28,14 @@ public class CommunicationDAO {
 
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "eventId");
+			pStmt.setInt(1, eventId);
 
 			ResultSet rs = pStmt.executeQuery();
-			rs.next();
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Communication record = new Communication(
 						rs.getInt("id"),
-						rs.getInt("user_is"),
+						rs.getInt("user_id"),
 						rs.getInt("event_id"),
 						rs.getString("posted_time"),
 						rs.getString("content"));

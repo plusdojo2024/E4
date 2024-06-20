@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class PrefectureDAO {
 	//都道府県IDから都道府県を取得
-		public String searchuserId(int Id) {
+		public String searchPrefectureName(int Id) {
 			Connection conn = null;
 			String result ="";
 

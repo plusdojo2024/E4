@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class IconDAO {
 
 	//アイコンIDからurlを取得
-	public String searchuserId(int id) {
+	public String searchUrl(int id) {
 		Connection conn = null;
 		String result ="";
 

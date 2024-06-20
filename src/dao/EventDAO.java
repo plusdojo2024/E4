@@ -25,7 +25,7 @@ public class EventDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 			// SQL文を準備する
-			String sql = "INSERT FROM event VALUES (NULL, ?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT into event VALUES (NULL, ?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -77,13 +77,12 @@ public class EventDAO {
 			// SQL文を準備する
 			String sql = "SELECT * FROM event AS ev "
 					+ "INNER JOIN event_user ON ev.id = event_user.event_id "
-					+ "WHERE event_user.user_id = ?";
+					+ "WHERE event_user.user_id = ?  and PARTICIPATION_STATUS = 1";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "userId");
+			pStmt.setInt(1, userId);
 
 			ResultSet rs = pStmt.executeQuery();
-			rs.next();
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				Event record = new Event(
@@ -93,11 +92,11 @@ public class EventDAO {
 						rs.getString("holding_schedule"),
 						rs.getInt("least_count"),
 						rs.getInt("max_count"),
-						rs.getInt("prefectureId"),
+						rs.getInt("prefecture_id"),
 						rs.getString("detail_address"),
 						rs.getString("location_name"),
 						rs.getInt("event_category"),
-						rs.getInt("holdingUserId"),
+						rs.getInt("holding_user_id"),
 						rs.getInt("status"));
 				cardList.add(record);
 			}
@@ -133,12 +132,12 @@ public class EventDAO {
 			// SQL文を準備する
 			String sql = "select * from event "
 					+ "where id in( "
-					+ "　SELECT event_id FROM EVENT_USER "
-					+ "　where user_id = ? and PARTICIPATION_STATUS = 0 "
+					+ "SELECT event_id FROM EVENT_USER "
+					+ "where user_id = ? and PARTICIPATION_STATUS = 0 "
 					+ ")";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "userId");
+			pStmt.setInt(1, userId);
 
 			ResultSet rs = pStmt.executeQuery();
 
@@ -151,11 +150,11 @@ public class EventDAO {
 						rs.getString("holding_schedule"),
 						rs.getInt("least_count"),
 						rs.getInt("max_count"),
-						rs.getInt("prefectureId"),
+						rs.getInt("prefecture_id"),
 						rs.getString("detail_address"),
 						rs.getString("location_name"),
 						rs.getInt("event_category"),
-						rs.getInt("holdingUserId"),
+						rs.getInt("holding_user_id"),
 						rs.getInt("status"));
 				cardList.add(record);
 			}
@@ -190,7 +189,7 @@ public class EventDAO {
 			String sql = "SELECT * FROM event WHERE id = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "eventId");
+			pStmt.setInt(1, eventId);
 
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
@@ -202,11 +201,11 @@ public class EventDAO {
 					rs.getString("holding_schedule"),
 					rs.getInt("least_count"),
 					rs.getInt("max_count"),
-					rs.getInt("prefectureId"),
+					rs.getInt("prefecture_id"),
 					rs.getString("detail_address"),
 					rs.getString("location_name"),
 					rs.getInt("event_category"),
-					rs.getInt("holdingUserId"),
+					rs.getInt("holding_user_id"),
 					rs.getInt("status"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,9 +225,9 @@ public class EventDAO {
 	}
 
 	//ユーザーIDからその人が開催しているイベントを取得する
-	public List<Event> searchHoldingEvent(int userId) {
+	public ArrayList<Event> searchHoldingEvent(int userId) {
 		Connection conn = null;
-		List<Event> cardList = new ArrayList<Event>();
+		ArrayList<Event> cardList = new ArrayList<Event>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -241,7 +240,7 @@ public class EventDAO {
 			String sql = "SELECT * FROM event WHERE holding_user_id = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "userId");
+			pStmt.setInt(1, userId);
 
 			ResultSet rs = pStmt.executeQuery();
 			// 結果表をコレクションにコピーする
@@ -253,11 +252,11 @@ public class EventDAO {
 						rs.getString("holding_schedule"),
 						rs.getInt("least_count"),
 						rs.getInt("max_count"),
-						rs.getInt("prefectureId"),
+						rs.getInt("prefecture_id"),
 						rs.getString("detail_address"),
 						rs.getString("location_name"),
 						rs.getInt("event_category"),
-						rs.getInt("holdingUserId"),
+						rs.getInt("holding_user_id"),
 						rs.getInt("status"));
 				cardList.add(record);
 			}
@@ -355,8 +354,7 @@ public class EventDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 			// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-			String sql = "SELECT * FROM EVENT_USER where event_id = ? and user_id = ? and PARTICIPATION_STATUS  = 0";
-
+			String sql = "UPDATE event_user SET PARTICIPATION_STATUS  = 1 where event_id = ? and user_id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// SQL文を完成させる
 			pStmt.setInt(1, eventId);
@@ -384,9 +382,9 @@ public class EventDAO {
 	}
 
 	//イベントIDからevent_userを検索してリストを返す
-	public List<EventUser> searchUserEvent(int eventId) {
+	public ArrayList<EventUser> searchUserEvent(int eventId) {
 			Connection conn = null;
-			List<EventUser> eventCardList = new ArrayList<EventUser>();
+			ArrayList<EventUser> eventCardList = new ArrayList<EventUser>();
 
 			try {
 				// JDBCドライバを読み込む
@@ -399,7 +397,7 @@ public class EventDAO {
 				String sql = "SELECT * FROM event_user WHERE event_id = ? AND participation_status = 1";
 
 				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, "eventId");
+				pStmt.setInt(1, eventId);
 
 				ResultSet rs = pStmt.executeQuery();
 				// 結果表をコレクションにコピーする
