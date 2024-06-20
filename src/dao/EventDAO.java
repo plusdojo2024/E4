@@ -13,9 +13,9 @@ import model.EventUser;
 
 public class EventDAO {
 	//イベントインスタンスを受け取り、イベントテーブルに登録する
-	public boolean keepEvent(Event event) {
+	public int keepEvent(Event event) {
 		Connection conn = null;
-		boolean result = false;
+		int result = 0;
 
 		try {
 			// JDBCドライバを読み込む
@@ -42,11 +42,14 @@ public class EventDAO {
 			pStmt.setInt(11, event.getStatus());
 
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
+			if(pStmt.executeUpdate() == 0) {
+				result = 0;
+			}else if (pStmt.executeUpdate() == 1) {
+				result = 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			result = -1;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -278,9 +281,9 @@ public class EventDAO {
 	}
 
 	//マッチングを行う
-	public boolean insertMatchingData(int eventId) {
+	public int insertMatchingData(int eventId) {
 		Connection conn = null;
-
+		int result = 0;
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("org.h2.Driver");
@@ -304,8 +307,9 @@ public class EventDAO {
 			sql = "select users.id from  users "
 					+ "inner join user_prefecture "
 					+ "on users.id = user_prefecture.user_id "
-					+ "where  user_prefecture.PREFECTURE_ID = ? and event.EVENT_CATEGORY = ?";
+					+ "where  user_prefecture.PREFECTURE_ID = ? and users.EVENT_CATEGORY = ?";
 
+			pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, prefectureId);
 			pStmt.setInt(2, eventCategory);
 			rs = pStmt.executeQuery();
@@ -318,14 +322,21 @@ public class EventDAO {
 
 			//リストの中身をインサートする
 			for (int userId : matchUserList) {
-				sql = "INSERT FROM event_user VALUES (NULL, ?,?,0)";
+				sql = "INSERT into event_user VALUES (NULL, ?,?,0)";
+
+				pStmt = conn.prepareStatement(sql);
 				pStmt.setInt(1, eventId);
 				pStmt.setInt(2, userId);
+				if(pStmt.executeUpdate() == 0) {
+					result = 0;
+				} else {
+					result++;
+				}
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -333,21 +344,20 @@ public class EventDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return false;
 				}
 			}
 		}
 
 		// 結果を返す
-		return true;
+		return result;
 	}
 
 
 
 	//参加処理、event_userのステータスを0から1に変更する
-	public boolean update(int eventId, int userId) {
+	public int update(int eventId, int userId) {
 		Connection conn = null;
-		boolean result = false;
+		int result = 0;
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("org.h2.Driver");
@@ -360,12 +370,14 @@ public class EventDAO {
 			pStmt.setInt(1, eventId);
 			pStmt.setInt(2, userId);
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
+			if (pStmt.executeUpdate() == 0) {
+				result = 0;
+			}else if (pStmt.executeUpdate() == 1) {
+				result = 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = false;
+			return -1;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -373,7 +385,6 @@ public class EventDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					result = false;
 				}
 			}
 		}

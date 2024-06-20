@@ -16,8 +16,8 @@ class EventTest {
 	@Test
 	void イベントテーブル登録成功() throws Exception {
 	  Event event = new Event(0,"花火大会","花火上げます","2020-09-08",4,10,1,"札幌市中央区北1条西2丁目1-1","のびのびキャンプ",2,1,0);
-	  boolean actual = eventDao.keepEvent(event); //実際の実行結果
-	  boolean expected = true; //期待する実行結果
+	  int actual = eventDao.keepEvent(event); //実際の実行結果
+	  int expected = 1; //期待する実行結果
 	  assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか
 	}
 
@@ -86,29 +86,21 @@ class EventTest {
 	void 参加処理event_userのステータスを0から1に変更する() throws Exception {
 		int eventId = 4;
 		int userId = 1;
-		boolean actual = eventDao.update(eventId, userId);
-		boolean expected = true;
+
+		int actual = eventDao.update(eventId, userId);
+		int expected = 1;
 		assertEquals(actual,expected);
 	}
 
 	//insertMatchingData
-//	@Test
-//	void イベントIDからマッチング通知対象のユーザーを登録() throws Exception {
-//	  int userId = 2;
-//
-//	  Event event = new Event(2, "肉焼き退会","肉焼きます","2020-12-09",5,11,2,"青森市中央1丁目1-1","がっちりキャンプ",1,2,0);
-//
-//	  ArrayList<Event> actualList = eventDao.searchuserId(userId);
-//	  ArrayList<Event> expectedList = new ArrayList<>();
-//
-//	  expectedList.add(event);
-//
-//	  assertEquals(actualList.size(),expectedList.size());
-//	}
+	@Test
+	void イベントIDからマッチング通知対象のユーザーを登録() throws Exception {
+	  int eventId = 7;
+	  int actual = eventDao.insertMatchingData(eventId);
+	  int expected = 2;
 
-
-
-
+	  assertEquals(actual,expected);
+	}
 
 	//searchUserEven
 	@Test

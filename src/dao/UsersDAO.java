@@ -146,7 +146,7 @@ public class UsersDAO {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = -1;
+				return -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -191,7 +191,7 @@ public class UsersDAO {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = -1;
+				return -1;
 
 			} finally {
 				// データベースを切断
@@ -306,7 +306,7 @@ public class UsersDAO {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = -1;
+				return -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -352,7 +352,7 @@ public class UsersDAO {
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = -1;
+				return -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
