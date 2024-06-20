@@ -34,13 +34,13 @@ public class ProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("userid") == null) {
-					response.sendRedirect("Servlet/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/LoginServlet");
 					return;
 				}
 
 				// プロフィールページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WebContent/WEB-INF/jsp/regist.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/regist.jsp");
 				dispatcher.forward(request, response);
 	}
 
@@ -48,15 +48,15 @@ public class ProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("userid") == null) {
-					response.sendRedirect("Servlet/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/LoginServlet");
 					return;
 				}
 
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("userid"));
+				int userid = Integer.valueOf((String)session.getAttribute("userId"));
 				Users users = uDao.fetchUser(userid);
 				String telNum = request.getParameter("tell");
 				int prefectureId = Integer.valueOf(request.getParameter("prefecture"));
@@ -73,15 +73,18 @@ public class ProfileServlet extends HttpServlet {
 				// 更新を行う
 
 				if (request.getParameter("submit").equals("更新")) {
-					if(uDao.update(users, telNum, prefectureId, eventCategory, prefectures)) {
-						// 更新が成功した件数を表示する？
+					if(uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[0] == 1 && uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[1] == 1) {
+						// 更新が成功した
 						boolean isUpdateOK = true;
+						request.setAttribute("isUpdateOK", isUpdateOK);
+					} else {
+						boolean isUpdateOK = false;
 						request.setAttribute("isUpdateOK", isUpdateOK);
 					}
 				}
 
 				// プロフィールページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WebContent/WEB-INF/jsp/result.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/result.jsp");
 				dispatcher.forward(request, response);
 	}
 

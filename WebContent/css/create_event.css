@@ -1,2 +1,126 @@
 @charset "UTF-8";
 /* イベント作成画面用css */
+
+main {
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    background-color: #d3da95;
+}
+
+h2 {
+    text-align: left;
+}
+
+  *{
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    /* 背景色設定 */
+    background-color: #dcdbc5;
+  }
+
+  main {
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 2% auto;
+    background-color: #fff;
+    border: 5px solid #3e6e55;
+  }
+
+  .main-inner {
+    margin: 3%;
+  }
+
+.profile {
+    /* border:2px solid; */
+    text-align: center;
+    /* border-radius: 15px; */
+    background-color: #FFFFFF;
+    width: 70%;
+    height: 50%;
+    margin: auto;
+}
+
+table {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    margin: auto;
+    /* background-color: #FFFFFF; */
+}
+
+table .title {
+    text-align: right;
+}
+
+input[type="text"] {
+    border:2px solid;
+    width: 150px;
+    border-radius: 5px;
+}
+
+#min, #max {
+    text-align: center;
+    width: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+input[type="button"], select {
+    border:2px solid;
+    border-color: #000000;
+    text-align: center;
+    border-radius: 10px;
+}
+
+select {
+    border-radius: 5px;
+}
+
+input[type="submit"], #submitBtn {
+    border:2px solid;
+    border-color: #000000;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #0e6a04;
+    color: #FFFFFF;
+    height: 30px;
+    width: 75px;
+    margin-bottom: 10px;
+}
+
+/* ラジオ風ボタンに関するcss */
+.multi-way-choice, .multi-way-choice2 {
+    display: flex;
+    overflow: hidden;
+}
+.multi-way-choice input, .multi-way-choice2 input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border:2px solid;
+    border-color: #000000;
+    overflow: hidden;
+}
+.multi-way-choice label, .multi-way-choice2 label {
+    background-color: #f0f0f0;
+    color: #222;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1;
+    padding: 8px 16px;
+    margin-right: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+}
+.multi-way-choice:hover, .multi-way-choice2:hover {
+    cursor: pointer;
+}
+.multi-way-choice input:checked + label, .multi-way-choice2 input:checked + label {
+    background-color: #0e6a04;
+    color:#FFFFFF;
+}
