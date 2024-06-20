@@ -63,9 +63,9 @@ public class EventDAO {
 	}
 
 	//ユーザーIDからイベント（参加）を表示
-	public List<Event> searchuserId(int userId) {
+	public ArrayList<Event> searchuserId(int userId) {
 		Connection conn = null;
-		List<Event> cardList = new ArrayList<Event>();
+		ArrayList<Event> cardList = new ArrayList<Event>();
 
 		try {
 			// JDBCドライバを読み込む
@@ -119,9 +119,9 @@ public class EventDAO {
 	}
 
 	//ユーザーIDからイベント（未参加）を表示
-	public List<Event> fetchNotParticipatingList(int userId) {
+	public ArrayList<Event> fetchNotParticipatingList(int userId) {
 		Connection conn = null;
-		List<Event> cardList = new ArrayList<Event>();
+		ArrayList<Event> cardList = new ArrayList<Event>();
 
 		try {
 			// JDBCドライバを読み込む
