@@ -72,8 +72,8 @@ public class UsersTest {
 	void プロフィール保存成功() throws Exception {
 	  Users users = new Users(0,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 
-	  boolean actual = userDao.insert(users);
-	  boolean expected = true;
+	  int actual = userDao.insert(users);
+	  int expected = 1;
 
 	  assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか
 	}
@@ -85,13 +85,13 @@ public class UsersTest {
 	  ArrayList<Integer> prefectures = new ArrayList<Integer>();
 	  prefectures.add(3);
 
-	  boolean actual = userDao.insertSearchPrefecture(userId,prefectures);
-	  boolean expected = true;
+	  int actual = userDao.insertSearchPrefecture(userId,prefectures);
+	  int expected = 1;
 
 	  assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか
 	}
 
-	//update　修正必要
+	//update
 	@Test
 	void ユーザーのデータの更新成功() throws Exception {
 		int userId = 11;
@@ -104,27 +104,27 @@ public class UsersTest {
 		  prefectures.add(1);
 
 
-	    boolean actual = userDao.update(users,telNum,prefectureid,eventCategory,prefectures);
-	    boolean expected = true;
-	    assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか
+	    int[] actual = userDao.update(users,telNum,prefectureid,eventCategory,prefectures);
+	    int[] expected = {1,1};
+	    assertEquals(expected[0], actual[0]); //実際の実行結果と期待する実行結果が合っているか
 	}
 
 	//reviewParamUpdate tagetどうする？
-//	@Test
-//	void 評価の更新成功() throws Exception {
-//		int userId = 11;
-//		Users users = new Users(userId,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
-//
-//
-//	    int evluation = 100;
-//	    int technicParam = 100;
-//	    int cookParam = 100;
-//	    int communicationParam = 100;
-//	    int targetUserId = 1;
-//
-//	    boolean actual = userDao.reviewParamUpdate(users,evluation,technicParam,cookParam,communicationParam,targetUserId);
-//	    boolean expected = true;
-//	}
+	@Test
+	void 評価の更新成功() throws Exception {
+		Users users = new Users(1,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
+
+
+	    int evluation = 100;
+	    int technicParam = 100;
+	    int cookParam = 100;
+	    int communicationParam = 100;
+
+	    int actual = userDao.reviewParamUpdate(users,evluation,technicParam,cookParam,communicationParam);
+	    int expected = 1;
+
+	    assertEquals(expected, actual);
+	}
 
 	//setIconUpdate
 	@Test
@@ -132,8 +132,8 @@ public class UsersTest {
 		Users users = new Users(1,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 	    int iconId = 1;
 
-	    boolean actual = userDao.setIconUpdate(users,iconId);
-	    boolean expected = true;
+	    int actual = userDao.setIconUpdate(users,iconId);
+	    int expected = 1;
 	    assertEquals(expected, actual);
 	}
 

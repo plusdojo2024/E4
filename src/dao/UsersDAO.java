@@ -103,9 +103,9 @@ public class UsersDAO {
 		}
 
 		//ユーザーのデータを保存
-		public boolean insert(Users users) {
+		public int insert(Users users) {
 			Connection conn = null;
-			boolean result = false;
+			int result = 0;
 
 			try {
 				// JDBCドライバを読み込む
@@ -138,12 +138,15 @@ public class UsersDAO {
 				pStmt.setInt(17, users.getIconId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
+				if (pStmt.executeUpdate() == 0) {
+					result = 0; //登録件数0のパターン
+				} else if (pStmt.executeUpdate() == 1) {
+					result = 1; //成功パターン
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				result = -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -161,9 +164,9 @@ public class UsersDAO {
 		}
 
 		//参加可能範囲の情報
-		public boolean insertSearchPrefecture(int userId,ArrayList<Integer> prefectures) {
+		public int insertSearchPrefecture(int userId,ArrayList<Integer> prefectures) {
 			Connection conn = null;
-			boolean result = false;
+			int result = 0;
 
 			try {
 				// JDBCドライバを読み込む
@@ -181,16 +184,15 @@ public class UsersDAO {
 					pStmt.setInt(1, userId);
 					pStmt.setInt(2, prefectureId);
 
-					if (pStmt.executeUpdate() != 1) {
-						return false;
+					if (pStmt.executeUpdate() >= 0) {
+						 result++;
 					}
 				}
-
-				result = true;
-
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				result = -1;
+
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -207,9 +209,9 @@ public class UsersDAO {
 			return result;
 		}
 
-		public boolean update(Users users,String telNum,int prefectureId,int eventCategory,ArrayList<Integer> prefectures) {
+		public int[] update(Users users,String telNum,int prefectureId,int eventCategory,ArrayList<Integer> prefectures) {
 			Connection conn = null;
-			boolean result = false;
+			int[] result = {0,0};
 
 			try {
 				// JDBCドライバを読み込む
@@ -227,9 +229,10 @@ public class UsersDAO {
 				pStmt.setInt(3, eventCategory);
 				pStmt.setInt(4, users.getId());
 
-				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
+				if (pStmt.executeUpdate() == 0) {
+					result[0] = 0;
+				} else if (pStmt.executeUpdate() == 1) {
+					result[0] = 1;
 				}
 
 				//都道府県更新
@@ -244,14 +247,17 @@ public class UsersDAO {
 					pStmt.setInt(1, users.getId());
 					pStmt.setInt(2, newPrefectureId);
 
-					if (pStmt.executeUpdate() != 1) {
-						return false;
+					if (pStmt.executeUpdate() == 0) {
+						result[1] = 0;
+					} else if (pStmt.executeUpdate() == 1) {
+						result[1] = 1;
 					}
+
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = false;
+				result[0] = -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -260,7 +266,6 @@ public class UsersDAO {
 					}
 					catch (SQLException e) {
 						e.printStackTrace();
-						result = false;
 					}
 				}
 			}
@@ -270,9 +275,9 @@ public class UsersDAO {
 		}
 
 		//評価の更新
-		public boolean reviewParamUpdate(Users users,int evaluation,int technicParam,int cookParam,int communicationParam,int targetUserId) {
+		public int reviewParamUpdate(Users targetUsers,int evaluation,int technicParam,int cookParam,int communicationParam) {
 			Connection conn = null;
-			boolean result = false;
+			int result = 0;
 
 			try {
 				// JDBCドライバを読み込む
@@ -282,24 +287,26 @@ public class UsersDAO {
 				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/IGNITE", "sa", "");
 
 				// SQL文を準備する（AUTO_INCREMENTのNUMBER列にはNULLを指定する）
-				String sql = "UPDATE users SET EVALUATION = ?,COMMUNICATION_PARAM = ?,TECHINIC_PARAM = ?, COOK_PARAM = ? WHERE USER_ID = ?";
+				String sql = "UPDATE users SET EVALUATION = ?,COMMUNICATION_PARAM = ?,TECHNIC_PARAM = ?, COOK_PARAM = ? WHERE ID = ?";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				// SQL文を完成させる
 
-				pStmt.setInt(1,users.getEvaluation() + evaluation);
-				pStmt.setInt(2,users.getCommunicationParam() + communicationParam);
-				pStmt.setInt(3,users.getTechnicParam() + technicParam);
-				pStmt.setInt(4,users.getCookParam() + cookParam);
-				pStmt.setInt(5, targetUserId);
+				pStmt.setInt(1,targetUsers.getEvaluation() + evaluation);
+				pStmt.setInt(2,targetUsers.getCommunicationParam() + communicationParam);
+				pStmt.setInt(3,targetUsers.getTechnicParam() + technicParam);
+				pStmt.setInt(4,targetUsers.getCookParam() + cookParam);
+				pStmt.setInt(5, targetUsers.getId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
+				if (pStmt.executeUpdate() == 0) {
+					result = 0;
+				}else if (pStmt.executeUpdate() == 1) {
+					result = 1;
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = false;
+				result = -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -308,7 +315,6 @@ public class UsersDAO {
 					}
 					catch (SQLException e) {
 						e.printStackTrace();
-						result = false;
 					}
 				}
 			}
@@ -318,9 +324,9 @@ public class UsersDAO {
 		}
 
 		//アイコンのアップデート
-		public boolean setIconUpdate(Users user,int iconId) {
+		public int setIconUpdate(Users user,int iconId) {
 			Connection conn = null;
-			boolean result = false;
+			int result = 0;
 
 			try {
 				// JDBCドライバを読み込む
@@ -338,13 +344,15 @@ public class UsersDAO {
 				pStmt.setInt(2,user.getId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 1) {
-					result = true;
+				if (pStmt.executeUpdate() == 0) {
+					result = 0;
+				} else if (pStmt.executeUpdate() == 1) {
+					result = 1;
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-				result = false;
+				result = -1;
 			} finally {
 				// データベースを切断
 				if (conn != null) {
@@ -353,7 +361,6 @@ public class UsersDAO {
 					}
 					catch (SQLException e) {
 						e.printStackTrace();
-						result = false;
 					}
 				}
 			}
