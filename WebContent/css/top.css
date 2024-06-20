@@ -1,2 +1,112 @@
 @charset "UTF-8";
 /* トップ画面用css */
+/*天気予報の位置*/
+.weatherlocation {
+  position: absolute;
+  left: 350px;
+  top: 30px;
+}
+/*天気予報*/
+.weatherForecast {
+    width: 840px;
+    height: 120px;
+    display: flex;
+    text-align: center;
+    border: 1px solid #000;
+  }
+
+  .weather {
+    width: calc(100% / 7);
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid #666;
+  }
+
+  .weather > div {
+    height: 20%;
+    font-size: 14px;
+  }
+
+  .weatherImg {
+    height: 42%;
+  }
+
+  .tempMin {
+    color: blue;
+  }
+
+  .tempMax {
+    color: red;
+  }
+
+  /*キャンプ画像、文字*/
+  .kyanp1 {
+    width: 400px;
+    height: 400px;
+    position:absolute;
+    top:200px;
+    left: 10px;
+  }
+  /*文字*/
+  .kyanp11 {
+    color: crimson;
+    position: absolute;
+    top: 400px;
+    left: 140px;
+  }
+
+  .kyanp2 {
+    width: 800px;
+    height: 200px;
+    position:absolute;
+    top:200px;
+    left: 410px;
+  }
+  /*文字*/
+  .kyanp22 {
+    color: crimson;
+    position: absolute;
+    top: 300px;
+    left: 750px;
+  }
+
+  .kyanp3 {
+    width: 800px;
+    height: 200px;
+    position:absolute;
+    top: 400px;
+    left: 410px;
+  }
+/*文字*/
+  .kyanp33 {
+    color: crimson;
+    position: absolute;
+    top: 500px;
+    left: 750px;
+  }
+
+  .kyanp4 {
+    width: 1200px;
+    height: 300px;
+    position: absolute;
+    left: 10px;
+    top: 880px;
+  }
+  /*文字*/
+  .kyanp44 {
+    color: crimson;
+    position: absolute;
+    top: 1050px;
+    left: 600px;
+  }
+
+  /*通知エリア*/
+  .textarea {
+    width: 1190px;
+    height: 200px;
+    resize: none;
+    overflow-y: scroll;
+    position: absolute;
+    top:630px;
+    left: 10px;
+  }

@@ -28,7 +28,9 @@
       document.querySelector('.weatherForecast').appendChild(el);
     }
   </script>
-  <script src="JS/top.js"></script>
+
+  <script type="text/javascript" src="weather_news.js"></script>
+  <!-- <script src="JS/top.js"></script> -->
   </div>
 <!--天気予報ここまで-->
 
