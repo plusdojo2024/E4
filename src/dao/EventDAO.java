@@ -423,7 +423,7 @@ public class EventDAO {
 	}
 
 	//イベントIDからevent_userを検索してリストを返す
-	public List<EventUser> searchUserEvent(int userId) {
+	public List<EventUser> searchUserEvent(int eventId) {
 			Connection conn = null;
 			List<EventUser> eventCardList = new ArrayList<EventUser>();
 
@@ -438,7 +438,7 @@ public class EventDAO {
 				String sql = "SELECT * FROM event_user WHERE event_id = ? AND participation_status = 1";
 
 				PreparedStatement pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, "userId");
+				pStmt.setString(1, "eventId");
 
 				ResultSet rs = pStmt.executeQuery();
 				// 結果表をコレクションにコピーする
