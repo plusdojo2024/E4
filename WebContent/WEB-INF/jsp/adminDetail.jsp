@@ -81,7 +81,7 @@
       <div><p class="event-detail">以下地図エリアです</p><iframe src="" ></iframe></div>
       <p class="event-detail">募集レベル：<span id="eventCategory">${request.eventCategory}</span></p>
       <form action="#" method="post">
-        <input type="hidden" class="input" name="userId" value="${session.userId}">
+        <input type="hidden" class="input" name="userId" value="${sessionScope.userId}">
         <button type="submit">参加する</button>
       </form>
       <button>戻る</button>

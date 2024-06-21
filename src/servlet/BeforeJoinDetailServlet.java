@@ -52,7 +52,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 		String prefecture = prefectureDAO.searchPrefectureName(detailEvent.getPrefectureId());
 		String address = prefecture + detailEvent.getDetailAddress();
 		// イベントIDを元にDBからイベント参加者を取得
-		List<EventUser> eventUsers = eventDAO.searchUserEvent(eventId); //
+		List<EventUser> eventUsers = eventDAO.searchUserEvent(eventId);
 		int usersCount = 0; // 参加者のカウント数を保持
 		//
 		for (EventUser eventUser : eventUsers) {

@@ -71,7 +71,7 @@
         <p><span class="nickname">ニックネーム</span><span class="content">内容</span></p>
       </div>
       <form>
-        <input type="text" name="content"  id="content"><input type="hidden" name="user_id" value="${sessionScope.user_id}"><input type="submit"  value="送信">
+        <input type="text" name="content"  id="content"><input type="hidden" name="user_id" value="${sessionScope.user_id}"><input id="send" type="button"  value="送信">
       </form>
      <div>
         <p class="event-detail">住所：<span>${requestScope.address}</span></p>

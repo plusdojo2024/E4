@@ -19,8 +19,6 @@ import model.Event;
 import model.EventUser;
 import model.Users;
 
-
-
 /**
  * Servlet implementation class BeforeJoinDetailServlet
  */

@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,9 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import dao.EventDAO;
 import dao.PrefectureDAO;
+import dao.UsersDAO;
 import model.Event;
-
-
+import model.EventUser;
+import model.Users;
 
 /**
  * Servlet implementation class BeforeJoinDetailServlet
@@ -47,27 +50,29 @@ public class AdminDetailServlet extends HttpServlet {
 		// 住所の結合
 		// 都道府県の取得
 		PrefectureDAO prefectureDAO = new PrefectureDAO();
-		String prefecture = prefectureDAO.searchuserId(detailEvent.getPrefectureId());
+		String prefecture = prefectureDAO.searchPrefectureName(detailEvent.getPrefectureId());
 		String address = prefecture + detailEvent.getDetailAddress();
-		// イベントIDを元にDBからイベント参加者の数を取得
-		int usersCount = eventDAO.sendParticipant(eventId).size(); // EventDAOのsendParticipant()の返り値であるリストの数を使用する
+		// イベントIDを元にDBからイベント参加者を取得
+		UsersDAO usersDAO = new UsersDAO();
+		List<EventUser> eventUsers = eventDAO.searchUserEvent(eventId); // イベントに
+		List<Users> participantsUsers = new ArrayList<Users>(); // イベント参加者の情報を保持するリスト
+		int usersCount = 0;
+		//
+		for (EventUser eventUser : eventUsers) {
+			if (eventUser.getParticipation_status() == 1) {
+				participantsUsers.add(usersDAO.fetchUser(eventUser.getUser_id()));
+				usersCount++;
+			}
+		}
 
 		// リクエストスコープに詰めてJSPに渡す
-		request.setAttribute("eventName", detailEvent.getEventName());
-		request.setAttribute("eventDescription", detailEvent.getEventDescription());
-		request.setAttribute("eventHoldingSchedule", detailEvent.getHoldingSchedule());
-		request.setAttribute("leastCount", detailEvent.getLeastCount());
-		request.setAttribute("maxCount", detailEvent.getMaxCount());
+		request.setAttribute("detailEvent", detailEvent);
+		request.setAttribute("participantsUsers", participantsUsers);
 		request.setAttribute("usersCount", usersCount);
 		request.setAttribute("address", address);
-		request.setAttribute("locationName", detailEvent.getLocationName());
-		request.setAttribute("eventCategory", detailEvent.getEventCategory());
-		request.setAttribute("holdingUserId", detailEvent.getHoldingUserId());
-		request.setAttribute("status", detailEvent.getStatus());
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/eventDetail.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }
