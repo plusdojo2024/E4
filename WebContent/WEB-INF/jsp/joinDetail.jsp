@@ -63,6 +63,22 @@
       </form>
       <button>戻る</button>
     </div>
+    <!-- モーダル部分 -->
+    <div class="modal" data-modal="box">
+      <div class="modal__bg" data-modal="bg"></div>
+      <div class="modal__inner" data-modal="inner">
+        <c:forEach var="userinfo"  items="${requestScope.participantUsers}">
+          <div class="modal-card" data-trigger="item" data-modal="${userinfo.id}">
+            <div class="modal-card__close" data-modal="close">
+              <div class="modal-card__closeBtn"></div>
+            </div>
+            <p>ニックネーム：${user.name}</p>
+            <!-- 画像どうしようね～～～ -->
+          </div>
+        </c:forEach>
+      </div>
+    </div>
+    <!-- モーダル部分終わり -->
   </main>
   <footer></footer>
 </body>
