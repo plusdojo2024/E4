@@ -13,6 +13,8 @@
     display: flex;
     text-align: center;
     border: 1px solid #000;
+    position: absolute;
+    top:240px;
   }
 
   .weather {
@@ -44,14 +46,15 @@
     width: 400px;
     height: 400px;
     position:absolute;
-    top:200px;
+    top:440px;
+    /*200*/
     left: 10px;
   }
   /*文字*/
   .kyanp11 {
     color: crimson;
     position: absolute;
-    top: 400px;
+    top: 630px;
     left: 140px;
   }
 
@@ -59,14 +62,15 @@
     width: 800px;
     height: 200px;
     position:absolute;
-    top:200px;
+    top:440px;
+    /*200*/
     left: 410px;
   }
   /*文字*/
   .kyanp22 {
     color: crimson;
     position: absolute;
-    top: 300px;
+    top: 515px;
     left: 750px;
   }
 
@@ -74,14 +78,15 @@
     width: 800px;
     height: 200px;
     position:absolute;
-    top: 400px;
+    top: 640px;
+    /*400*/
     left: 410px;
   }
 /*文字*/
   .kyanp33 {
     color: crimson;
     position: absolute;
-    top: 500px;
+    top: 715px;
     left: 750px;
   }
 
@@ -90,7 +95,8 @@
     height: 300px;
     position: absolute;
     left: 10px;
-    top: 880px;
+    top: 1110px;
+    /*880*/
   }
   /*文字*/
   .kyanp44 {
@@ -107,6 +113,11 @@
     resize: none;
     overflow-y: scroll;
     position: absolute;
-    top:630px;
+    top:870px;
+    /*630*/
     left: 10px;
+  }
+
+  .main {
+  margin:0 auto;
   }

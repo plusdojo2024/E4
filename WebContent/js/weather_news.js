@@ -122,6 +122,9 @@
     450: ["400.svg", "400.svg", "雪で雷を伴う"],
   };
 
+
+  const url = "https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json";
+
   const dayList = ["日", "月", "火", "水", "木", "金", "土"];
 
   const timeDefinesList = new Array();

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.EventDAO;
+import dao.PrefectureDAO;
 import dao.UsersDAO;
 import model.Event;
 import model.Users;
@@ -25,26 +26,37 @@ public class TopServlet extends HttpServlet {
 
 		//セッションからユーザーIDを取得
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E4/LoginServlet");
-			return;
-		}
+		session.setAttribute("user_id",1);
+		//if (session.getAttribute("id") == null) {
+			//response.sendRedirect("/E4/LoginServlet");
+			//return;
+		//}
 
 		//ユーザーDAOをインスタンス化
 		UsersDAO userDAO = new UsersDAO();
 
 		//userIdをuserDao.fetchUserに渡して都道府県コードを取得してリクエストスコープに詰める（天気予報取得用）
-		int userId = Integer.parseInt(request.getParameter("user_id"));
+		int userId = (int)session.getAttribute("user_id");
+		//int userId = Integer.parseInt(session.getAttribute("user_id"));
+		//int userId = Integer.parseInt(request.getParameter("user_id"));
 
-		Users users = userDAO.fetchUser(userId);
+		Users users = userDAO.fetchUser(1);
+		//Users users = userDAO.fetchUser(userId);
 		int prefectureId = users.getPrefectureId();
 
 		request.setAttribute("prefectureId",prefectureId);
+
+		//都道府県IDから都道府県のウェザーコードを取得
+		PrefectureDAO prefecture = new PrefectureDAO();
+		String prefectures = prefecture.fetchWeatherCode(prefectureId);
+
+		request.setAttribute("prefectures",prefectures);
 
 		//EventDAOをインスタンス化
 		EventDAO eventDAO = new EventDAO();
 
 		//userIdをeventDaoに渡して通知されているイベントを取得・インスタンス化（リストにする）
+		//ArrayList<Event> eventList = eventDAO.fetchNotParticipatingList(1);
 		ArrayList<Event> eventList = eventDAO.fetchNotParticipatingList(userId);
 
 		request.setAttribute("eventList",eventList);
@@ -55,11 +67,11 @@ public class TopServlet extends HttpServlet {
 		//IconDAO iconDAO = new IconDAO();
 
 
-		String icons = userDAO.searchIcon(userId);
-		int iconId = icons;
+		int iconId = users.getIconId();
+		String iconUrl= userDAO.searchIcon(iconId);
 
-		request.setAttribute("iconId",iconId);
 
+		request.setAttribute("iconUrl",iconUrl);
 
 		//top.jspに遷移
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/top.jsp");
