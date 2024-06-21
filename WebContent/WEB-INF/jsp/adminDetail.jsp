@@ -44,13 +44,23 @@
       <!-- メッセージエリア -->
       <p id="message"></p>
       <!-- spanタグの中身をJSTLで書き換え -->
-      <p class="event-detail">イベント名：<span id="eventName">${request.eventName }</span></p>
+      <p class="event-detail">イベント名：<span id="eventName">${requestScope.detailEvent.eventName}</span></p>
       <p class="event-detail">イベント詳細</p>
-      <p class="event-description">${request.eventDescription}</p>
-      <p class="event-detail">開催日程：<span>${request.holdingSchedule}</span></p>
+      <p class="event-description">${requestScope.detailEvent.eventDescription}</p>
+      <p class="event-detail">開催日程：<span>${requestScope.detailEvent.holdingSchedule}</span></p>
       <div>
-        <p class="event-detail">参加人数：<span>${request.leastCount}</span> ～ <span>${request.maxCount}</span> 人</p>
-        <p class="event-detail">現在の参加人数：<span>${request.usersCount }</span> 人</p>
+        <p class="event-detail">参加人数：<span>${requestScope.detailEvent.leastCount}</span> ～ <span>${requestScope.detailEvent.maxCount}</span> 人</p>
+        <p class="event-detail">現在の参加人数：<span>${requestScope.usersCount}</span> 人</p>
+      </div>
+      <div class="icon-box">
+        <div class="admin-list">
+          <!-- JSTLを使ってアイコンとモーダルに表示する内容(参加ユーザー情報)を参加人数分生成予定 -->
+     <!--      <img class="icon-img" src="dummyicon.png" alt="ダミーアイコン">
+          <img class="icon-img" src="dummyicon.png" alt="ダミーアイコン">
+          <img class="icon-img" src="dummyicon.png" alt="ダミーアイコン">
+          <img class="icon-img" src="dummyicon.png" alt="ダミーアイコン">
+          <img class="icon-img" src="dummyicon.png" alt="ダミーアイコン"> -->
+        </div>
       </div>
       <p class="event-detail">コミュニケーションエリア</p>
       <div id="communication-div" class="communicationArea-inner">
@@ -65,8 +75,8 @@
         <input type="text" name="" id=""><input type="submit" value="送信">
       </form>
       <div>
-        <p class="event-detail">住所：<span>${request.address}</span></p>
-        <p class="event-detail">場所名称：<span>${request.locationName}</span></p>
+        <p class="event-detail">住所：<span>${requestScope.address}</span></p>
+        <p class="event-detail">場所名称：<span>${requestScope.detailEvent.locationName}</span></p>
       </div>
       <div><p class="event-detail">以下地図エリアです</p><iframe src="" ></iframe></div>
       <p class="event-detail">募集レベル：<span id="eventCategory">${request.eventCategory}</span></p>
