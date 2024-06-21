@@ -1,2 +1,44 @@
 @charset "UTF-8";
 /* 共通画面用css */
+/*
+ * テーマカラーのカラーコード
+ * 緑：#3e6e55
+ * 茶色：#dcdbc5
+ */
+
+ /* mainタグ(よければコピペして使ってください)
+<main>
+  <div class="main-inner">
+    <!-- ここにコード書いてください -->
+  </div>
+</main>
+*/
+
+html {
+  /* フォント設定 */
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* 背景色設定 */
+  background-color: #dcdbc5;
+}
+
+main {
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 2% auto;
+  background-color: #fff;
+  border: 5px solid #3e6e55;
+}
+
+.main-inner {
+  margin: 3%;
+}
+

@@ -1,2 +1,61 @@
 @charset "UTF-8";
 /* アイコン設定画面用css */
+
+
+.nameAndIcon{
+    display: flex;
+    /* 左右両端に配置 */
+    justify-content: space-between;
+
+    /* 名前スペーズの上下を中央に */
+    align-items: center;
+}
+.iconimg{
+    /* 設定されたアイコン */
+    width: 150px;
+}
+.name-area{
+    /* 名前エリア */
+    border: solid;
+    width: 300px;
+    height: 80px;
+    /* 名前をボックスの中央に */
+    display: flex;
+    align-items: center;
+}
+.have-icon{
+    /* 所有アイコン画像 */
+    width: 100px;
+    margin-right: 5px;
+}
+.icon-list{
+    /* 所有アイコンリスト 「・」無し、横並び*/
+    list-style:none;
+    display: flex;
+}
+.registYearAndAmounts{
+    /* 登録年、回数エリア 両端に配置 */
+    display: flex;
+    justify-content: space-between;
+}
+.amoints{
+    /* 主催回数、参加回数エリア */
+    width:320px;
+    border: solid;
+}
+.registYear{
+    /* 登録年 */
+    width:320px;
+    border: solid;
+}
+
+.ziseki{
+    /* 実績の箱 */
+    border: solid;
+    width: 100px;
+}
+.evalution{
+    /* 評価の箱 */
+    width: 100px;
+    border: solid;
+}
