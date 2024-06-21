@@ -11,7 +11,7 @@
 <body>
   <div class="loginbox">
     <div class="logoarea">
-    <img src="img/1.png" class="logo" alt="ignitelogo" width="150" >
+    <img src="img/loginlogo.png" class="logo" alt="ignitelogo" width="150" >
     </div>
     <form id="login_form" method="post" action="/E4/LoginServlet">
     <div class="input-box">
@@ -24,7 +24,7 @@
       <a href="#" class="forgot-password-a">パスワードをお忘れですか？</a>
     </p>
 
-    <div class="message"></div>
+    <div class="message" style="color:red;">${error}</div>
 
     <div class="loginbuttun"><input type="submit" id="loginbuttun" value="ログイン"></div>
 

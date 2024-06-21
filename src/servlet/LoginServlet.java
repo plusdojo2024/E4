@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 	    }
 	    else {
 	    //エラーならメッセージをリクエストスコープに詰めてGETへ
-	    	request.setAttribute("error","メールアドレスまたはパスワードに誤りがあります");
+	    	request.setAttribute("error","※メールアドレスまたはパスワードに誤りがあります");
 		//login.jspに遷移
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 	    dispatcher.forward(request,response);

@@ -93,3 +93,22 @@ background: #fff;
   outline: none;
   border-radius: 5px;
 }
+
+input[type="submit"] {
+  margin-bottom: 28px;
+  width: 120px;
+  height:40px;
+  border-radius: 30px;
+  color:#fff;
+  background-color: #3E6E55;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color:#4b8467;
+}
+
+.message {
+	text-align:center;
+}
