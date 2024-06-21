@@ -25,21 +25,21 @@
             		<form method="post" action="/E4/JoinDetailServlet">
 	                  <table>
 	                      <tr>
-	                          <td>イベント名：${event.event_name}</td>
+	                          <td>イベント名：${event.eventName}</td>
 	                      </tr>
 	                      <tr>
-	                          <td>開催日程：${event.holding_schedule}</td>
+	                          <td>開催日程：${event.holdingSchedule}</td>
 	                      </tr>
 	                      <tr>
-	                          <td>場所：${event.location_name}</td><td></td><td></td><td><input type="button" name="詳細" value="詳細"></td><td><input type="hidden" name="eventId" value="${event.id}"></td>
+	                          <td>場所：${event.locationName}</td><td></td><td></td><td><input type="submit" name="詳細" value="詳細" id="submitBtn"></td><td><input type="hidden" name="eventId" value="${event.id}"></td>
 	                      </tr>
 	                      <tr>
 	                          <%-- <td>住所：<span id="prefecture"></span> ${event.detail_address}</td> --%>
-	                          <%-- <td>住所：${cardList_prefecture[${event.prefectureId}]}${event.detail_address}</td> --%>
-	                          <td>住所：${cardList_prefecture}.get(${event.prefectureId})${event.detail_address}</td>
+	                          <%-- <td>住所：${cardList_prefecture[event.prefectureId]}${event.detailAddress}</td> --%>
+	                          <td>住所：${cardList_prefecture.get(event.prefectureId)}${event.detailAddress}</td>
 	                      </tr>
 	                      <tr>
-	                          <td>募集レベル：${event.event_category}</td>
+	                          <td>募集レベル：${event_level.get(event.eventCategory)}</td>
 	                      </tr>
 	                  </table>
                		</form>

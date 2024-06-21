@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.UsersDAO;
 import model.Users;
@@ -33,34 +32,37 @@ public class ProfileServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-				HttpSession session = request.getSession();
-				if (session.getAttribute("userId") == null) {
-					response.sendRedirect("/E4/LoginServlet");
-					return;
-				}
+//				HttpSession session = request.getSession();
+//				if (session.getAttribute("userId") == null) {
+//					response.sendRedirect("/E4/LoginServlet");
+//					return;
+//				}
 
 				// プロフィールページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/regist.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");
 				dispatcher.forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-				HttpSession session = request.getSession();
-				if (session.getAttribute("userId") == null) {
-					response.sendRedirect("/E4/LoginServlet");
-					return;
-				}
+//				HttpSession session = request.getSession();
+//				if (session.getAttribute("userId") == null) {
+//					response.sendRedirect("/E4/LoginServlet");
+//					return;
+//				}
 
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+				int userid = 1;
 				Users users = uDao.fetchUser(userid);
 				String telNum = request.getParameter("tell");
 				int prefectureId = Integer.valueOf(request.getParameter("prefecture"));
-				int eventCategory = Integer.valueOf(request.getParameter("switch-1"));
+				int eventCategory = Integer.parseInt(request.getParameter("switch_1"));
+				//int eventCategory = 1;
+				//System.out.println("SW1:" + request.getParameter("switch_1"));
 				ArrayList<Integer> prefectures = new ArrayList<>();
 
 				// splitメソッドを使用して文字列を配列に変換
@@ -72,19 +74,19 @@ public class ProfileServlet extends HttpServlet {
 
 				// 更新を行う
 
-				if (request.getParameter("submit").equals("更新")) {
+				//if (request.getParameter("submit").equals("更新")) {
 					if(uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[0] == 1 && uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[1] == 1) {
 						// 更新が成功した
-						boolean isUpdateOK = true;
-						request.setAttribute("isUpdateOK", isUpdateOK);
+						boolean isUpdateJudge = true;
+						request.setAttribute("isUpdateJudge", isUpdateJudge);
 					} else {
-						boolean isUpdateOK = false;
-						request.setAttribute("isUpdateOK", isUpdateOK);
+						boolean isUpdateJudge = false;
+						request.setAttribute("isUpdateJudge", isUpdateJudge);
 					}
-				}
+				//}
 
 				// プロフィールページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/result.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");
 				dispatcher.forward(request, response);
 	}
 

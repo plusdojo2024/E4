@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="WebContent/css/profile.css">
+<link rel="stylesheet" href="css/profile.css">
 <title>プロフィール</title>
 </head>
 <body>
@@ -12,12 +13,22 @@
 
     </header>
 
-    <form method="post" action="Servlet/ProfileServlet"id="input">
+    <form method="post" action="/E4/ProfileServlet"id="input">
         <main>
             <div class="main-inner">
                 <h2>マイプロフィール</h2><br>
                 <div class="profile">
                     <table>
+                    	<div>
+                            <span id="judgemessage">
+                            	<c:if test="${isUpdateJudge == 'true'}">
+								 	 更新に成功しました。
+							    </c:if>
+							    <c:if test="${isUpdateJudge == 'false'}">
+								     更新に失敗しました。
+								</c:if>
+                            </span>
+                        </div>
                         <div>
                             <span id="errormessage"></span>
                         </div>
@@ -121,13 +132,13 @@
                             <td>
                                 <div class="multi-way-choice">
 
-                                    <input type="radio" id="radio-1" name="switch-1" value="0" >
+                                    <input type="radio" id="radio-1" name="switch_1" value="0" >
                                     <label for="radio-1">初心者歓迎</label>
 
-                                    <input type="radio" id="radio-2" name="switch-1" value="1" >
+                                    <input type="radio" id="radio-2" name="switch_1" value="1" >
                                     <label for="radio-2">誰でも歓迎</label>
 
-                                    <input type="radio" id="radio-3" name="switch-1" value="2" >
+                                    <input type="radio" id="radio-3" name="switch_1" value="2" >
                                     <label for="radio-3">ベテラン向け</label>
                                 </div>
                             </td>
@@ -220,28 +231,26 @@
 
     </footer>
 
-    <script>
+    <script type="text/javascript">
 	    'use strict';
 
 
 	    let formObj = document.getElementById('input');
 	    let errorMessageObj = document.getElementById('errormessage');
 	    let Update = document.getElementById('update');
+	    let judgeMessageObj = document.getElementById('judgemessage');
 
 	    Update.addEventListener('click', (event) => {
-	        if (!formObj.tell.value || formObj.prefecture.value == 0 || !formObj.selected_prefectures.value || !formObj.switch_2.value) {
-	            errorMessageObj.textContent = '必須項目を入力してください';
+	        if (!formObj.tell.value || formObj.prefecture.value == 0 || formObj.selected_prefectures.value =="" || formObj.switch_1.value == "") {
 	            event.preventDefault();
-	        } else if (${isUpdateOK}.equals("true")){
-	            window.alert('更新に成功しました。');
-	            errorMessageObj.textContent = null;
-	        } else {
-	        	window.alert('更新に失敗しました。');
-	            errorMessageObj.textContent = null;
+	            errorMessageObj.textContent = '必須項目を入力してください';
+	            judgeMessageObj.style.display = "none";
 	        }
 	    });
+
+
     </script>
 
-    <script src="WebContent/js/prefecture.js"></script>
+    <script src="/E4/js/prefecture.js"></script>
 </body>
 </html>

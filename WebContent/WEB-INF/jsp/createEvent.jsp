@@ -1,27 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>イベント作成ページ</title>
-	<link rel="stylesheet" href="WebContent/css/create_event.css">
+	<link rel="stylesheet" href="css/create_event.css">
 </head>
 <body>
     <header>
 
     </header>
 
-    <form method="post" action="Servlet/CreateEventServlet" id="input">
+    <form method="post" action="/E4/CreateEventServlet" id="input">
         <main>
             <div class="main-inner">
                 <h2>イベント作成</h2><br>
                 <div class="profile">
+                	<div>
+                        <span id="judgemessage">
+                        	<c:if test="${isCreateJudge == 'true'}">
+				 	 			作成に成功しました。
+					    	</c:if>
+						    <c:if test="${isCreateJudge == 'false'}">
+							    作成に失敗しました。
+							</c:if>
+                        </span>
+                    </div>
                     <div>
                         <span id="errormessage"></span>
                     </div>
                     <table>
-
                         <tr>
                             <td class="title"><label for="event_name">イベント名</label></td>
                             <td><input type="text" name="event_name" id="event_name"></td>
@@ -35,10 +45,10 @@
                             <td><input type="date" name="event_day" id="event_day"></td>
                         </tr>
                         <tr>
-                            <td class="title">参加最少人数</td><td><button id="min_minus">-</button><input type="text" name="min" id="min"><button id="min_plus">+</button></td>
+                            <td class="title">参加最少人数</td><td><button id="min_minus">-</button><input type="text" name="min" id="min" value=4><button id="min_plus">+</button></td>
                         </tr>
                         <tr>
-                            <td class="title">参加最大人数</td><td><button id="max_minus">-</button><input type="text" name="max" id="max"><button id="max_plus">+</button></td>
+                            <td class="title">参加最大人数</td><td><button id="max_minus">-</button><input type="text" name="max" id="max" value=5><button id="max_plus">+</button></td>
                         </tr>
                         <tr>
                             <td class="title">都道府県</td>
@@ -120,7 +130,7 @@
                             </td>
                         </tr>
                     </table>
-                    <input type="submit" id="regist" value="作成">
+                    <input type="submit" id="regist" name="submit" value="作成">
                 </div>
             </div>
         </main>
@@ -130,7 +140,7 @@
 
     </footer>
 
-    <script>
+    <script type="text/javascript">
         'use strict';
 
 
@@ -152,10 +162,19 @@
             return `${year}-${month}-${day}`;
         }
 
+        console.log(today);
+        console.log(dateAfter28Days);
+        console.log(dateAfter180Days);
+
+
 
         let formObj = document.getElementById('input');
         let errorMessageObj = document.getElementById('errormessage');
         let regist = document.getElementById('regist');
+
+        console.log(formObj.event_day.value);
+        console.log(formatDate(dateAfter28Days));
+        console.log(formatDate(dateAfter180Days));
 
         const Min = document.getElementById('min');
         const Max = document.getElementById('max');
@@ -212,22 +231,20 @@
             event.preventDefault();
         });
 
+
+        let judgeMessageObj = document.getElementById('judgemessage');
+
         regist.addEventListener('click', (event) => {
-            if (!formObj.event_name.value || !formObj.event_summary.value || !formObj.event_day.value || !formObj.min.value || !formObj.max.value || formObj.prefecture.value == 0 || !formObj.detail.value || !formObj.place.value || !formObj.switch_2.value) {
-                errorMessageObj.textContent = '全て入力してください';
-                event.preventDefault();
+            if (!formObj.event_name.value || !formObj.event_summary.value || !formObj.event_day.value || formObj.prefecture.value == 0 || !formObj.detail.value || !formObj.place.value || formObj.switch_2.value == "") {
+            	event.preventDefault();
+            	errorMessageObj.textContent = '全て入力してください';
+            	judgeMessageObj.style.display = "none";
             }  else if (formObj.event_day.value < formatDate(dateAfter28Days) || formObj.event_day.value > formatDate(dateAfter180Days)) {
-                errorMessageObj.textContent = '開催日程は、本日の日付から28日後と180日後の間に指定してください';
-                event.preventDefault();
+            	event.preventDefault();
+            	errorMessageObj.textContent = '開催日程は、本日の日付から28日後と180日後の間に指定してください';
             } else if (formObj.min.value >= formObj.max.value) {
-                errorMessageObj.textContent = '参加最少人数が参加最大人数と同じあるいは超えないように人数の指定をしてください';
-                event.preventDefault();
-            } else if (${isCreateOK} == true) {
-                window.alert('作成に成功しました。');
-                errorMessageObj.textContent = null;
-            } else {
-            	window.alert('作成に失敗しました。');
-                errorMessageObj.textContent = null;
+            	event.preventDefault();
+            	errorMessageObj.textContent = '参加最少人数が参加最大人数と同じあるいは超えないように人数の指定をしてください';
             }
         });
     </script>

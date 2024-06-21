@@ -34,16 +34,14 @@ h2 {
 }
 
 table {
-    /* border:2px solid; */
     text-align: left;
     padding-top: 10px;
     padding-bottom: 10px;
-    /* border-radius: 15px; */
-    margin: auto;
+    margin-left: 200px;
     background-color: #FFFFFF;
 }
 
-input[type="button"] {
+input[type="submit"] {
     border:2px solid;
     border-color: #000000;
     text-align: center;
@@ -52,4 +50,12 @@ input[type="button"] {
     color: #FFFFFF;
     height: 30px;
     width: 75px;
+}
+
+#submitBtn:hover,
+#submitBtn:focus {
+
+    /* cursor:マウスカーソルの表示を設定する */
+    /* pointer: 指をさす画像になる */
+    cursor: pointer;
 }

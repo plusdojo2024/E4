@@ -26,18 +26,17 @@ public class AdminEventListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		HttpSession session = request.getSession();
-//		session.setAttribute("userId", 2);
-		if (session.getAttribute("userId") == null) {
-			response.sendRedirect("/E4/LoginServlet");
-			return;
-		}
+//		HttpSession session = request.getSession();
+//		if (session.getAttribute("userId") == null) {
+//			response.sendRedirect("/E4/LoginServlet");
+//			return;
+//		}
 
 
 		// ユーザーIDに対応した作成イベント一覧を表示する。
 		EventDAO eDao = new EventDAO();
-		int userid = Integer.valueOf((String)session.getAttribute("userId"));
-//		int userid = 2;
+//		int userid = Integer.valueOf((String)session.getAttribute("userId"));
+		int userid = 1;
 		List<Event> cardList_admin = eDao.searchHoldingEvent(userid);
 
 		request.setAttribute("cardList_admin", cardList_admin);
@@ -63,6 +62,8 @@ public class AdminEventListServlet extends HttpServlet {
 		request.setAttribute("cardList_prefecture", Prefecture_name);
 
 
+
+		// イベントIDに対応した現在の参加予定人数のマップを作成する
 		Map<Integer, Integer> JoinMember = new HashMap<>();
 		for (int i = 0; i < cardList_admin.size(); i++) {
 			int eventjoin_member = eDao.searchUserEvent(cardList_admin.get(i).getId()).size();
@@ -70,6 +71,15 @@ public class AdminEventListServlet extends HttpServlet {
 		}
 
 		request.setAttribute("cardList_joinMember", JoinMember);
+
+
+//		数値に対応した募集レベルのテキストのマップを作成する
+		Map<Integer, String> event_category = new HashMap<>();
+		event_category.put(0, "初心者歓迎");
+		event_category.put(1, "誰でも歓迎");
+		event_category.put(2, "ベテラン向け");
+
+		request.setAttribute("event_level", event_category);
 
 		// 作成イベント一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/adminEventList.jsp");

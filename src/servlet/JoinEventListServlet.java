@@ -27,16 +27,17 @@ public class JoinEventListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-				HttpSession session = request.getSession();
-				if (session.getAttribute("userId") == null) {
-					response.sendRedirect("/E4/LoginServlet");
-					return;
-				}
+//				HttpSession session = request.getSession();
+//				if (session.getAttribute("userId") == null) {
+//					response.sendRedirect("/E4/LoginServlet");
+//					return;
+//				}
 
 
 				// ユーザーIDに対応した参加イベント一覧を表示する。
 				EventDAO eDao = new EventDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+				int userid = 1;
 				List<Event> cardList = eDao.searchuserId(userid);
 
 				request.setAttribute("cardList", cardList);
@@ -72,6 +73,15 @@ public class JoinEventListServlet extends HttpServlet {
 //			        };
 //
 //				request.setAttribute("cardList_prefecture", prefectures);
+
+
+//				数値に対応した募集レベルのテキストのマップ作製
+				Map<Integer, String> event_category = new HashMap<>();
+				event_category.put(0, "初心者歓迎");
+				event_category.put(1, "誰でも歓迎");
+				event_category.put(2, "ベテラン向け");
+
+				request.setAttribute("event_level", event_category);
 
 				// 参加イベント一覧ページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/joinEventList.jsp");
