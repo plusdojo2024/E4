@@ -139,10 +139,11 @@ public class UsersDAO {
 				pStmt.setInt(17, users.getIconId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 0) {
-					result = 0; //登録件数0のパターン
-				} else if (pStmt.executeUpdate() == 1) {
-					result = 1; //成功パターン
+				int executeAmount = pStmt.executeUpdate();
+				if(executeAmount == 0) {
+					result = 0;
+				}else if (executeAmount == 1) {
+					result = 1;
 				}
 			}
 			catch (Exception e) {

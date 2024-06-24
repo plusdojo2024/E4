@@ -15,7 +15,7 @@ class EventTest {
 
 	@Test
 	void イベントテーブル登録成功() throws Exception {
-	  Event event = new Event(0,"花火大会","花火上げます","2020-09-08",4,10,1,"札幌市中央区北1条西2丁目1-1","のびのびキャンプ",2,1,0);
+	  Event event = new Event(0,"こんばんは","花火上げます","2020-09-08",4,10,1,"札幌市中央区北1条西2丁目1-1","のびのびキャンプ",2,1,0);
 	  int actual = eventDao.keepEvent(event); //実際の実行結果
 	  int expected = 1; //期待する実行結果
 	  assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか

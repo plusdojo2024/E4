@@ -41,10 +41,11 @@ public class EventDAO {
 			pStmt.setInt(10, event.getHoldingUserId());
 			pStmt.setInt(11, event.getStatus());
 
-			// SQL文を実行する
-			if(pStmt.executeUpdate() == 0) {
+			// SQL文を実行する　修正
+			int executeAmount = pStmt.executeUpdate();
+			if(executeAmount == 0) {
 				result = 0;
-			}else if (pStmt.executeUpdate() == 1) {
+			}else if (executeAmount == 1) {
 				result = 1;
 			}
 		} catch (Exception e) {

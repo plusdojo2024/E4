@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.IconDAO;
 import dao.UsersDAO;
 import model.Users;
 
@@ -34,9 +35,70 @@ public class IconServlet extends HttpServlet {
 
 		request.setAttribute("user", user);
 
+		//登録年月日→登録年
 		String[] registerYear = user.getRegisterYear().split(" ");
-
 		user.setRegisterYear(registerYear[0]);
+
+		//設定されているアイコンURL
+		IconDAO iconDao = new IconDAO();
+		request.setAttribute("setIconUrl", iconDao.searchUrl(user.getIconId()));
+
+		//実績→画像URL
+		//cook
+		if(user.getCookParam() < 50) {
+			request.setAttribute("cookParamImg","img/icon/cook/cook_initial.png");
+		} else if(user.getCookParam() < 200) {
+			request.setAttribute("cookParamImg","img/icon/cook/cook_bronze.png");
+		}else if(user.getCookParam() < 500) {
+			request.setAttribute("cookParamImg","img/icon/cook/cook_silver.png");
+		} else {
+			request.setAttribute("cookParamImg","img/icon/cook/cook_gold.png");
+		}
+
+		//teck
+		if(user.getTechnicParam() < 50) {
+			request.setAttribute("technicParamImg","img/icon/technic/technic_initial.png");
+		} else if(user.getTechnicParam() < 200) {
+			request.setAttribute("technicParamImg","mg/icon/technic/technic_bronze.png");
+		}else if(user.getTechnicParam()  < 500) {
+			request.setAttribute("technicParamImg","img/icon/technic/technic_silver.png");
+		} else {
+			request.setAttribute("technicParamImg","img/icon/technic/technic_gold.png");
+		}
+
+		//com
+		if(user.getCommunicationParam() < 50) {
+			request.setAttribute("communicationParamImg","img/icon/com/com_initial.png");
+		} else if(user.getCommunicationParam() < 200) {
+			request.setAttribute("communicationParamImg","img/icon/com/com_bronze.png");
+		}else if(user.getCommunicationParam()< 500) {
+			request.setAttribute("communicationParamImg","img/icon/com/com_silver.png");
+		} else {
+			request.setAttribute("communicationParamImg","img/icon/com/com_gold.png");
+		}
+
+		//host
+		if(user.getHostedAmount() < 1) {
+			request.setAttribute("hostedAmoundImg","img/icon/admin/admin_initial.png");
+		} else if(user.getHostedAmount() < 7) {
+			request.setAttribute("hostedAmoundImg","img/icon/admin/admin_bronze.png");
+		}else if(user.getHostedAmount()< 15) {
+			request.setAttribute("hostedAmoundImg","img/icon/admin/admin_silver.png");
+		} else {
+			request.setAttribute("hostedAmoundImg","img/icon/admin/gold.png");
+		}
+
+		//part
+		if(user.getParticipantsAmount()< 3) {
+			request.setAttribute("participantsAmountImg","img/icon/participation/participation_initial.png");
+		} else if(user.getCommunicationParam() < 15) {
+			request.setAttribute("participantsAmountImg","img/icon/participation/participation_bronze.png");
+		}else if(user.getCommunicationParam()< 30) {
+			request.setAttribute("participantsAmountImg","img/icon/participation/participation_silver.png");
+		} else {
+			request.setAttribute("participantsAmountImg","img/icon/participation/participation_gold.png");
+		}
+
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/icon.jsp");
 		dispatcher.forward(request, response);
