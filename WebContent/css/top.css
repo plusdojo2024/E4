@@ -1,5 +1,12 @@
 @charset "UTF-8";
 /* トップ画面用css */
+
+.icon {
+ position: absolute;
+ top : 232px;
+ left:80px;
+}
+
 /*天気予報の位置*/
 .weatherlocation {
   position: absolute;
@@ -16,6 +23,20 @@
     position: absolute;
     top:240px;
   }
+
+  .tenki {
+   writing-mode: horizontal-tb;
+   position: relative;
+   top:215px;
+   left:-50px;
+  }
+
+  .location {
+   position: relative;
+   top:215px;
+   left: 80px;
+  }
+
 
   .weather {
     width: calc(100% / 7);
@@ -52,7 +73,7 @@
   }
   /*文字*/
   .kyanp11 {
-    color: crimson;
+    color:crimson;
     position: absolute;
     top: 630px;
     left: 140px;
@@ -100,9 +121,9 @@
   }
   /*文字*/
   .kyanp44 {
-    color: crimson;
+    color:crimson;
     position: absolute;
-    top: 1050px;
+    top: 1280px;
     left: 600px;
   }
 
@@ -114,9 +135,16 @@
     overflow-y: scroll;
     position: absolute;
     top:870px;
-    /*630*/
-    left: 10px;
+
   }
+
+/* .notice {
+    width:1190px;
+    height:150px;
+    background-image:url(../img/notice.png);
+    padding: auto;
+    background-repeat:repeat;
+}*/
 
   .main {
   margin:0 auto;

@@ -40,12 +40,12 @@
   </header>
 <main class = "main">
 <!--アイコン画像-->
-<!-- <img src="アイコン" width="150px" height="150px" alt="アイコン"> -->
 
-<div id = "icon" ><img src ="img/icon/${iconUrl}"></div>
+<div class = "icon" ><img src ="${iconUrl}" width = "200px" height = "200px"></div>
 <!--天気予報-->
+  <div class= "aa"></div>
 <div class="weatherlocation">
-<div id="location"><a href="https://www.jma.go.jp/bosai/forecast/" target="_blank">天気予報 </a></div>
+<div id="location"><span class = "location">:${prefectureName}</span><a href="https://www.jma.go.jp/bosai/forecast/" target="_blank"><span class = "tenki">天気予報</span></a></div>
 <div class="weatherForecast">
     <div class="weather">
       <div class="date">--/--(-)</div>
@@ -54,8 +54,18 @@
       <div><span class="tempMin">-℃</span>/<span class="tempMax">-℃</span></div>
     </div>
   </div>
+
   <script>
-    for (let i = 0; i < 6; i++) {
+
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let day = today.getDate();
+  document
+  .getElementById("aa")textContent = year;
+  </script>
+  <script>
+  for (let i = 0; i < 6; i++) {
       const el = document.querySelector('.weather').cloneNode(true);
       document.querySelector('.weatherForecast').appendChild(el);
     }
@@ -197,12 +207,7 @@
     	    })
     	    .then(function (weather) {
     	      document
-    	        .getElementById("location")
-    	        //直す
-    	        .prepend(
-    	          `${weather[1].publishingOffice}: ${weather[1].timeSeries[0].areas[0].area.name} `
-    	        );
-
+    	        .getElementById("location")/*.textContent = ${prefectureName};*/
     	      const isTodaysData = weather[0].timeSeries[2].timeDefines.length === 4;
     	      const weatherCodes = weather[0].timeSeries[0].areas[0].weatherCodes;
     	      const timeDefines = weather[0].timeSeries[0].timeDefines;
@@ -239,7 +244,7 @@
     	        if (weekdayCount === 6) date[i].style.color = "blue";
     	        var m = ("00" + (dt.getMonth() + 1)).slice(-2);
     	        var d = ("00" + dt.getDate()).slice(-2);
-    	        date[i].textContent = `${m}/${d}(${dayList[weekdayCount]})`;
+
     	        var isNight = Number(i === 0 && !isTodaysData)
     	        weatherImg[i].src = "https://www.jma.go.jp/bosai/forecast/img/" + weatherCode[el][isNight];
     	        weatherTelop[i].textContent = weatherCode[el][2];
@@ -248,26 +253,31 @@
     	      });
     	    });
   </script>
-
-  <!--<script type="text/javascript" src="weather_news.js"></script>  -->
+  <!--<script type="text/javascript" src="http://localhost:8080/E4/js/weather_news.js"></script>  -->
 
   </div>
 <!--天気予報ここまで-->
 
 <!--画像でほかのページ移動-->
-<a href="/E4/CreatEventServlet"><img src="img/キャンプ.jpg" class="kyanp1"><span class="kyanp11">イベント作成</span></a><!--createEevent.jsp-->
-<a href="/E4/AdminEventListServlet"><img src="img/キャンプ横.jpg" class="kyanp2"><span class="kyanp22">作成イベント一覧</span></a><!--adminEventList.jsp-->
-<a href="/E4/JoinEventListServlet"><img src="img/キャンプ横２.jpg" class="kyanp3"><span class="kyanp33">参加イベント一覧</span></a><!--joinEventList.jsp-->
-<!--通知エリア-->
-<textarea readonly class="textarea">
-<c:forEach var="Notic" items = "${eventList}">
+<a href="/E4/CreatEventServlet"><img src="img/キャンプ.jpg" class="kyanp1"><span class="kyanp11">イベント作成</span></a>
+<a href="/E4/AdminEventListServlet"><img src="img/キャンプ横.jpg" class="kyanp2"><span class="kyanp22">作成イベント一覧</span></a>
+<a href="/E4/JoinEventListServlet"><img src="img/キャンプ横２.jpg" class="kyanp3"><span class="kyanp33">参加イベント一覧</span></a>
+<!--通知エリア--><!--background = "img/notice.png"  -->
+
+<div class="textarea" >
+<a  href = "/E4/BeforeJoinDetailServlet">
+<c:forEach var="Notic" items="${eventList}">
 <p class="eventNotic">イベント名：<span id="eventName">${Notic.eventName}</span></p>
-<!--  <p class="eventNotic">イベント名：<span id="eventName">${eventList.eventName}</span></p>-->
+<p class="eventNotic">開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span></p>
+<p class="eventNotic">場所：<span id="locationName">${Notic.locationName}</span></p>
+<p> </p>
+<p> </p>
 </c:forEach>
-</textarea>
+</a>
+</div>
 
 <!--画像でほかのページ移動-->
-<a href=""><img src="img/キャンプ横２.jpg" class="kyanp4">><span class="kyanp44">検索</span></a>
+<a href=""><img src="img/キャンプ横２.jpg" class="kyanp4"><span class="kyanp44">検索</span></a>
 </main>
 </body>
 </html>
