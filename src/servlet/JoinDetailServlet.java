@@ -52,6 +52,9 @@ public class JoinDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		// 詳細を表示したいイベントのIDを取得
+		 int eventId = 1;
+
 		// 必要なDAOインスタンス生成
 		EventDAO eventDAO = new EventDAO();
 		UsersDAO usersDAO = new UsersDAO();
@@ -60,8 +63,28 @@ public class JoinDetailServlet extends HttpServlet {
 		 IconDAO iconDAO = new IconDAO();
 
 
-		// 詳細を表示したいイベントのIDを取得
-		 int eventId = 1;
+		 // JSONデータを送る準備
+		 JSONArray JsonArrayToSend = new JSONArray(); // 最終的にこれを送る
+		//JSONObject result = new JSONObject();
+		//JsonArrayToSend.put(result);
+		 // チャット表示部分の更新用データを用意
+		 ArrayList <Communication> comChatTest = comDAO.searchuserId(eventId);
+		 for (Communication chat : comChatTest) {
+			 JSONObject chatJson = new JSONObject();
+			 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
+			 String userName = chatUser.getName();
+			 int userIcon = chatUser.getIconId();
+			 chatJson.put("userName", userName);
+			 chatJson.put("content", chat.getContent());
+			 chatJson.put("userIcon", userIcon);
+			 JsonArrayToSend.put(chatJson);
+		 }
+
+		 System.out.println(comChatTest);
+		 System.out.println(JsonArrayToSend);
+
+
+
 		//int eventId = Integer.parseInt(request.getParameter("event_id"));
 
 		// イベントのIDを元にDBからイベントの情報を取得
@@ -109,6 +132,8 @@ public class JoinDetailServlet extends HttpServlet {
 			 comChatMap.put(Integer.valueOf(i), tmpMap);
 			 i++;
 		 }
+
+		 System.out.println(comChatMap);
 
 
 
@@ -189,6 +214,9 @@ public class JoinDetailServlet extends HttpServlet {
 				 chatJson.put("userIcon", userIcon);
 				 JsonArrayToSend.put(chatJson);
 			 }
+
+			 System.out.println(comChat);
+			 System.out.println(JsonArrayToSend);
 
 		    //httpヘッダー送信の登録
 			response.setContentType("application/json");

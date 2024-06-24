@@ -61,19 +61,12 @@
         </div>
       </div>
       <div id="communication-div"  class="communicationArea-inner">
-      	<c:forEach var="chat"  items="${requestScope.comChatMap.keySet}">
-      		<c:forEach var="i" begin="1" end="${requestScope.comChatMap.size}" step="1">
-      			<c:set var="tmp"  value="${Integer.valueOf(i)}" />
-      			<p>${chat.tmp.chatUserName }：${chat.tmp.content }</p>
-      		</c:forEach>
-      	</c:forEach>
+
       </div>
-      <form action="JoinDetailServlet" method="post">
       <input type="text" name="content"  id="content">
       <input type="hidden"  name="user_id"  id="user_id"  value="1">
       <input type="hidden"  name="event_id"  id="event_id"  value="${requestScope.detailEvent.id}">
       <button id="send"  type="submit" >送信</button>
-      </form>
      <div>
         <p class="event-detail">住所：<span>${requestScope.address}</span></p>
         <p class="event-detail">場所名称：<span>${requestScope.detailEvent.locationName}</span></p>
@@ -255,7 +248,9 @@
     const getData = () => {
       const request = new XMLHttpRequest();
       request.open('POST', '/E4/JoinDetailServlet', true);
-      request.setRequestHeader('Content-Type', 'application/json');
+
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      //request.setRequestHeader('Content-Type', 'application/json');
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -290,9 +285,17 @@
       request.onerror = function() {
         console.error('通信エラーが発生しました。');
       };
-	      let userId = document.getElementById("user_id").value;
-  	      let eventId = document.getElementById("event_id").value;
-  	      let content = document.getElementById("content").value;
+
+      let userId = document.getElementById("user_id").value;
+      let eventId = document.getElementById("event_id").value;
+      let content = document.getElementById("content").value;
+	  // 送信したい内容をJSONに変換
+	  //let body = JSON.stringify({
+	  //    user_id: userId,
+	  //    event_id: eventId,
+	  //    content: content
+	 //});
+      //request.send(body);
       request.send();
     };
 
