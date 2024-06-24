@@ -27,7 +27,7 @@ public class AdminEventListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("userId") == null) {
+		if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E4/LoginServlet");
 			return;
 		}
@@ -35,7 +35,7 @@ public class AdminEventListServlet extends HttpServlet {
 
 		// ユーザーIDに対応した作成イベント一覧を表示する。
 		EventDAO eDao = new EventDAO();
-		int userid = Integer.valueOf((String)session.getAttribute("userId"));
+		int userid = Integer.valueOf((String)session.getAttribute("id"));
 //		int userid = 1;
 		List<Event> cardList_admin = eDao.searchHoldingEvent(userid);
 
@@ -90,7 +90,7 @@ public class AdminEventListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("userId") == null) {
+		if (session.getAttribute("id") == null) {
 			response.sendRedirect("/E4/LoginServlet");
 			return;
 		}

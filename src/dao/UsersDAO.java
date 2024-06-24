@@ -231,27 +231,36 @@ public class UsersDAO {
 				pStmt.setInt(3, eventCategory);
 				pStmt.setInt(4, users.getId());
 
-				if (pStmt.executeUpdate() == 0) {
+				int x = pStmt.executeUpdate();
+				if (x == 0) {
 					result[0] = 0;
-				} else if (pStmt.executeUpdate() == 1) {
+				} else if (x == 1) {
 					result[0] = 1;
 				}
 
+				System.out.println("Update: " + x);
+
 				//都道府県更新
-				sql = "DELETE FROM users_prefecture WHERE user_id = ?";
+				sql = "DELETE FROM user_prefecture WHERE user_id = ?";
+				PreparedStatement pStmt2 = conn.prepareStatement(sql);
 
 				// SQL文を完成させる
-				pStmt.setInt(1, users.getId());
+				pStmt2.setInt(1, users.getId());
+				pStmt2.executeUpdate();
+
+
 				for(int newPrefectureId :prefectures) {
 					sql = "INSERT INTO user_prefecture VALUES (NULL, ?, ?)";
 
+					PreparedStatement pStmt3 = conn.prepareStatement(sql);
 					// SQL文を完成させる
-					pStmt.setInt(1, users.getId());
-					pStmt.setInt(2, newPrefectureId);
+					pStmt3.setInt(1, users.getId());
+					pStmt3.setInt(2, newPrefectureId);
 
-					if (pStmt.executeUpdate() == 0) {
+					int y = pStmt3.executeUpdate();
+					if (y == 0) {
 						result[1] = 0;
-					} else if (pStmt.executeUpdate() == 1) {
+					} else if (y == 1) {
 						result[1] = 1;
 					}
 

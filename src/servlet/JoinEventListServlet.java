@@ -28,7 +28,7 @@ public class JoinEventListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("userId") == null) {
+				if (session.getAttribute("id") == null) {
 					response.sendRedirect("/E4/LoginServlet");
 					return;
 				}
@@ -36,7 +36,7 @@ public class JoinEventListServlet extends HttpServlet {
 
 				// ユーザーIDに対応した参加イベント一覧を表示する。
 				EventDAO eDao = new EventDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+				int userid = Integer.valueOf((String)session.getAttribute("id"));
 //				int userid = 1;
 				List<Event> cardList = eDao.searchuserId(userid);
 
@@ -92,7 +92,7 @@ public class JoinEventListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("userId") == null) {
+				if (session.getAttribute("id") == null) {
 					response.sendRedirect("/E4/LoginServlet");
 					return;
 				}

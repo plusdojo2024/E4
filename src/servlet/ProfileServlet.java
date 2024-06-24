@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsersDAO;
 import model.Users;
@@ -33,18 +34,18 @@ public class ProfileServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//				HttpSession session = request.getSession();
-//				if (session.getAttribute("userId") == null) {
-//					response.sendRedirect("/E4/LoginServlet");
-//					return;
-//				}
+				HttpSession session = request.getSession();
+				if (session.getAttribute("id") == null) {
+					response.sendRedirect("/E4/LoginServlet");
+					return;
+				}
 
 
-				int userid = 1;
+//				int userid = 1;
 
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+				int userid = Integer.valueOf((String)session.getAttribute("id"));
 
 				Users users = uDao.fetchUser(userid);
 				String name = users.getName();
@@ -74,18 +75,38 @@ public class ProfileServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//				HttpSession session = request.getSession();
-//				if (session.getAttribute("userId") == null) {
-//					response.sendRedirect("/E4/LoginServlet");
-//					return;
-//				}
+				HttpSession session = request.getSession();
+				if (session.getAttribute("id") == null) {
+					response.sendRedirect("/E4/LoginServlet");
+					return;
+				}
 
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
-				int userid = 1;
+				int userid = Integer.valueOf((String)session.getAttribute("id"));
+//				int userid = 1;
 				Users users = uDao.fetchUser(userid);
+
+				String name = users.getName();
+				String birthDate = users.getBirthDate();
+				int gender = users.getGender();
+				String Gender;
+				if (gender == 0) {
+					Gender = "男性";
+				}else if (gender == 1) {
+					Gender = "女性";
+				}else {
+					Gender = "回答しない";
+				}
+
+				List<String> user_profile = new ArrayList<>();
+				user_profile.add(name);
+				user_profile.add(birthDate);
+				user_profile.add(Gender);
+
+				request.setAttribute("user_profile", user_profile);
+
 				String telNum = request.getParameter("tell");
 				int prefectureId = Integer.valueOf(request.getParameter("prefecture"));
 				int eventCategory = Integer.parseInt(request.getParameter("switch_1"));
