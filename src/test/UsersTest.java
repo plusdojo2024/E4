@@ -85,6 +85,7 @@ public class UsersTest {
 	  ArrayList<Integer> prefectures = new ArrayList<Integer>();
 	  prefectures.add(3);
 
+
 	  int actual = userDao.insertSearchPrefecture(userId,prefectures);
 	  int expected = 1;
 
@@ -114,7 +115,7 @@ public class UsersTest {
 	    assertEquals(expected[0], actual[0]); //実際の実行結果と期待する実行結果が合っているか
 	}
 
-	//reviewParamUpdate tagetどうする？
+	//reviewParamUpdate
 	@Test
 	void 評価の更新成功() throws Exception {
 		Users users = new Users(1,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;

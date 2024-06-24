@@ -45,19 +45,23 @@
 				</div>
 
 				<p class="ziseki">実績</p>
-
+<form method="post" action="IconServlet">
 				<ul class="icon-list">
-					<li class="icon-list_icon"><input type="image" src=${cookParamImg
-						} width="70px" height="70px"></li>
-					<li class="icon-list_icon"><input type="image" src=${technicParamImg
-						} width="70px"  height="70px"></li>
-					<li class="icon-list_icon"><input type="image" src=${communicationParamImg
-						} width="70px"  height="70px"></li>
-					<li class="icon-list_icon"><input type="image" src=${hostedAmoundImg
-						} width="70px"  height="70px"></li>
-					<li class="icon-list_icon"><input type="image" src=${participantsAmountImg
-						} width="70px"  height="70px"></li>
+					<li class="icon-list_icon"><input type="image"
+						src=${cookParamImg } width="70px"></li>
+					<li class="icon-list_icon"><input type="image"
+						src=${technicParamImg } width="70px"></li>
+					<li class="icon-list_icon"><input type="image"
+						src=${communicationParamImg
+						} width="70px"></li>
+					<li class="icon-list_icon"><input type="image"
+						src=${hostedAmoundImg
+						} width="70px"></li>
+					<li class="icon-list_icon"><input type="image"
+						src=${participantsAmountImg
+						} width="70px"></li>
 				</ul>
+				</form>
 				<p class="evalution">評価</p>
 				<input type="button" id="open" value="評価"> <br> <br>
 				<br>
@@ -83,13 +87,14 @@
 					<img src=${cookParamImg } width="70px">
 
 				</div>
-				<canvas id="myChart1" class="chart_area" style="padding: 10px" height="40px" )>
+				<canvas id="myChart1" class="chart_area" style="padding: 10px"
+					height="40px" )>
         </canvas>
 			</div>
 
 			<div class="icon">
 				<div class="icon_and_discription">
-					<img src=${technicParamImg} width="70px">
+					<img src=${technicParamImg } width="70px">
 					<p class="icon_discription">技術値</p>
 				</div>
 				<canvas id="myChart2" class="chart_area" style="padding: 10px"
@@ -97,33 +102,33 @@
         </canvas>
 			</div>
 			<div class="icon">
-			<div class="icon_and_discription">
-				<img src=${communicationParamImg} height="70px">
-				<p class="icon_discription">コミュニケーション値</p>
+				<div class="icon_and_discription">
+					<img src=${communicationParamImg } height="70px">
+					<p class="icon_discription">コミュニケーション値</p>
 				</div>
 				<canvas id="myChart3" class="chart_area" style="padding: 10px"
 					height="40px">
         </canvas>
 			</div>
 			<div class="icon">
-			<div class="icon_and_discription">
-				<img src=${hostedAmoundImg} height="70px">
-				<p class="icon_discription">主催回数</p>
+				<div class="icon_and_discription">
+					<img src=${hostedAmoundImg } height="70px">
+					<p class="icon_discription">主催回数</p>
 				</div>
 				<canvas id="myChart4" class="chart_area" style="padding: 10px"
 					height="40px">
         </canvas>
 			</div>
 			<div class="icon">
-			<div class="icon_and_discription">
-				<img src=${participantsAmountImg} height="70px">
-				<p class="icon_discription">参加回数</p>
+				<div class="icon_and_discription">
+					<img src=${participantsAmountImg } height="70px">
+					<p class="icon_discription">参加回数</p>
 				</div>
 				<canvas id="myChart5" class="chart_area" style="padding: 10px"
 					height="40px">
         </canvas>
 
-			<button id="close">閉じる</button>
+				<button id="close">閉じる</button>
 		</dialog>
 	</main>
 	<script>
@@ -145,7 +150,10 @@
 	<script>
 		var param = [ 50, 200, 500, 3000 ]
 		var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
-		var param = ${user.cookParam}; //現在の実績値
+		var param = $
+		{
+			user.cookParam
+		}; //現在の実績値
 		var max; //現在のランクの最大値
 
 		//現在の実績値によって背景色とグラフの最大値を振り分け
@@ -235,8 +243,11 @@
 	</script>
 
 	<script>
-	var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
-		var param = ${user.technicParam};
+		var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
+		var param = $
+		{
+			user.technicParam
+		};
 		var max;
 		if (param < 50) {
 			max = 50;
@@ -322,8 +333,11 @@
 	</script>
 
 	<script>
-	var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
-		var param = ${user.communicationParam};
+		var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
+		var param = $
+		{
+			user.communicationParam
+		};
 		var max;
 		if (param < 50) {
 			max = 50;
@@ -409,8 +423,11 @@
 	</script>
 
 	<script>
-	var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
-		var param = ${user.hostedAmount};
+		var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
+		var param = $
+		{
+			user.hostedAmount
+		};
 		var max;
 		if (param < 3) {
 			max = 3;
@@ -496,8 +513,11 @@
 	</script>
 
 	<script>
-	var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
-		var param = ${user.participantsAmount};
+		var rankrbgcolor = "rgba(224, 255, 255,1)" //初期色（ブロンズ以下）
+		var param = $
+		{
+			user.participantsAmount
+		};
 		var max;
 		if (param < 1) {
 			max = 1;

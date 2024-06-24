@@ -33,6 +33,10 @@ public class IconServlet extends HttpServlet {
 		UsersDAO userDao = new UsersDAO();
 		Users user = userDao.fetchUser(userId);
 
+		IconDAO iconDao = new IconDAO();
+
+		request.setCharacterEncoding("UTF-8");
+
 		request.setAttribute("user", user);
 
 		//登録年月日→登録年
@@ -40,7 +44,7 @@ public class IconServlet extends HttpServlet {
 		user.setRegisterYear(registerYear[0]);
 
 		//設定されているアイコンURL
-		IconDAO iconDao = new IconDAO();
+
 		request.setAttribute("setIconUrl", iconDao.searchUrl(user.getIconId()));
 
 		//実績→画像URL
@@ -59,7 +63,7 @@ public class IconServlet extends HttpServlet {
 		if(user.getTechnicParam() < 50) {
 			request.setAttribute("technicParamImg","img/icon/technic/technic_initial.png");
 		} else if(user.getTechnicParam() < 200) {
-			request.setAttribute("technicParamImg","mg/icon/technic/technic_bronze.png");
+			request.setAttribute("technicParamImg","img/icon/technic/technic_bronze.png");
 		}else if(user.getTechnicParam()  < 500) {
 			request.setAttribute("technicParamImg","img/icon/technic/technic_silver.png");
 		} else {
@@ -110,10 +114,8 @@ public class IconServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = 1;
 		request.setCharacterEncoding("UTF-8");
-		String telNum = request.getParameter("NewIconId");
 
-		UsersDAO userDao = new UsersDAO();
-		Users user = userDao.fetchUser(userId);
+		System.out.println(request.getAttribute("testtest"));
 
 	}
 }
