@@ -31,8 +31,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//リクエストパラメータから入力されたメールアドレスとパスワードを取得
-		String mailAddress = request.getParameter("mailAddress");
-	    String password = request.getParameter("password"); //右辺書き換えてください
+		// 35～37行目 0622修正(フォーム入力値をString型に変換)：紺野
+		request.setCharacterEncoding("UTF-8");
+		String mailAddress = (String)request.getParameter("mailAddress");
+	    String password = (String)request.getParameter("password"); //右辺書き換えてください
 	    String hashedpassword = null;
 		//パスワードをMD5でハッシュ化
 	    try {

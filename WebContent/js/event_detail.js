@@ -15,8 +15,7 @@ const modalCloseBtns = document.querySelectorAll('[data-modal="close"]');
 
 // モーダルを表示する
 modalBtns.forEach(modalBtn => {
-  modalBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+  modalBtn.addEventListener('click', function(e)  {
     const modalBtnNum = e.currentTarget.dataset.modal;
     modalItems.forEach(modalItem => {
     const modalItemNum = modalItem.dataset.modal;
@@ -32,7 +31,7 @@ modalBtns.forEach(modalBtn => {
 
 // モーダルを閉じる
 modalCloseBtns.forEach(modalCloseBtn => {
-  modalCloseBtn.addEventListener('click', (e) => {
+  modalCloseBtn.addEventListener('click', function (e) {
     // モーダル表示用のクラスを除去？
     e.currentTarget.closest('[data-modal="box"]').querySelector('[data-modal="bg"]').classList.remove('is-active');
     e.currentTarget.closest('[data-modal="box"]').querySelector('[data-modal="inner"]').classList.remove('is-active');

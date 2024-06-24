@@ -30,7 +30,8 @@ public class UsersDAO {
 				pStmt.setString(1,mailAddress);
 
 				ResultSet rs = pStmt.executeQuery();
-				rs.next();
+				// 0622 修正：紺野
+				//rs.next();
 
 				if(rs.next() == false) {
 					return false;

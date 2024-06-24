@@ -1,2 +1,197 @@
 @charset "UTF-8";
 /* イベント詳細（未参加、参加、主催者）画面用css */
+/* .title {
+  color: #3e6e55;
+} */
+
+.event-detail{
+  margin: 2% 0 0 0;
+}
+
+.event-description{
+  margin: 0;
+  padding: 1%;
+  border: 1px solid #3e6e55;
+  border-radius: 5px;
+}
+
+.icon-box {
+  margin: 1% auto;
+}
+
+.admin-list {
+  /* 中央揃え */
+  margin: 0 auto;
+  /* 画像を横に並べる */
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+  /* 横スクロールボックス */
+  width: 90%;
+  height: 20%;
+  overflow-x: scroll;
+}
+
+.icon-img {
+	border: 3px solid #dcdbc5;
+	border-radius: 50%;
+  /* これを指定しないとうまくダミーアイコン表示できないので入れてます */
+  width: 20%;
+  height: 20%;
+}
+
+.icon-img:hover {
+  /* ホバーしたときに画像の透明度を上げて見た目を変化させる */
+  opacity:0.5;
+}
+
+.communicationArea-inner {
+  /* 中央揃え */
+  margin: 0 auto;
+  /* 縦スクロールボックス */
+  width: 90%;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+/**
+ * モーダル
+ */
+ /* モーダル範囲 */
+.modal__bg {
+  /* position:fixed → 要素は文書の通常のフローから除外され、ページレイアウト内に要素のための空間が作成されません。 */
+  position: fixed;
+  /* 重ね合わせの調整：z-indexはCSSのプロパティで、位置指定要素とその子孫要素、またはフレックスアイテムやグリッドアイテムのz順を定義します。z-indexがより大きな要素はより小さな要素の上に重なります。 */
+  z-index: 10009;
+  /* top、left → 位置調整 */
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0; /* 初期状態で非表示 */
+  visibility: hidden; /* 初期状態で非表示 */
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+/* モーダルを表示するためのCSS */
+.modal__bg.is-active {
+  opacity: 1; /* 非表示を解除 */
+  visibility: visible; /* 非表示を解除 */
+}
+
+/* モーダルの中身？部分CSS */
+.modal__inner {
+  position: fixed;
+  z-index: 10010;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 0 10px;
+  opacity: 0; /* 初期状態で非表示 */
+  visibility: hidden; /* 初期状態で非表示 */
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+/* モーダルの中身？部分を表示するためのCSS */
+.modal__inner.is-active {
+  opacity: 1; /* 非表示を解除 */
+  visibility: visible; /* 非表示を解除 */
+}
+
+/* モーダルの内容を表示するためのCSS */
+.modal-card {
+  width: 50%;
+  min-height: 290px;
+  background: #fff;
+  filter: drop-shadow(0 0 10px rgba(0 ,0, 0, 0.4));
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  position: absolute;
+  z-index: 1;
+  transform: translate3d(0, 48px, 0);
+  opacity: 0; /* 初期状態で非表示 */
+  visibility: hidden; /* 初期状態で非表示 */
+  transition: opacity .6s ease, visibility .6s ease, transform .3s ease-in-out;
+}
+
+/* モーダルの内容を表示させるためのCSS */
+.modal-card.is-active {
+  position: relative;
+  z-index: 2;
+  opacity: 1; /* 非表示を解除 */
+  visibility: visible; /* 非表示を解除 */
+  transform: translate3d(0, 0, 0);
+}
+
+
+/* .modal-card__heading {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: bold;
+  color: #444;
+}
+
+.modal-card__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #444;
+} */
+
+.achieve-list {
+  /* 中央揃え */
+  margin: 0 auto;
+  /* 画像を横に並べる */
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+
+.achieve-list .icon-img {
+	border: 3px solid #dcdbc5;
+	border-radius: 50%;
+  /* これを指定しないとうまくダミーアイコン表示できないので入れてます */
+  width: 20%;
+  height: 20%;
+}
+.modal-card__close {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 16px;
+  right: 13px;
+}
+
+.modal-card__close::before,
+.modal-card__close::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 3px;
+  background: #000;
+  cursor: pointer;
+}
+
+.modal-card__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal-card__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

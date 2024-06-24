@@ -210,6 +210,7 @@ public class EventDAO {
 					rs.getInt("event_category"),
 					rs.getInt("holding_user_id"),
 					rs.getInt("status"));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
