@@ -34,7 +34,8 @@ public class LoginServlet extends HttpServlet {
 		// 35～37行目 0622修正(フォーム入力値をString型に変換)：紺野
 		request.setCharacterEncoding("UTF-8");
 		String mailAddress = (String)request.getParameter("mailAddress");
-	    String password = (String)request.getParameter("password"); //右辺書き換えてください
+		String password = "password";
+	    //String password = (String)request.getParameter("password"); //右辺書き換えてください
 	    String hashedpassword = null;
 		//パスワードをMD5でハッシュ化
 	    try {
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 	      byte[] hashBytes = md.digest(); // ハッシュ化終了の処理
 
 	      hashedpassword = Base64.getEncoder().encodeToString(hashBytes); // ハッシュ化したやつをString型に変換
-	      //System.out.println("Hashed Password: " + hash);
+	      System.out.println("Hashed Password: " + hashedpassword);
 	    } catch (NoSuchAlgorithmException e) {
 	      e.printStackTrace();
 	    }

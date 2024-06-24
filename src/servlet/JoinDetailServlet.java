@@ -1,12 +1,13 @@
 package servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import dao.EventDAO;
 import dao.IconDAO;
 import dao.PrefectureDAO;
 import dao.UsersDAO;
+import model.Chat;
 import model.Communication;
 import model.Event;
 import model.EventUser;
@@ -63,28 +65,6 @@ public class JoinDetailServlet extends HttpServlet {
 		 IconDAO iconDAO = new IconDAO();
 
 
-		 // JSONデータを送る準備
-		 JSONArray JsonArrayToSend = new JSONArray(); // 最終的にこれを送る
-		//JSONObject result = new JSONObject();
-		//JsonArrayToSend.put(result);
-		 // チャット表示部分の更新用データを用意
-		 ArrayList <Communication> comChatTest = comDAO.searchuserId(eventId);
-		 for (Communication chat : comChatTest) {
-			 JSONObject chatJson = new JSONObject();
-			 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
-			 String userName = chatUser.getName();
-			 int userIcon = chatUser.getIconId();
-			 chatJson.put("userName", userName);
-			 chatJson.put("content", chat.getContent());
-			 chatJson.put("userIcon", userIcon);
-			 JsonArrayToSend.put(chatJson);
-		 }
-
-		 System.out.println(comChatTest);
-		 System.out.println(JsonArrayToSend);
-
-
-
 		//int eventId = Integer.parseInt(request.getParameter("event_id"));
 
 		// イベントのIDを元にDBからイベントの情報を取得
@@ -118,31 +98,28 @@ public class JoinDetailServlet extends HttpServlet {
 
 		 // チャット表示部分の更新用データを用意
 		 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
-		 Map <Integer, Map<String, String>> comChatMap = new LinkedHashMap<Integer, Map<String, String>>();
-		 int i = 0;
-		 for (Communication chat : comChat) {
-			 Map<String, String> tmpMap = new HashMap<String, String>();
-			 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
-			 String chatUserName = chatUser.getName();
-			 int userIcon = chatUser.getIconId();
-			 String chatIconUrl = iconUrl.get(Integer.valueOf(userIcon));
-			 tmpMap.put("chatUserName", chatUserName);
-			 tmpMap.put("content", chat.getContent());
-			 tmpMap.put("chatIconUrl", chatIconUrl);
-			 comChatMap.put(Integer.valueOf(i), tmpMap);
-			 i++;
+		 ArrayList <Chat> chatList = new ArrayList<Chat>();
+
+		 for (Communication chat : comChat ) {
+			 String name = "";
+			 int iconNum = 0;
+			 for (Users user : participantsUsers) {
+				 if (chat.getUser_id() == user.getId()) {
+					 name = user.getName();
+					 iconNum = user.getIconId();
+					 break;
+				 }
+			 }
+			chatList.add(new Chat(name, iconNum, chat.getContent()));
 		 }
-
-		 System.out.println(comChatMap);
-
-
+		 System.out.println("chatList" + chatList);
 
 		// リクエストスコープに詰めてJSPに渡す
 		request.setAttribute("detailEvent", detailEvent);
 		request.setAttribute("participantsUsers", participantsUsers);
 		request.setAttribute("usersCount", usersCount);
 		request.setAttribute("iconUrl", iconUrl);
-		request.setAttribute("comChatMap", comChatMap);
+		request.setAttribute("chatList", chatList);
 		request.setAttribute("address", address);
 
 		// 結果ページにフォワードする
@@ -155,7 +132,8 @@ public class JoinDetailServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		//String requestEventId = request.getParameter("eventId");
+		String requestEventId = null;
 		// 必要なDAOインスタンス生成
 		EventDAO eventDAO = new EventDAO();
 		UsersDAO usersDAO = new UsersDAO();
@@ -163,32 +141,38 @@ public class JoinDetailServlet extends HttpServlet {
 		 CommunicationDAO comDAO = new CommunicationDAO();
 		 IconDAO iconDAO = new IconDAO();
 
-		 String chatContent = request.getParameter("content");
+		// String chatContent = request.getParameter("content");
 
-		 if (chatContent != null) { // 非同期通信だったら
+		 if (requestEventId == null) { // 非同期通信だったら
 			// JSONテキストの取り出し
 			//ポストデータからJSONテキストを取り出す
-			//BufferedReader br = new BufferedReader(request.getReader());
-			//String jsonText = br.readLine();
+			BufferedReader br = new BufferedReader(request.getReader());
+			String jsonText = br.readLine();
 			// 取り出したJSONテキストをUTF-8にエンコード？
-			//jsonText = URLDecoder.decode(jsonText, "UTF-8");
-			// JSONオブジェクトに変換
-			//JSONObject receivedJson = new JSONObject(jsonText);
+			jsonText = URLDecoder.decode(jsonText, "UTF-8");
+			System.out.println("jsonText：" + jsonText);
 
+			// JSONオブジェクトに変換
+			JSONObject receivedJson = new JSONObject(jsonText);
+			System.out.println("receivedJson：" + receivedJson);
 			//DBへの登録
 			// JSONオブジェクトからユーザーID、イベントID、チャット内容を保存
-			int  userId =Integer.parseInt(request.getParameter("user_id"));
-			int  eventId =Integer.parseInt(request.getParameter("event_id"));
-			String content = request.getParameter("content");
-			//int  userId =Integer.parseInt( receivedJson.getString("user_id"));
-			//int  eventId =Integer.parseInt( receivedJson.getString("event_id"));
-			//String content = receivedJson.getString("content");
+			//int  userId =Integer.parseInt(request.getParameter("user_id"));
+			//int  eventId =Integer.parseInt(request.getParameter("event_id"));
+			//String content = request.getParameter("content");
+			int  jsonuserId =Integer.parseInt(receivedJson.getString("user_id"));
+			int  jsoneventId =Integer.parseInt(receivedJson.getString("event_id"));
+			String jsoncontent = receivedJson.getString("content");
+
+			System.out.println("jsonuserId：" + jsonuserId);
+			System.out.println("jsoneventId：" + jsoneventId);
+			System.out.println("jsoncontent：" + jsoncontent);
 			// 現在時刻を取得
 			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now =LocalDateTime.now();
 			String timestamp = now.format(fmt);
 			 // Communicationインスタンス生成
-			 Communication com = new Communication(0, userId, eventId, timestamp, content);
+			 Communication com = new Communication(0, jsonuserId, jsoneventId, timestamp, jsoncontent);
 
 			 boolean comResult;
 			 if ( comDAO.insert(com) ) { // 登録が成功したら
@@ -203,7 +187,7 @@ public class JoinDetailServlet extends HttpServlet {
 			 result.put("result", comResult);
 			 JsonArrayToSend.put(result);
 			 // チャット表示部分の更新用データを用意
-			 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
+			 ArrayList <Communication> comChat = comDAO.searchuserId(jsoneventId);
 			 for (Communication chat : comChat) {
 				 JSONObject chatJson = new JSONObject();
 				 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
@@ -230,7 +214,7 @@ public class JoinDetailServlet extends HttpServlet {
 		 } else { // 非同期通信でなければ
 			// 詳細を表示したいイベントのIDを取得
 			 int eventId = 1;
-			//int eventId = Integer.parseInt(request.getParameter("event_id"));
+			//int eventId = Integer.parseInt(request.getParameter("eventId"));
 
 			// イベントのIDを元にDBからイベントの情報を取得
 			Event detailEvent = eventDAO.fetchParticipant(eventId);
@@ -255,35 +239,35 @@ public class JoinDetailServlet extends HttpServlet {
 
 			// アイコンのURLをすべて取得
 			Map<Integer, String> iconUrl = new HashMap<Integer, String>();
-			for(int i = 1; i <= 20; i++) {
+			for(int i = 1; i <= 30; i++) {
 				String imgUrl = iconDAO.searchUrl(i);
 				Integer num = Integer.valueOf(i);
 				iconUrl.put(num, imgUrl);
 			}
 
 			 // チャット表示部分の更新用データを用意
-			 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
-			 Map <Integer, Map<String, String>> comChatMap = new LinkedHashMap<Integer, Map<String, String>>();
-			 int i = 0;
-			 for (Communication chat : comChat) {
-				 Map<String, String> tmpMap = new HashMap<String, String>();
-				 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
-				 String chatUserName = chatUser.getName();
-				 int userIcon = chatUser.getIconId();
-				 String chatIconUrl = iconUrl.get(Integer.valueOf(userIcon));
-				 tmpMap.put("chatUserName", chatUserName);
-				 tmpMap.put("content", chat.getContent());
-				 tmpMap.put("chatIconUrl", chatIconUrl);
-				 comChatMap.put(Integer.valueOf(i), tmpMap);
-				 i++;
-			 }
+				/*			 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
+							 Map <Integer, Map<String, String>> comChatMap = new LinkedHashMap<Integer, Map<String, String>>();
+							 int i = 0;
+							 for (Communication chat : comChat) {
+								 Map<String, String> tmpMap = new HashMap<String, String>();
+								 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
+								 String chatUserName = chatUser.getName();
+								 int userIcon = chatUser.getIconId();
+								 String chatIconUrl = iconUrl.get(Integer.valueOf(userIcon));
+								 tmpMap.put("chatUserName", chatUserName);
+								 tmpMap.put("content", chat.getContent());
+								 tmpMap.put("chatIconUrl", chatIconUrl);
+								 comChatMap.put(Integer.valueOf(i), tmpMap);
+								 i++;
+							 }*/
 
 			// リクエストスコープに詰めてJSPに渡す
 			request.setAttribute("detailEvent", detailEvent);
 			request.setAttribute("participantsUsers", participantsUsers);
 			request.setAttribute("usersCount", usersCount);
 			request.setAttribute("iconUrl", iconUrl);
-			request.setAttribute("comChatMap", comChatMap);
+			//request.setAttribute("comChatMap", comChatMap);
 			request.setAttribute("address", address);
 
 			// 結果ページにフォワードする
