@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.EventDAO;
 import model.Event;
@@ -30,11 +31,11 @@ public class CreateEventServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("userId") == null) {
-//			response.sendRedirect("/E4/LoginServlet");
-//			return;
-//		}
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/LoginServlet");
+			return;
+		}
 
 		// イベント作成ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/createEvent.jsp");
@@ -44,13 +45,13 @@ public class CreateEventServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("userId") == null) {
-//			response.sendRedirect("/E4/LoginServlet");
-//			return;
-//		}
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/LoginServlet");
+			return;
+		}
 
-		int userid = 1;
+//		int userid = 1;
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
@@ -64,15 +65,15 @@ public class CreateEventServlet extends HttpServlet {
 		String detail_address = request.getParameter("detail");
 		String location_name = request.getParameter("place");
 		int event_category = Integer.valueOf(request.getParameter("switch_2"));
-//		int holding_userid = Integer.valueOf((String)session.getAttribute("userId"));
-		int holding_userid = userid;
+		int holding_userid = Integer.valueOf((String)session.getAttribute("userId"));
+//		int holding_userid = userid;
 		int status = 0;
 
 		Event event = new Event(0, event_name, event_description, event_holdingschedule, least_count, max_count, prefectureId, detail_address, location_name, event_category, holding_userid, status);
 
 
 		// イベント作成を行う
-		if (request.getParameter("submit").equals("作成")) {
+		/*if (request.getParameter("submit").equals("作成")) {*/
 			if(eDao.keepEvent(event) == 1) {
 				// 作成が成功したことを表示
 				boolean isCreateJudge = true;
@@ -82,7 +83,7 @@ public class CreateEventServlet extends HttpServlet {
 				boolean isCreateJudge = false;
 				request.setAttribute("isCreateJudge", isCreateJudge);
 			}
-		}
+			/*}*/
 
 		// イベント作成ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/createEvent.jsp");

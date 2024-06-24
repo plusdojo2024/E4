@@ -13,7 +13,7 @@
 
     </header>
 
-    <form method="post" action="/E4/ProfileServlet"id="input">
+    <form method="post" action="/E4/ProfileServlet" id="input">
         <main>
             <div class="main-inner">
                 <h2>マイプロフィール</h2><br>
@@ -34,13 +34,13 @@
                         </div>
 
                         <tr>
-                            <td class="title">氏名</td><td></td>
+                            <td class="title">ニックネーム</td><td>${user_profile.get(0)}</td>
                         </tr>
                         <tr>
-                            <td class="title">生年月日</td><td></td>
+                            <td class="title">生年月日</td><td>${user_profile.get(1)}</td>
                         </tr>
                         <tr>
-                            <td class="title">性別</td><td></td>
+                            <td class="title">性別</td><td>${user_profile.get(2)}</td>
                         </tr>
                         <tr>
                             <td class="title"><label for="tell">電話番号</label></td>

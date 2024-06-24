@@ -338,6 +338,8 @@ submitBtn.addEventListener('click', () => {
     selected_prefectureS.value = selectedPrefectures;
     // selectedItemsDiv.innerHTML = `選択された都道府県: <br>${selectedPrefectures.join(', ')}`;
 
+    /*console.log(selected_prefectureS.value);*/
+
     const modal = document.getElementById('myModal');
     modal.style.display = 'none';
 });

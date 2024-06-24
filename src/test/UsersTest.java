@@ -94,14 +94,19 @@ public class UsersTest {
 	//update
 	@Test
 	void ユーザーのデータの更新成功() throws Exception {
-		int userId = 11;
+		int userId = 1;
 	    Users users = new Users(userId,"user1@example.com","Passw0rd!","山田 三郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 
-	    String telNum = "090-0000-0000";
+	    String telNum = "0120-444-444";
 	    int prefectureid = 2;
-	    int eventCategory = 1;
+	    int eventCategory = 0;
 		  ArrayList<Integer> prefectures = new ArrayList<Integer>();
-		  prefectures.add(1);
+		  prefectures.add(2);
+		  prefectures.add(3);
+		  prefectures.add(4);
+		  prefectures.add(5);
+		  prefectures.add(6);
+		  prefectures.add(7);
 
 
 	    int[] actual = userDao.update(users,telNum,prefectureid,eventCategory,prefectures);

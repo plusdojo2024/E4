@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,6 +39,33 @@ public class ProfileServlet extends HttpServlet {
 //					return;
 //				}
 
+
+				int userid = 1;
+
+				request.setCharacterEncoding("UTF-8");
+				UsersDAO uDao = new UsersDAO();
+//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+
+				Users users = uDao.fetchUser(userid);
+				String name = users.getName();
+				String birthDate = users.getBirthDate();
+				int gender = users.getGender();
+				String Gender;
+				if (gender == 0) {
+					Gender = "男性";
+				}else if (gender == 1) {
+					Gender = "女性";
+				}else {
+					Gender = "回答しない";
+				}
+
+				List<String> user_profile = new ArrayList<>();
+				user_profile.add(name);
+				user_profile.add(birthDate);
+				user_profile.add(Gender);
+
+				request.setAttribute("user_profile", user_profile);
+
 				// プロフィールページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");
 				dispatcher.forward(request, response);
@@ -73,9 +101,10 @@ public class ProfileServlet extends HttpServlet {
 		        }
 
 				// 更新を行う
+		        int[] user_update = uDao.update(users, telNum, prefectureId, eventCategory, prefectures);
 
 				//if (request.getParameter("submit").equals("更新")) {
-					if(uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[0] == 1 && uDao.update(users, telNum, prefectureId, eventCategory, prefectures)[1] == 1) {
+					if(user_update[0] == 1 && user_update[1] == 1) {
 						// 更新が成功した
 						boolean isUpdateJudge = true;
 						request.setAttribute("isUpdateJudge", isUpdateJudge);

@@ -27,17 +27,17 @@ public class JoinEventListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-//				HttpSession session = request.getSession();
-//				if (session.getAttribute("userId") == null) {
-//					response.sendRedirect("/E4/LoginServlet");
-//					return;
-//				}
+				HttpSession session = request.getSession();
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/LoginServlet");
+					return;
+				}
 
 
 				// ユーザーIDに対応した参加イベント一覧を表示する。
 				EventDAO eDao = new EventDAO();
-//				int userid = Integer.valueOf((String)session.getAttribute("userId"));
-				int userid = 1;
+				int userid = Integer.valueOf((String)session.getAttribute("userId"));
+//				int userid = 1;
 				List<Event> cardList = eDao.searchuserId(userid);
 
 				request.setAttribute("cardList", cardList);
