@@ -41,8 +41,6 @@ public class ProfileServlet extends HttpServlet {
 				}
 
 
-//				int userid = 1;
-
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
 				int userid = Integer.valueOf((String)session.getAttribute("id"));
@@ -85,7 +83,6 @@ public class ProfileServlet extends HttpServlet {
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
 				int userid = Integer.valueOf((String)session.getAttribute("id"));
-//				int userid = 1;
 				Users users = uDao.fetchUser(userid);
 
 				String name = users.getName();
@@ -110,8 +107,6 @@ public class ProfileServlet extends HttpServlet {
 				String telNum = request.getParameter("tell");
 				int prefectureId = Integer.valueOf(request.getParameter("prefecture"));
 				int eventCategory = Integer.parseInt(request.getParameter("switch_1"));
-				//int eventCategory = 1;
-				//System.out.println("SW1:" + request.getParameter("switch_1"));
 				ArrayList<Integer> prefectures = new ArrayList<>();
 
 				// splitメソッドを使用して文字列を配列に変換
@@ -124,16 +119,14 @@ public class ProfileServlet extends HttpServlet {
 				// 更新を行う
 		        int[] user_update = uDao.update(users, telNum, prefectureId, eventCategory, prefectures);
 
-				//if (request.getParameter("submit").equals("更新")) {
-					if(user_update[0] == 1 && user_update[1] == 1) {
-						// 更新が成功した
-						boolean isUpdateJudge = true;
-						request.setAttribute("isUpdateJudge", isUpdateJudge);
-					} else {
-						boolean isUpdateJudge = false;
-						request.setAttribute("isUpdateJudge", isUpdateJudge);
-					}
-				//}
+				if(user_update[0] == 1 && user_update[1] == 1) {
+					// 更新が成功した
+					boolean isUpdateJudge = true;
+					request.setAttribute("isUpdateJudge", isUpdateJudge);
+				} else {
+					boolean isUpdateJudge = false;
+					request.setAttribute("isUpdateJudge", isUpdateJudge);
+				}
 
 				// プロフィールページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");

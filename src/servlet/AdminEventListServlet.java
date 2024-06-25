@@ -36,7 +36,6 @@ public class AdminEventListServlet extends HttpServlet {
 		// ユーザーIDに対応した作成イベント一覧を表示する。
 		EventDAO eDao = new EventDAO();
 		int userid = Integer.valueOf((String)session.getAttribute("id"));
-//		int userid = 1;
 		List<Event> cardList_admin = eDao.searchHoldingEvent(userid);
 
 		request.setAttribute("cardList_admin", cardList_admin);

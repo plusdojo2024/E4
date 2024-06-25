@@ -51,8 +51,6 @@ public class CreateEventServlet extends HttpServlet {
 			return;
 		}
 
-//		int userid = 1;
-
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		EventDAO eDao = new EventDAO();
@@ -73,17 +71,15 @@ public class CreateEventServlet extends HttpServlet {
 
 
 		// イベント作成を行う
-		/*if (request.getParameter("submit").equals("作成")) {*/
-			if(eDao.keepEvent(event) == 1) {
-				// 作成が成功したことを表示
-				boolean isCreateJudge = true;
-				request.setAttribute("isCreateJudge", isCreateJudge);
-			} else {
-				// 作成が失敗したことを表示
-				boolean isCreateJudge = false;
-				request.setAttribute("isCreateJudge", isCreateJudge);
-			}
-			/*}*/
+		if(eDao.keepEvent(event) == 1) {
+			// 作成が成功したことを表示
+			boolean isCreateJudge = true;
+			request.setAttribute("isCreateJudge", isCreateJudge);
+		} else {
+			// 作成が失敗したことを表示
+			boolean isCreateJudge = false;
+			request.setAttribute("isCreateJudge", isCreateJudge);
+		}
 
 		// イベント作成ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/createEvent.jsp");
