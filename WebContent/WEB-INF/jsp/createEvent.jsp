@@ -7,10 +7,34 @@
 	<meta charset="UTF-8">
 	<title>イベント作成ページ</title>
 	<link rel="stylesheet" href="css/create_event.css">
+	<link rel="stylesheet" href="css/header.css">
 </head>
 <body>
     <header>
-
+		<div class="container">
+	      <div class="logoarea">
+	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
+	      </div>
+	      <nav class="header-nav">
+	          <ul class="list-nav">
+	              <li>
+	                  <a href="/E4/TopServlet">トップに戻る</a>
+	              </li>
+	              <li>
+	                  <a href="/E4/JoinEventListServlet">参加イベント</a>
+	              </li>
+	              <li>
+	                  <a href="/E4/CreateEventServlet">イベント作成</a>
+	              </li>
+	              <li>
+	                  <a href="/E4/ProfileServlet">プロフィール</a>
+	              </li>
+	              <li>
+	                  <a href="/E4/Logout">ログアウト</a>
+	              </li>
+	          </ul>
+	      </nav>
+	   	</div>
     </header>
 
     <form method="post" action="/E4/CreateEventServlet" id="input">
