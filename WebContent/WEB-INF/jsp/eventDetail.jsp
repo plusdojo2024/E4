@@ -71,7 +71,8 @@
           </c:choose>
       </p>
       <form action="#" method="post">
-        <input type="hidden" class="input" name="userId" value="${sessionScope.userId}">
+        <input type="hidden"  name="eventId" value="${requestScope.eventId}">
+        <input type="hidden"  name="flag" value="flag">
         <button type="submit">参加する</button>
       </form>
       <button>戻る</button>

@@ -13,7 +13,7 @@
     <div class="logoarea">
       <img src="img/loginlogo.png" class="logo" alt="ignitelogo" width="150" >
     </div>
-    <form id="login_form" method="post" action="/E4/LoginServlet">
+    <form id="login_form" method="post" action="/E4/Login">
       <div class="input-box">
         <input type="text" name="mailAddress" placeholder="メールアドレス">
       </div>

@@ -74,7 +74,7 @@
         <p class="event-detail">住所：<span>${requestScope.address}</span></p>
         <p class="event-detail">場所名称：<span>${requestScope.detailEvent.locationName}</span></p>
       </div>
-      <div><p class="event-detail">以下地図エリアです</p><iframe src="" ></iframe></div>
+      <div><iframe  class="map" src="https://maps.google.co.jp/maps?output=embed&q=${requestScope.address}}"></iframe></div>
       <p class="event-detail">募集レベル：
           <c:choose>
             <c:when test="${requestScope.detailEvent.eventCategory == 1}">
@@ -91,7 +91,7 @@
       <button>戻る</button>
     </div>
     <!-- モーダル部分 -->
-    <div class="modal" data-modal="box">
+	<div class="modal" data-modal="box">
       <div class="modal__bg" data-modal="bg"></div>
       <div class="modal__inner" data-modal="inner">
         <c:forEach var="userinfo"  items="${requestScope.participantsUsers}">
@@ -106,76 +106,113 @@
             <!-- いいね -->
 	            <c:choose>
 		            <c:when test="${userinfo.evaluation >= 5000}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(15))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(15))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.evaluation >= 100}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(14))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(14))}" alt="アイコン">
 		            </c:when>
 		                        <c:when test="${userinfo.evaluation >= 60}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(13))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(13))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.evaluation >= 30}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(12))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(12))}" alt="アイコン">
 		            </c:when>
 		             <c:otherwise>
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(11))}" alt="アイコン">
-		            </c:otherwise>
-	          	</c:choose>
-	          	<!-- 技量 -->
-	            <c:choose>
-		            <c:when test="${userinfo.technicParam >= 3000}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(20))}" alt="アイコン">
-		            </c:when>
-		            <c:when test="${userinfo.technicParam >= 500}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(19))}" alt="アイコン">
-		            </c:when>
-		            <c:when test="${userinfo.technicParam >= 200}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(18))}" alt="アイコン">
-		            </c:when>
-		            <c:when test="${userinfo.technicParam >= 50}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(17))}" alt="アイコン">
-		            </c:when>
-		             <c:otherwise>
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(16))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(11))}" alt="アイコン">
 		            </c:otherwise>
 	          	</c:choose>
 	          	<!-- 料理 -->
 	          	<c:choose>
 		            <c:when test="${userinfo.cookParam >= 3000}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(10))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(10))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.cookParam >= 500}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(9))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(9))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.cookParam >= 200}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(8))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(8))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.cookParam >= 50}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(7))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(7))}" alt="アイコン">
 		            </c:when>
 		             <c:otherwise>
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(6))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(6))}" alt="アイコン">
+		            </c:otherwise>
+	          	</c:choose>
+	          	<!-- 技量 -->
+	            <c:choose>
+		            <c:when test="${userinfo.technicParam >= 3000}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(20))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.technicParam >= 500}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(19))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.technicParam >= 200}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(18))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.technicParam >= 50}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(17))}" alt="アイコン">
+		            </c:when>
+		             <c:otherwise>
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(16))}" alt="アイコン">
 		            </c:otherwise>
 	          	</c:choose>
 	          	<!-- コミュニケーション -->
 	          	<c:choose>
 		            <c:when test="${userinfo.communicationParam >= 3000}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(5))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(5))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.communicationParam >= 500}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(4))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(4))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.communicationParam >= 200}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(3))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(3))}" alt="アイコン">
 		            </c:when>
 		            <c:when test="${userinfo.communicationParam >= 50}">
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(2))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(2))}" alt="アイコン">
 		            </c:when>
 		             <c:otherwise>
-		              <img class="icon-img"  src="${requestScope.iconUrl.get(Integer.valueOf(1))}" alt="アイコン">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(1))}" alt="アイコン">
+		            </c:otherwise>
+	          	</c:choose>
+	          	<!-- 参加回数 -->
+	          	<c:choose>
+		            <c:when test="${userinfo.participantsAmount >= 1000}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(25))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.participantsAmount >= 30}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(24))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.participantsAmount >= 15}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(23))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.participantsAmount >= 3}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(22))}" alt="アイコン">
+		            </c:when>
+		             <c:otherwise>
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(21))}" alt="アイコン">
+		            </c:otherwise>
+	          	</c:choose>
+	          	<!-- 主催回数 -->
+	          	<c:choose>
+		            <c:when test="${userinfo.hostedAmount >= 1000}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(30))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.hostedAmount >= 15}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(29))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.hostedAmount >= 7}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(28))}" alt="アイコン">
+		            </c:when>
+		            <c:when test="${userinfo.hostedAmount >= 1}">
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(27))}" alt="アイコン">
+		            </c:when>
+		             <c:otherwise>
+		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(26))}" alt="アイコン">
 		            </c:otherwise>
 	          	</c:choose>
           	</div>
+          	<!-- <button type="button" id="kick">キックする</button> -->
           </div>
         </c:forEach>
       </div>
@@ -184,7 +221,6 @@
   </main>
   <footer></footer>
   <script src="/E4/js/event_detail.js"></script>
-
 <script>
 	'use strict';
 

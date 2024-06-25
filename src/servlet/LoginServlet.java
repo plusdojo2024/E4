@@ -15,56 +15,48 @@ import javax.servlet.http.HttpSession;
 
 import dao.UsersDAO;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//リクエストスコープにエラーメッセージがあればjspにつめる
-		//ログイン用jspに遷移}
-		// ログインページにフォワードする
+		//ログイン用jspにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//リクエストパラメータから入力されたメールアドレスとパスワードを取得
 		// 35～37行目 0622修正(フォーム入力値をString型に変換)：紺野
 		request.setCharacterEncoding("UTF-8");
 		String mailAddress = (String)request.getParameter("mailAddress");
-		String password = "password";
-	    //String password = (String)request.getParameter("password"); //右辺書き換えてください
+		String password = (String)request.getParameter("password");
 	    String hashedpassword = null;
 		//パスワードをMD5でハッシュ化
 	    try {
 	      MessageDigest md = MessageDigest.getInstance("MD5");
 	      md.update(password.getBytes()); // ハッシュ化する処置
 	      byte[] hashBytes = md.digest(); // ハッシュ化終了の処理
-
 	      hashedpassword = Base64.getEncoder().encodeToString(hashBytes); // ハッシュ化したやつをString型に変換
-	      System.out.println("Hashed Password: " + hashedpassword);
+	      //System.out.println("Hashed Password: " + hashedpassword);
 	    } catch (NoSuchAlgorithmException e) {
 	      e.printStackTrace();
 	    }
 		//UserDAOをインスタンス化
 	    UsersDAO uDao = new UsersDAO();
 		//メールアドレスとパスワードをuserDAO.isloginsuccessに渡して戻り値がfalseならエラー
-	    if (uDao.isLoginSuccess(mailAddress,hashedpassword)) { //成功の場合
+	    if (uDao.isLoginSuccess(mailAddress, hashedpassword)) { //成功の場合
 	    	String id = uDao.searchuserId(mailAddress);
-
 	        HttpSession session = request.getSession();
-	        session.setAttribute("id",id);
-
-	        response.sendRedirect("/E4/TopServlet");
-	    }
-	    else {
-	    //エラーならメッセージをリクエストスコープに詰めてGETへ
-	    	request.setAttribute("error","※メールアドレスまたはパスワードに誤りがあります");
-		//login.jspに遷移
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-	    dispatcher.forward(request,response);
+	        session.setAttribute("userId",id);
+	        response.sendRedirect("/E4/Top");
+	    }  else {
+		    //エラーならメッセージをリクエストスコープに詰めてGETへ
+		   request.setAttribute("error","※メールアドレスまたはパスワードに誤りがあります");
+			//login.jspに遷移
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		    dispatcher.forward(request,response);
 	}
 	}
 }

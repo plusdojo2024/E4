@@ -90,7 +90,7 @@ public class JoinDetailServlet extends HttpServlet {
 
 		// アイコンのURLをすべて取得
 		Map<Integer, String> iconUrl = new HashMap<Integer, String>();
-		for(int i = 1; i <= 20; i++) {
+		for(int i = 1; i <= 30; i++) {
 			String imgUrl = iconDAO.searchUrl(i);
 			Integer num = Integer.valueOf(i);
 			iconUrl.put(num, imgUrl);
@@ -132,16 +132,14 @@ public class JoinDetailServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String requestEventId = request.getParameter("eventId");
-		String requestEventId = null;
+		String requestEventId = request.getParameter("eventId");
+		//String requestEventId = null;
 		// 必要なDAOインスタンス生成
 		EventDAO eventDAO = new EventDAO();
 		UsersDAO usersDAO = new UsersDAO();
 		PrefectureDAO prefectureDAO = new PrefectureDAO();
 		 CommunicationDAO comDAO = new CommunicationDAO();
 		 IconDAO iconDAO = new IconDAO();
-
-		// String chatContent = request.getParameter("content");
 
 		 if (requestEventId == null) { // 非同期通信だったら
 			// JSONテキストの取り出し
@@ -157,9 +155,6 @@ public class JoinDetailServlet extends HttpServlet {
 			System.out.println("receivedJson：" + receivedJson);
 			//DBへの登録
 			// JSONオブジェクトからユーザーID、イベントID、チャット内容を保存
-			//int  userId =Integer.parseInt(request.getParameter("user_id"));
-			//int  eventId =Integer.parseInt(request.getParameter("event_id"));
-			//String content = request.getParameter("content");
 			int  jsonuserId =Integer.parseInt(receivedJson.getString("user_id"));
 			int  jsoneventId =Integer.parseInt(receivedJson.getString("event_id"));
 			String jsoncontent = receivedJson.getString("content");
@@ -175,7 +170,7 @@ public class JoinDetailServlet extends HttpServlet {
 			 Communication com = new Communication(0, jsonuserId, jsoneventId, timestamp, jsoncontent);
 
 			 boolean comResult;
-			 if ( comDAO.insert(com) ) { // 登録が成功したら
+			 if ( comDAO.insert(com) == 1) { // 登録が成功したら
 				 comResult = true;
 			 } else { // 失敗したら
 				 comResult = false;
@@ -196,6 +191,7 @@ public class JoinDetailServlet extends HttpServlet {
 				 chatJson.put("userName", userName);
 				 chatJson.put("content", chat.getContent());
 				 chatJson.put("userIcon", userIcon);
+				 System.out.println("chatjson:" + chatJson);
 				 JsonArrayToSend.put(chatJson);
 			 }
 
@@ -212,9 +208,9 @@ public class JoinDetailServlet extends HttpServlet {
 			out.print(JsonArrayToSend);
 
 		 } else { // 非同期通信でなければ
-			// 詳細を表示したいイベントのIDを取得
+				// 詳細を表示したいイベントのIDを取得
 			 int eventId = 1;
-			//int eventId = Integer.parseInt(request.getParameter("eventId"));
+			//int eventId = Integer.parseInt(request.getParameter("event_id"));
 
 			// イベントのIDを元にDBからイベントの情報を取得
 			Event detailEvent = eventDAO.fetchParticipant(eventId);
@@ -246,28 +242,29 @@ public class JoinDetailServlet extends HttpServlet {
 			}
 
 			 // チャット表示部分の更新用データを用意
-				/*			 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
-							 Map <Integer, Map<String, String>> comChatMap = new LinkedHashMap<Integer, Map<String, String>>();
-							 int i = 0;
-							 for (Communication chat : comChat) {
-								 Map<String, String> tmpMap = new HashMap<String, String>();
-								 Users chatUser = usersDAO.fetchUser(chat.getUser_id());
-								 String chatUserName = chatUser.getName();
-								 int userIcon = chatUser.getIconId();
-								 String chatIconUrl = iconUrl.get(Integer.valueOf(userIcon));
-								 tmpMap.put("chatUserName", chatUserName);
-								 tmpMap.put("content", chat.getContent());
-								 tmpMap.put("chatIconUrl", chatIconUrl);
-								 comChatMap.put(Integer.valueOf(i), tmpMap);
-								 i++;
-							 }*/
+			 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
+			 ArrayList <Chat> chatList = new ArrayList<Chat>();
+
+			 for (Communication chat : comChat ) {
+				 String name = "";
+				 int iconNum = 0;
+				 for (Users user : participantsUsers) {
+					 if (chat.getUser_id() == user.getId()) {
+						 name = user.getName();
+						 iconNum = user.getIconId();
+						 break;
+					 }
+				 }
+				chatList.add(new Chat(name, iconNum, chat.getContent()));
+			 }
+			 System.out.println("chatList" + chatList);
 
 			// リクエストスコープに詰めてJSPに渡す
 			request.setAttribute("detailEvent", detailEvent);
 			request.setAttribute("participantsUsers", participantsUsers);
 			request.setAttribute("usersCount", usersCount);
 			request.setAttribute("iconUrl", iconUrl);
-			//request.setAttribute("comChatMap", comChatMap);
+			request.setAttribute("chatList", chatList);
 			request.setAttribute("address", address);
 
 			// 結果ページにフォワードする

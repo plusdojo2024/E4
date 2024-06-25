@@ -33,14 +33,11 @@ public class UsersDAO {
 				// 0622 修正：紺野
 				//rs.next();
 
-				if(rs.next() == false) {
+				if (rs.next() == false) {
 					return false;
-				} else if(password.equals(rs.getString("password"))){
+				} else if (password.equals(rs.getString("password"))){
 					result = true;
 				}
-
-
-
 			}catch (Exception e) {
 				e.printStackTrace();
 				result = false;
