@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.IconDAO;
 import dao.UsersDAO;
@@ -16,7 +17,7 @@ import model.Users;
 /**
  * Servlet implementation class IconServlet
  */
-@WebServlet("/IconServlet")
+@WebServlet("/Icon")
 public class IconServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,12 +25,14 @@ public class IconServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("userId") == null) {
-//			response.sendRedirect("/E4/LoginServlet");
-//			return;
-//		}
-		int userId = 1;
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/Login");
+			return;
+		}
+
+		//int userId = 1;
+		int userId =  Integer.parseInt((String) session.getAttribute("userId"));
 		UsersDAO userDao = new UsersDAO();
 		Users user = userDao.fetchUser(userId);
 
@@ -112,8 +115,9 @@ public class IconServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = 1;
-
+		//int userId = 1;
+		HttpSession session = request.getSession();
+		int userId = Integer.parseInt((String) session.getAttribute("userId"));
 
 		IconDAO iconDao = new IconDAO();
 		UsersDAO userDao = new UsersDAO();
@@ -122,7 +126,7 @@ public class IconServlet extends HttpServlet {
 		int setIconId = Integer.parseInt(iconDao.searchId(request.getParameter("url")));
 
 		userDao.setIconUpdate(user,setIconId);
-		response.sendRedirect("IconServlet");
+		response.sendRedirect("Icon");
 
 	}
 }

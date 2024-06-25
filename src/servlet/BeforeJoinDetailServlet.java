@@ -21,7 +21,7 @@ import model.EventUser;
 /**
  * Servlet implementation class BeforeJoinDetailServlet
  */
-@WebServlet("/BeforeJoinDetailServlet")
+@WebServlet("/BeforeJoinDetail")
 public class BeforeJoinDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,8 +31,8 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E4/LoginServlet");
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/Login");
 			return;
 		}
 	}
@@ -80,15 +80,16 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 			if (updateResult != 1) {
 				// 処理失敗
 				// スコープにイベントIDとエラーメッセージを詰める
-				request.setAttribute("event_Id", session);
 				request.setAttribute("error", "参加申請に失敗しました");
 				// 結果ページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/eventDetail.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				// 処理成功
+				// スコープに結果を詰める
+				request.setAttribute("result", updateResult);
 				// TOPページにフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/E4/TopServlet");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/E4/Top");
 				dispatcher.forward(request, response);
 			}
 		}

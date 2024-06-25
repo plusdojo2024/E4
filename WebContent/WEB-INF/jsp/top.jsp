@@ -5,44 +5,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/top.css">
+<link rel="stylesheet"  href="css/top.css">
 <link rel="stylesheet" href="css/header.css">
 <title>トップ</title>
 </head>
-
-
-<body style="background-color: #dcdbc5;">
-
+<body>
 	<!-- ヘッダーここから -->
 	<header>
 		<div class="container">
-			<div class="logoarea">
-				<img src="img/headerlogo.png" width="150px" alt="ロゴ">
-			</div>
-			<nav class="header-nav">
-				<ul class="list-nav">
-					<li><a href="">検索</a></li>
-					<li><a href="/E4/JoinEventListServlet">参加イベント</a></li>
-					<li><a href="/E4/CreatEventServlet">イベント作成</a></li>
-					<li><a href="/E4/ProfileServlet">プロフィール</a></li>
-					<li><a href="/E4/LogoutServlet">ログアウト</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<!-- ヘッダーここまで -->
-
-	<main class="main">
-
+	      <div class="logoarea">
+	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
+	      </div>
+	      <nav class="header-nav">
+	          <ul class="list-nav">
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
+	          </ul>
+	      </nav>
+	   	</div>
+    </header>
 		<!--アイコン画像-->
+		<div class="center">
 		<div class="icon">
-			<img src="${iconUrl}" width="200px" height="200px">
+			<a href="/E4/Icon"><img src="${iconUrl}" width="200px" height="200px"></a>
 		</div>
-
 		<!--天気予報-->
 		<div class="weatherlocation">
 			<div id="location">
-				<span class="location">:${prefectureName}</span><a
+				<span class="location">:${prefectureName}</span>
+				<a
 					href="https://www.jma.go.jp/bosai/forecast/" target="_blank"><span
 					class="tenki">天気予報</span></a>
 			</div>
@@ -277,38 +271,38 @@
 								});
 			</script>
 			<!--<script type="text/javascript" src="http://localhost:8080/E4/js/weather_news.js"></script>  -->
-
+			</div>
 		</div>
 		<!--天気予報ここまで-->
-
+		<main class="main">
 		<!--画像でほかのページ移動-->
-		<a href="CreateEeventServlet"><img src="img/キャンプ.jpg"
-			class="kyanp1"><span class="kyanp11">イベント作成</span></a> <a
-			href="AdminEventListServlet"><img src="img/キャンプ横.jpg"
-			class="kyanp2"><span class="kyanp22">作成イベント一覧</span></a> <a
-			href="JoinEventListServlet"><img src="img/キャンプ横２.jpg"
-			class="kyanp3"><span class="kyanp33">参加イベント一覧</span></a>
+			<a href="CreateEvent" class="create-link"><img src="img/top_create.jpg" class="camp1"><span class="camp11">イベント作成</span></a>
+			<a href="AdminEventList" class="admin-link"><img src="img/top_adminlist.jpg" class="camp2"><span class="camp22">作成イベント一覧</span></a>
+			<a href="JoinEventList" class="join-link"><img src="img/top_joinlist.jpg" class="camp3"><span class="camp33">参加イベント一覧</span></a>
+
 		<!--通知エリア-->
 		<!--background = "img/notice.png"  -->
 
 		<div class="textarea">
+			<c:if test="${empty eventList}">
+				<p>現在通知はありません</p>
+			</c:if>
 			<c:forEach var="Notic" items="${eventList}">
 				<p class="eventNotic">
 					イベント名：<span id="eventName">${Notic.eventName}</span>
 				</p>
 				<p class="eventNotic">
 					開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span>
-
-				<span class="botan"><input type="submit" name="詳細" value="詳細"
-					id="submitBtn"> <input type="hidden" name="eventId"
-					value="${Notic.id}"></span></p>
+					<input type="submit" name="詳細" value="詳細" id="submitBtn">
+					<input type="hidden" name="eventId" value="${Notic.id}">
+				</p>
 				<p class="eventNotic">場所：<span id="locationName">${Notic.locationName}</span></p>
 			</c:forEach>
 		</div>
 
 		<!--画像でほかのページ移動-->
-		<a href=""><img src="img/キャンプ横２.jpg" class="kyanp4"><span
-			class="kyanp44">検索</span></a>
+		<a href=""><img src="img/top_joinlist.jpg" class="camp4"><span
+			class="camp44">検索</span></a>
 	</main>
 </body>
 </html>

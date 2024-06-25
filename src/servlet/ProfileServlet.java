@@ -19,7 +19,7 @@ import model.Users;
 /**
  * Servlet implementation class ProfileServlet
  */
-@WebServlet("/ProfileServlet")
+@WebServlet("/Profile")
 public class ProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,15 +35,14 @@ public class ProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
-					response.sendRedirect("/E4/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/Login");
 					return;
 				}
 
-
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("id"));
+				int userid = Integer.parseInt((String) session.getAttribute("userId"));
 
 				Users users = uDao.fetchUser(userid);
 				String name = users.getName();
@@ -70,19 +69,18 @@ public class ProfileServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
-					response.sendRedirect("/E4/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/Login");
 					return;
 				}
 
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("id"));
+				int userid = Integer.parseInt((String)session.getAttribute("userIid"));
 				Users users = uDao.fetchUser(userid);
 
 				String name = users.getName();

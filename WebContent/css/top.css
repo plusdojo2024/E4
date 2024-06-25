@@ -1,5 +1,21 @@
 @charset "UTF-8";
 /* トップ画面用css */
+/* 紺野追加 */
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* 背景色設定 */
+  background-color: #dcdbc5;
+}
+
+.main {
+  max-width: 1000px;
+  margin: 2% auto;
+}
+/* 紺野追加ここまで */
 
 .icon {
  position: absolute;
@@ -102,8 +118,37 @@
    position: relative;
     left:765px;
   }
+
+  /* 紺野追加 */
+ .center {
+ 	margin-left:160px;
+ }
+.link-inner {
+	display: flex;
+	grid-template-columns:1fr 1fr;
+}
+.create-link {
+	background-image: url("/img/top_create.jsp");
+	background-repeat: no-repeat;
+	width: 15%;
+	height: 15%;
+}
+.admin-link {
+	background-image: url("/img/top_adminlist.jsp");
+	background-repeat: no-repeat;
+	width: 30%;
+}
+.join-link {
+	background-image: url("/img/top_joinlist.jsp");
+	background-repeat: no-repeat;
+	width: 30%;
+}
+
+
+  /* 紺野追加ここまで */
+
   /*キャンプ画像、文字*/
-  .kyanp1 {
+  .camp1 {
     width: 400px;
     height: 400px;
     position:absolute;
@@ -112,14 +157,14 @@
     left: 10px;
   }
   /*文字*/
-  .kyanp11 {
+  .camp11 {
     color:crimson;
     position: absolute;
     top: 630px;
     left: 140px;
   }
 
-  .kyanp2 {
+  .camp2 {
     width: 800px;
     height: 200px;
     position:absolute;
@@ -128,14 +173,14 @@
     left: 410px;
   }
   /*文字*/
-  .kyanp22 {
+  .camp22 {
     color: crimson;
     position: absolute;
     top: 515px;
     left: 750px;
   }
 
-  .kyanp3 {
+  .camp3 {
     width: 800px;
     height: 200px;
     position:absolute;
@@ -144,14 +189,14 @@
     left: 410px;
   }
 /*文字*/
-  .kyanp33 {
+  .camp33 {
     color: crimson;
     position: absolute;
     top: 715px;
     left: 750px;
   }
 
-  .kyanp4 {
+  .camp4 {
     width: 1200px;
     height: 300px;
     position: absolute;
@@ -160,7 +205,7 @@
     /*880*/
   }
   /*文字*/
-  .kyanp44 {
+  .camp44 {
     color:crimson;
     position: absolute;
     top: 1280px;
@@ -178,14 +223,3 @@
 
   }
 
-/* .notice {
-    width:1190px;
-    height:150px;
-    background-image:url(../img/notice.png);
-    padding: auto;
-    background-repeat:repeat;
-}*/
-
-  .main {
-  margin:0 auto;
-  }

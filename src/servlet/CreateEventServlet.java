@@ -16,24 +16,16 @@ import model.Event;
 /**
  * Servlet implementation class CreateEventServlet
  */
-@WebServlet("/CreateEventServlet")
+@WebServlet("/CreateEvent")
 public class CreateEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateEventServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E4/LoginServlet");
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/Login");
 			return;
 		}
 
@@ -42,12 +34,11 @@ public class CreateEventServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E4/LoginServlet");
+			response.sendRedirect("/E4/Login");
 			return;
 		}
 

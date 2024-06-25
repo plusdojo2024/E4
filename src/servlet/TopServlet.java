@@ -34,8 +34,8 @@ public class TopServlet extends HttpServlet {
 		UsersDAO userDAO = new UsersDAO();
 
 		//userIdをuserDao.fetchUserに渡して都道府県コードを取得してリクエストスコープに詰める（天気予報取得用）
-		System.out.println(session.getAttribute("userId"));
-		int userId = (int) session.getAttribute("userId");
+		//System.out.println(session.getAttribute("userId"));
+		int userId = Integer.parseInt((String) session.getAttribute("userId"));
 		Users users = userDAO.fetchUser(userId);
 
 		int prefectureId = users.getPrefectureId();
@@ -56,7 +56,6 @@ public class TopServlet extends HttpServlet {
 		//userIdをeventDaoに渡して通知されているイベントを取得・インスタンス化（リストにする）
 		ArrayList<Event> eventList = eventDAO.fetchNotParticipatingList(userId);
 		request.setAttribute("eventList",eventList);
-
 		// アイコンのIDを取得
 		int iconId = users.getIconId();
 		String iconUrl= userDAO.searchIcon(iconId);

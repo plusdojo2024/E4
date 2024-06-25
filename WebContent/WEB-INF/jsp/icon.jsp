@@ -6,10 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
-	integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <link rel="stylesheet" href="css/icon.css" />
 <link rel="stylesheet" href="css/common.css" />
 <link rel="stylesheet" href="css/header.css" />
@@ -18,23 +15,23 @@
 </head>
 
 <body>
-	<header class="header">
+	<header>
 		<div class="container">
-			<div class="logoarea">
-				<img src="img/headerlogo.png" width=150px alt="ロゴ">
-			</div>
-			<nav class="header-nav">
-				<ul class="list-nav">
-					<li><a href="">検索</a></li>
-					<li><a href="">参加イベント</a></li>
-					<li><a href="">イベント作成</a></li>
-					<li><a href="">プロフィール</a></li>
-					<li><a href="">ログアウト</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
-	<main>
+	      <div class="logoarea">
+	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
+	      </div>
+	      <nav class="header-nav">
+	          <ul class="list-nav">
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
+	          </ul>
+	      </nav>
+	   	</div>
+    </header>
+   	<main>
 		<div class="main">
 			<div class="main-inner">
 				<div class="nameAndIcon">
@@ -50,7 +47,7 @@
 
 					<li class="icon-list_icon">
 
-						<form method="post" action="IconServlet">
+						<form method="post" action="Icon">
 							<input type="image" name="test" value="テスト" src=${cookParamImg }
 								width="70px"> <input type="hidden" name="url"
 								value=${cookParamImg }>
@@ -58,27 +55,27 @@
 					</li>
 
 					<li class="icon-list_icon">
-						<form method="post" action="IconServlet">
+						<form method="post" action="Icon">
 							<input type="image" src=${technicParamImg } width="70px">
 							<input type="hidden" name="url" value=${technicParamImg}>
 						</form>
 					</li>
 					<li class="icon-list_icon">
-						<form method="post" action="IconServlet">
+						<form method="post" action="Icon">
 							<input type="image" src=${communicationParamImg}
 								width="70px"> <input type="hidden" name="url"
 								value=${communicationParamImg}>
 						</form>
 					</li>
 					<li class="icon-list_icon">
-						<form method="post" action="IconServlet">
+						<form method="post" action="Icon">
 							<input type="image" src=${hostedAmoundImg } width="70px">
 							<input type="hidden" id="userid" name="url"
 								value=${hostedAmoundImg}>
 						</form>
 					</li>
 					<li class="icon-list_icon">
-						<form method="post" action="IconServlet">
+						<form method="post" action="Icon">
 							<input type="image" src=${participantsAmountImg } width="70px">
 							<input type="hidden" name="url" value=${participantsAmountImg}>
 						</form>

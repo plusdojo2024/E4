@@ -10,7 +10,22 @@
   <link rel="stylesheet" href="css/review.css">
 </head>
 <body>
-  <header></header>
+	<header>
+		<div class="container">
+	      <div class="logoarea">
+	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
+	      </div>
+	      <nav class="header-nav">
+	          <ul class="list-nav">
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
+	          </ul>
+	      </nav>
+	   	</div>
+    </header>
   <main>
     <div class="main-inner">
       <h3 class="title">レビュー</h3>

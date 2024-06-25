@@ -36,7 +36,7 @@ import model.Users;
 /**
  * Servlet implementation class BeforeJoinDetailServlet
  */
-@WebServlet("/AdminDetailServlet")
+@WebServlet("/AdminDetail")
 public class AdminDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,8 +46,8 @@ public class AdminDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/E4/LoginServlet");
+		if (session.getAttribute("userId") == null) {
+			response.sendRedirect("/E4/Login");
 			return;
 		}
 	}
@@ -56,8 +56,8 @@ public class AdminDetailServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String requestEventId = request.getParameter("eventId");
-		String requestEventId = null;
+		String requestEventId = request.getParameter("event_id");
+
 		// 必要なDAOインスタンス生成
 		EventDAO eventDAO = new EventDAO();
 		UsersDAO usersDAO = new UsersDAO();
@@ -94,7 +94,7 @@ public class AdminDetailServlet extends HttpServlet {
 			 Communication com = new Communication(0, jsonuserId, jsoneventId, timestamp, jsoncontent);
 
 			 boolean comResult;
-			 if ( comDAO.insert(com) ) { // 登録が成功したら
+			 if ( comDAO.insert(com) == 1 ) { // 登録が成功したら
 				 comResult = true;
 			 } else { // 失敗したら
 				 comResult = false;
@@ -131,9 +131,8 @@ public class AdminDetailServlet extends HttpServlet {
 			out.print(JsonArrayToSend);
 
 		 } else { // 非同期通信でなければ
-				// 詳細を表示したいイベントのIDを取得
-			 int eventId = 1;
-			//int eventId = Integer.parseInt(request.getParameter("event_id"));
+			// 詳細を表示したいイベントのIDを取得
+			int eventId = Integer.parseInt(requestEventId);
 
 			// イベントのIDを元にDBからイベントの情報を取得
 			Event detailEvent = eventDAO.fetchParticipant(eventId);
@@ -191,7 +190,7 @@ public class AdminDetailServlet extends HttpServlet {
 			request.setAttribute("address", address);
 
 			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/joinDetail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/adminDetail.jsp");
 			dispatcher.forward(request, response);
 		 }
 	}

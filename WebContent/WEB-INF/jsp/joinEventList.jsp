@@ -12,33 +12,22 @@
 	<link rel="stylesheet" href="css/header.css">
 </head>
 <body>
-    <header>
+ 	<header>
 		<div class="container">
 	      <div class="logoarea">
 	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
 	      </div>
 	      <nav class="header-nav">
 	          <ul class="list-nav">
-	              <li>
-	                  <a href="/E4/TopServlet">トップに戻る</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/JoinEventListServlet">参加イベント</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/CreateEventServlet">イベント作成</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/ProfileServlet">プロフィール</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/Logout">ログアウト</a>
-	              </li>
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
 	          </ul>
 	      </nav>
 	   	</div>
     </header>
-
 
     <main>
         <div class="main-inner">
@@ -46,7 +35,7 @@
             <span id="errormessage"></span>
 
             <c:forEach var="event" items="${cardList}">
-            		<form method="post" action="/E4/JoinDetailServlet">
+            		<form method="post" action="JoinDetail">
 	                  <table>
 	                      <tr>
 	                          <td>イベント名：${event.eventName}</td>
@@ -55,7 +44,7 @@
 	                          <td>開催日程：${event.holdingSchedule}</td>
 	                      </tr>
 	                      <tr>
-	                          <td>場所：${event.locationName}</td><td></td><td></td><td><input type="submit" name="詳細" value="詳細" id="submitBtn"></td><td><input type="hidden" name="eventId" value="${event.id}"></td>
+	                          <td>場所：${event.locationName}</td><td></td><td></td><td><input type="submit" name="詳細" value="詳細" id="submitBtn"></td><td><input type="hidden" name="event_id" value="${event.id}"></td>
 	                      </tr>
 	                      <tr>
 	                          <%-- <td>住所：<span id="prefecture"></span> ${event.detail_address}</td> --%>

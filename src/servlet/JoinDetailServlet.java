@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,105 +36,29 @@ import model.Users;
 /**
  * Servlet implementation class BeforeJoinDetailServlet
  */
-@WebServlet("/JoinDetailServlet")
+@WebServlet("/JoinDetail")
 public class JoinDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// もしもログインしていなかったらログインサーブレットにリダイレクトする
 			HttpSession session = request.getSession();
-			if (session.getAttribute("id") == null) {
-				response.sendRedirect("/E4/LoginServlet");
+			if (session.getAttribute("userId") == null) {
+				response.sendRedirect("/E4/Login");
 				return;
 			}
-		}*/
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
-		// 詳細を表示したいイベントのIDを取得
-		 int eventId = 1;
-
-		// 必要なDAOインスタンス生成
-		EventDAO eventDAO = new EventDAO();
-		UsersDAO usersDAO = new UsersDAO();
-		PrefectureDAO prefectureDAO = new PrefectureDAO();
-		 CommunicationDAO comDAO = new CommunicationDAO();
-		 IconDAO iconDAO = new IconDAO();
-
-
-		//int eventId = Integer.parseInt(request.getParameter("event_id"));
-
-		// イベントのIDを元にDBからイベントの情報を取得
-		Event detailEvent = eventDAO.fetchParticipant(eventId);
-		// 住所の結合
-		// 都道府県の取得
-		int prefectureId = detailEvent.getPrefectureId();
-		String prefecture = prefectureDAO.searchPrefectureName(prefectureId);
-		String address = prefecture + detailEvent.getDetailAddress();
-		// イベントIDを元にDBからイベント参加者を取得
-		List<EventUser> eventUsers = eventDAO.searchUserEvent(eventId); // イベントに参加するユーザーのIDリスト
-		List<Users> participantsUsers = new ArrayList<Users>(); // イベント参加者の情報を保持するリスト
-		int usersCount = 0;
-
-		for (EventUser eventUser : eventUsers) {
-			if (eventUser.getParticipation_status() == 1) {
-				int eventUserId = eventUser.getUser_id();
-				Users participantUser = usersDAO.fetchUser(eventUserId);
-				participantsUsers.add(participantUser);
-				usersCount++;
-			}
 		}
-
-		// アイコンのURLをすべて取得
-		Map<Integer, String> iconUrl = new HashMap<Integer, String>();
-		for(int i = 1; i <= 30; i++) {
-			String imgUrl = iconDAO.searchUrl(i);
-			Integer num = Integer.valueOf(i);
-			iconUrl.put(num, imgUrl);
-		}
-
-		 // チャット表示部分の更新用データを用意
-		 ArrayList <Communication> comChat = comDAO.searchuserId(eventId);
-		 ArrayList <Chat> chatList = new ArrayList<Chat>();
-
-		 for (Communication chat : comChat ) {
-			 String name = "";
-			 int iconNum = 0;
-			 for (Users user : participantsUsers) {
-				 if (chat.getUser_id() == user.getId()) {
-					 name = user.getName();
-					 iconNum = user.getIconId();
-					 break;
-				 }
-			 }
-			chatList.add(new Chat(name, iconNum, chat.getContent()));
-		 }
-		 System.out.println("chatList" + chatList);
-
-		// リクエストスコープに詰めてJSPに渡す
-		request.setAttribute("detailEvent", detailEvent);
-		request.setAttribute("participantsUsers", participantsUsers);
-		request.setAttribute("usersCount", usersCount);
-		request.setAttribute("iconUrl", iconUrl);
-		request.setAttribute("chatList", chatList);
-		request.setAttribute("address", address);
-
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/joinDetail.jsp");
-		dispatcher.forward(request, response);
-	 }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String requestEventId = request.getParameter("eventId");
-		//String requestEventId = null;
+		String requestEventId = request.getParameter("event_id");
+
 		// 必要なDAOインスタンス生成
 		EventDAO eventDAO = new EventDAO();
 		UsersDAO usersDAO = new UsersDAO();
@@ -208,9 +133,8 @@ public class JoinDetailServlet extends HttpServlet {
 			out.print(JsonArrayToSend);
 
 		 } else { // 非同期通信でなければ
-				// 詳細を表示したいイベントのIDを取得
-			 int eventId = 1;
-			//int eventId = Integer.parseInt(request.getParameter("event_id"));
+			// 詳細を表示したいイベントのIDを取得
+			int eventId = Integer.parseInt(requestEventId);
 
 			// イベントのIDを元にDBからイベントの情報を取得
 			Event detailEvent = eventDAO.fetchParticipant(eventId);

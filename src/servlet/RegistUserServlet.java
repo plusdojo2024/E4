@@ -17,14 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import dao.UsersDAO;
 import model.Users;
 
-@WebServlet("/RegistUserServlet")
+@WebServlet("/RegistUser")
 public class RegistUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//エラーメッセージがあれば変数に入れる
-		//新規登録画面jspに遷移
-
 		// 新規登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/regist.jsp");
 		dispatcher.forward(request, response);
@@ -32,9 +29,6 @@ public class RegistUserServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//リクエストスコープからフォーム入力値を取得
-		//エラーがあればメッセージをリクエストスコープに入れてGETへ
-
 		//UserDaoインスタンス化
 		//userDao.inseartにuserインスタンスを渡してfalseが返ればエラー
 		request.setCharacterEncoding("UTF-8");
@@ -53,7 +47,7 @@ public class RegistUserServlet extends HttpServlet {
 	    } catch (NoSuchAlgorithmException e) {
 	      e.printStackTrace();
 	    }
-
+	    // フォーム入力値の取得
 		String name = request.getParameter("name");
 		String birthdate = request.getParameter("year") + "-" + request.getParameter("month") + "-"+ request.getParameter("day");
 		String telnum = request.getParameter("tell");
@@ -84,7 +78,7 @@ public class RegistUserServlet extends HttpServlet {
 		if (uDao.insert(users) == 1) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
-		}else {
+		} else {
 			boolean isRegistJudge = false;
 			request.setAttribute("isRegistJudge", isRegistJudge);
 

@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/profile.css">
 <link rel="stylesheet" href="css/header.css">
 <title>プロフィール</title>
@@ -17,46 +18,34 @@
 	      </div>
 	      <nav class="header-nav">
 	          <ul class="list-nav">
-	              <li>
-	                  <a href="/E4/TopServlet">トップに戻る</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/JoinEventListServlet">参加イベント</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/CreateEventServlet">イベント作成</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/ProfileServlet">プロフィール</a>
-	              </li>
-	              <li>
-	                  <a href="/E4/Logout">ログアウト</a>
-	              </li>
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
 	          </ul>
 	      </nav>
 	   	</div>
     </header>
-
-    <form method="post" action="/E4/ProfileServlet" id="input">
         <main>
+        <form method="post" action="/E4/Profile" id="input">
             <div class="main-inner">
                 <h2>マイプロフィール</h2><br>
                 <div class="profile">
+                   <div>
+                      <span id="judgemessage">
+                        <c:if test="${isUpdateJudge == 'true'}">
+					 	   更新に成功しました。
+				       </c:if>
+					   <c:if test="${isUpdateJudge == 'false'}">
+						   更新に失敗しました。
+					    </c:if>
+                     </span>
+                     </div>
+                     <div>
+                         <span id="errormessage"></span>
+                    </div>
                     <table>
-                    	<div>
-                            <span id="judgemessage">
-                            	<c:if test="${isUpdateJudge == 'true'}">
-								 	 更新に成功しました。
-							    </c:if>
-							    <c:if test="${isUpdateJudge == 'false'}">
-								     更新に失敗しました。
-								</c:if>
-                            </span>
-                        </div>
-                        <div>
-                            <span id="errormessage"></span>
-                        </div>
-
                         <tr>
                             <td class="title">ニックネーム</td><td>${user_profile.get(0)}</td>
                         </tr>
@@ -171,8 +160,9 @@
                     <input type="submit" id="update" value="更新">
                 </div>
             </div>
+          </form>
         </main>
-    </form>
+
 
     <div id="myModal" class="modal">
         <div class="modal-content">

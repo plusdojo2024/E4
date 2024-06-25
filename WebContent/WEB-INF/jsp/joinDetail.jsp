@@ -7,41 +7,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="vsiewport" content="width=device-width, initial-scale=1.0">
-  <title>イベント詳細(参加者)</title>
+  <title>参加イベント詳細</title>
   <link rel="stylesheet" href="/E4/css/common.css">
   <link rel="stylesheet" href="/E4/css/header.css">
   <link rel="stylesheet" href="/E4/css/event_detail.css">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="logoarea">
-          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
-      </div>
-      <nav class="header-nav">
-          <ul class="list-nav">
-              <li>
-                  <a href="">検索</a>
-              </li>
-              <li>
-                  <a href="">参加イベント</a>
-              </li>
-              <li>
-                  <a href="">イベント作成</a>
-              </li>
-              <li>
-                  <a href="">プロフィール</a>
-              </li>
-              <li>
-                  <a href="">ログアウト</a>
-              </li>
-          </ul>
-      </nav>
-   </div>
-  </header>
+ 	<header>
+		<div class="container">
+	      <div class="logoarea">
+	          <img src="img/headerlogo.png" width="150px" alt="ロゴ">
+	      </div>
+	      <nav class="header-nav">
+	          <ul class="list-nav">
+	              <li><a href="/E4/Top">トップに戻る</a></li>
+	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
+	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
+	              <li><a href="/E4/Profile">プロフィール</a></li>
+	              <li><a href="/E4/Logout">ログアウト</a></li>
+	          </ul>
+	      </nav>
+	   	</div>
+    </header>
   <main>
     <div class="main-inner">
-      <h3 class="title">イベント詳細</h3>
+      <h3 class="title">参加イベント詳細</h3>
       <!-- メッセージエリア -->
       <p id="message"></p>
       <!-- spanタグの中身をJSTLで書き換え -->
@@ -88,7 +78,7 @@
             </c:when>
           </c:choose>
       </p>
-      <button>戻る</button>
+      <button type="button"  onclick="history.back()">一覧へ戻る</button>
     </div>
     <!-- モーダル部分 -->
 	<div class="modal" data-modal="box">

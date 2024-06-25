@@ -20,7 +20,7 @@ import model.Event;
 /**
  * Servlet implementation class JoinEventListServlet
  */
-@WebServlet("/JoinEventListServlet")
+@WebServlet("/JoinEventList")
 public class JoinEventListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,19 +28,17 @@ public class JoinEventListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
-					response.sendRedirect("/E4/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/Login");
 					return;
 				}
 
-
 				// ユーザーIDに対応した参加イベント一覧を表示する。
 				EventDAO eDao = new EventDAO();
-				int userid = Integer.valueOf((String)session.getAttribute("id"));
+				int userid = Integer.parseInt((String)session.getAttribute("userId"));
 				List<Event> cardList = eDao.searchuserId(userid);
 
 				request.setAttribute("cardList", cardList);
-
 
 				Map<Integer, String> Prefecture_name = new HashMap<>();
 				String[] prefectures = {
@@ -60,7 +58,6 @@ public class JoinEventListServlet extends HttpServlet {
 
 				request.setAttribute("cardList_prefecture", Prefecture_name);
 
-
 //				数値に対応した募集レベルのテキストのマップ作製
 				Map<Integer, String> event_category = new HashMap<>();
 				event_category.put(0, "初心者歓迎");
@@ -74,12 +71,11 @@ public class JoinEventListServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 				HttpSession session = request.getSession();
-				if (session.getAttribute("id") == null) {
-					response.sendRedirect("/E4/LoginServlet");
+				if (session.getAttribute("userId") == null) {
+					response.sendRedirect("/E4/Login");
 					return;
 				}
 
