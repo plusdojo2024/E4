@@ -26,23 +26,25 @@ public class TopServlet extends HttpServlet {
 
 		//セッションからユーザーIDを取得
 		HttpSession session = request.getSession();
-		session.setAttribute("user_id",2);
-		/*if (session.getAttribute("userId") == null) {
+		session.setAttribute("user_id",1);
+		if (session.getAttribute("userId") == null) {
 		  response.sendRedirect("/E4/LoginServlet");
 		  return;
-		}*/
+		}/**/
 
 		//ユーザーDAOをインスタンス化
 		UsersDAO userDAO = new UsersDAO();
 
 		//userIdをuserDao.fetchUserに渡して都道府県コードを取得してリクエストスコープに詰める（天気予報取得用）
-		int userId = (int)session.getAttribute("user_id");
+		//int userId = (int)session.getAttribute("user_id");
 		//int userId = Integer.parseInt(session.getAttribute("user_id"));
 		//↓実際に使用するコード
-		//int userId = Integer.parseInt(request.getParameter("user_id"));
+		int userId = Integer.parseInt(request.getParameter("user_id"));
 
-		Users users = userDAO.fetchUser(2);
-		//Users users = userDAO.fetchUser(userId);
+		//Users users = userDAO.fetchUser(2);
+		Users users = userDAO.fetchUser(userId);
+
+
 		int prefectureId = users.getPrefectureId();
 		request.setAttribute("prefectureId",prefectureId);
 

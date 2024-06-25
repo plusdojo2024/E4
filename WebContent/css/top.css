@@ -62,6 +62,46 @@
     color: red;
   }
 
+  /*dateの非表示*/
+  .date {
+  display:none;
+  }
+
+  /*日付の移動*/
+  .moji1 {
+    position: absolute;
+    top:225px;
+    left:40px;
+  }
+   .moji2 {
+   position: relative;
+    top:200px;
+    left:160px;
+  }
+   .moji3 {
+     position: relative;
+    top:160px;
+    left:280px;
+  }
+   .moji4 {
+   position: relative;
+    top:120px;
+    left:395px;
+  }
+   .moji5 {
+   position: relative;
+    top:80px;
+    left:515px;
+  }
+   .moji6 {
+   position: relative;
+    top:40px;
+    left:635px;
+  }
+   .moji7 {
+   position: relative;
+    left:765px;
+  }
   /*キャンプ画像、文字*/
   .kyanp1 {
     width: 400px;
