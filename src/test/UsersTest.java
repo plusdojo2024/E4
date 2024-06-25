@@ -70,7 +70,7 @@ public class UsersTest {
 	//insert
 	@Test
 	void プロフィール保存成功() throws Exception {
-	  Users users = new Users(0,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
+	  Users users = new Users(0,"user1@example.com","Passw0rd!","山田 次郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 
 	  int actual = userDao.insert(users);
 	  int expected = 1;
@@ -98,7 +98,7 @@ public class UsersTest {
 		int userId = 1;
 	    Users users = new Users(userId,"user1@example.com","Passw0rd!","山田 三郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 
-	    String telNum = "0120-444-444";
+	    String telNum = "0120-444-5555";
 	    int prefectureid = 2;
 	    int eventCategory = 0;
 		  ArrayList<Integer> prefectures = new ArrayList<Integer>();
@@ -121,10 +121,10 @@ public class UsersTest {
 		Users users = new Users(1,"user1@example.com","Passw0rd!","山田 太郎","1985-05-15","090-1234-5678",0,1,0,10,"2024-09-25 00:00:00",81,11,31,51,4,0,1) ;
 
 
-	    int evluation = 100;
-	    int technicParam = 100;
-	    int cookParam = 100;
-	    int communicationParam = 100;
+	    int evluation = 200;
+	    int technicParam = 200;
+	    int cookParam = 200;
+	    int communicationParam = 200;
 
 	    int actual = userDao.reviewParamUpdate(users,evluation,technicParam,cookParam,communicationParam);
 	    int expected = 1;
@@ -146,10 +146,10 @@ public class UsersTest {
 	//fetchAchievements
 	@Test
 	void 実績パラメータ取得成功() throws Exception {
-	  int userId = 1;
+	  int userId = 2;
 	  String actual = userDao.fetchAchievements(userId)[6];
 
-	  String expected = "31";
+	  String expected = "41";
 
 	  assertEquals(expected, actual);
 	}
@@ -157,10 +157,10 @@ public class UsersTest {
 	//searchIcon
 	@Test
 	void アイコンの取得成功() throws Exception {
-	  int userId = 1;
+	  int userId = 2;
 
 	  String actual = userDao.searchIcon(userId);
-	  String expected = "/test";
+	  String expected = "img/icon/com/com_bronze.png";
 	  assertEquals(expected, actual);
 	}
 

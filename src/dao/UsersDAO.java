@@ -139,12 +139,7 @@ public class UsersDAO {
 				pStmt.setInt(17, users.getIconId());
 
 				// SQL文を実行する
-				int executeAmount = pStmt.executeUpdate();
-				if(executeAmount == 0) {
-					result = 0;
-				}else if (executeAmount == 1) {
-					result = 1;
-				}
+				result = pStmt.executeUpdate();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -168,8 +163,7 @@ public class UsersDAO {
 		//参加可能範囲の情報
 		public int insertSearchPrefecture(int userId,ArrayList<Integer> prefectures) {
 			Connection conn = null;
-			int result = 0;
-
+			int excuteAmount = 0;
 			try {
 				// JDBCドライバを読み込む
 				Class.forName("org.h2.Driver");
@@ -186,9 +180,7 @@ public class UsersDAO {
 					pStmt.setInt(1, userId);
 					pStmt.setInt(2, prefectureId);
 
-					if (pStmt.executeUpdate() >= 0) {
-						 result++;
-					}
+					excuteAmount = excuteAmount + pStmt.executeUpdate();
 				}
 			}
 			catch (Exception e) {
@@ -208,7 +200,7 @@ public class UsersDAO {
 			}
 
 			// 結果を返す
-			return result;
+			return excuteAmount;
 		}
 
 		public int[] update(Users users,String telNum,int prefectureId,int eventCategory,ArrayList<Integer> prefectures) {
@@ -236,6 +228,8 @@ public class UsersDAO {
 					result[0] = 0;
 				} else if (x == 1) {
 					result[0] = 1;
+				} else {
+					result[0] = x;
 				}
 
 				System.out.println("Update: " + x);
@@ -262,6 +256,8 @@ public class UsersDAO {
 						result[1] = 0;
 					} else if (y == 1) {
 						result[1] = 1;
+					} else {
+						result[1] = y;
 					}
 
 				}
@@ -309,11 +305,7 @@ public class UsersDAO {
 				pStmt.setInt(5, targetUsers.getId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 0) {
-					result = 0;
-				}else if (pStmt.executeUpdate() == 1) {
-					result = 1;
-				}
+				result = pStmt.executeUpdate();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -355,11 +347,7 @@ public class UsersDAO {
 				pStmt.setInt(2,user.getId());
 
 				// SQL文を実行する
-				if (pStmt.executeUpdate() == 0) {
-					result = 0;
-				} else if (pStmt.executeUpdate() == 1) {
-					result = 1;
-				}
+				result = pStmt.executeUpdate() ;
 			}
 			catch (Exception e) {
 				e.printStackTrace();

@@ -95,7 +95,7 @@ class EventTest {
 	//insertMatchingData
 	@Test
 	void イベントIDからマッチング通知対象のユーザーを登録() throws Exception {
-	  int eventId = 7;
+	  int eventId = 1;
 	  int actual = eventDao.insertMatchingData(eventId);
 	  int expected = 2;
 

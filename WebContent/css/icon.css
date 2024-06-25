@@ -59,13 +59,19 @@
     width: 100px;
     border: solid;
 }
+
+/* アイコン表示用*/
 .icons{
      width:100%;
 }
+
+/* グラフ表示用*/
 .icon{
+
     align-items: center;
     width:100%;
 }
+
 .icon_and_discription{
 	display:flex;
 	align-items: center;

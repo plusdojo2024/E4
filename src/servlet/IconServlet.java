@@ -95,9 +95,9 @@ public class IconServlet extends HttpServlet {
 		//part
 		if(user.getParticipantsAmount()< 3) {
 			request.setAttribute("participantsAmountImg","img/icon/participation/participation_initial.png");
-		} else if(user.getCommunicationParam() < 15) {
+		} else if(user.getParticipantsAmount() < 15) {
 			request.setAttribute("participantsAmountImg","img/icon/participation/participation_bronze.png");
-		}else if(user.getCommunicationParam()< 30) {
+		}else if(user.getParticipantsAmount()< 30) {
 			request.setAttribute("participantsAmountImg","img/icon/participation/participation_silver.png");
 		} else {
 			request.setAttribute("participantsAmountImg","img/icon/participation/participation_gold.png");
@@ -113,9 +113,16 @@ public class IconServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = 1;
-		request.setCharacterEncoding("UTF-8");
 
-		System.out.println(request.getAttribute("testtest"));
+
+		IconDAO iconDao = new IconDAO();
+		UsersDAO userDao = new UsersDAO();
+		Users user = userDao.fetchUser(userId);
+		request.setCharacterEncoding("UTF-8");
+		int setIconId = Integer.parseInt(iconDao.searchId(request.getParameter("url")));
+
+		userDao.setIconUpdate(user,setIconId);
+		response.sendRedirect("IconServlet");
 
 	}
 }

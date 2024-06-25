@@ -30,8 +30,8 @@ class AtherDaoTest {
 	void コミュニケーションを登録() throws Exception {
 		Communication communication = new Communication(0, 1, 2, "2024-06-20 00:00:00", "ここどこ？");
 
-		boolean actual = communicationDao.insert(communication); //実際の実行結果
-		boolean expected = true; //期待する実行結果
+		int actual = communicationDao.insert(communication); //実際の実行結果
+		int expected = 1; //期待する実行結果
 		assertEquals(expected, actual); //実際の実行結果と期待する実行結果が合っているか
 	}
 	//アイコンDAO

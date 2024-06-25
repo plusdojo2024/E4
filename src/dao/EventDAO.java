@@ -42,12 +42,8 @@ public class EventDAO {
 			pStmt.setInt(11, event.getStatus());
 
 			// SQL文を実行する　修正
-			int executeAmount = pStmt.executeUpdate();
-			if(executeAmount == 0) {
-				result = 0;
-			}else if (executeAmount == 1) {
-				result = 1;
-			}
+			result = pStmt.executeUpdate();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = -1;
@@ -305,35 +301,37 @@ public class EventDAO {
 			int prefectureId = rs.getInt("prefecture_id"); //主催者が登録した都道府県
 			int eventCategory = rs.getInt("EVENT_CATEGORY"); //主催者が登録したカテゴリ
 
+
+
+
+
 			//都道府県IDとカテゴリをもとに合致するユーザーを取得
-			sql = "select users.id from  users "
+			String sql2 = "select users.id from  users "
 					+ "inner join user_prefecture "
 					+ "on users.id = user_prefecture.user_id "
 					+ "where  user_prefecture.PREFECTURE_ID = ? and users.EVENT_CATEGORY = ?";
 
-			pStmt = conn.prepareStatement(sql);
-			pStmt.setInt(1, prefectureId);
-			pStmt.setInt(2, eventCategory);
-			rs = pStmt.executeQuery();
+			PreparedStatement pStmt2 = conn.prepareStatement(sql2);
+			pStmt2.setInt(1, prefectureId);
+			pStmt2.setInt(2, eventCategory);
+			ResultSet rs2 = pStmt2.executeQuery();
 
 			//取得したユーザーIDのリスト
 			List<Integer> matchUserList = new ArrayList<Integer>();
-			while (rs.next()) {
-				matchUserList.add(rs.getInt("id"));
+			while (rs2.next()) {
+				matchUserList.add(rs2.getInt("id"));
 			}
+			System.out.println("マッチング対象数：" + matchUserList.size());
+
 
 			//リストの中身をインサートする
 			for (int userId : matchUserList) {
-				sql = "INSERT into event_user VALUES (NULL, ?,?,0)";
+				String sql3 = "INSERT into event_user VALUES (NULL, ?,?,0)";
+				PreparedStatement pStmt3 = conn.prepareStatement(sql3);
 
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setInt(1, eventId);
-				pStmt.setInt(2, userId);
-				if(pStmt.executeUpdate() == 0) {
-					result = 0;
-				} else {
-					result++;
-				}
+				pStmt3.setInt(1, eventId);
+				pStmt3.setInt(2, userId);
+				result = result + pStmt3.executeUpdate() ;
 			}
 
 		} catch (Exception e) {
@@ -372,11 +370,8 @@ public class EventDAO {
 			pStmt.setInt(1, eventId);
 			pStmt.setInt(2, userId);
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 0) {
-				result = 0;
-			}else if (pStmt.executeUpdate() == 1) {
-				result = 1;
-			}
+			result = pStmt.executeUpdate();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;

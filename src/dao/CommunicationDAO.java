@@ -57,9 +57,9 @@ public class CommunicationDAO {
 		// 結果を返す
 		return communicationList;
 	}
-	public boolean insert(Communication communication) {
+	public int insert(Communication communication) {
 		Connection conn = null;
-		boolean result = false;
+		int result = 0;
 
 		try {
 			// JDBCドライバを読み込む
@@ -79,9 +79,8 @@ public class CommunicationDAO {
 			pStmt.setString(4, communication.getContent());
 
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
-			}
+			result = pStmt.executeUpdate();
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
