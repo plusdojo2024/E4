@@ -232,21 +232,21 @@ public class UsersDAO {
 					result[0] = x;
 				}
 
-				System.out.println("Update: " + x);
 
 				//都道府県更新
-				sql = "DELETE FROM user_prefecture WHERE user_id = ?";
-				PreparedStatement pStmt2 = conn.prepareStatement(sql);
+				String sql2 = "DELETE FROM user_prefecture WHERE user_id = ?";
+				PreparedStatement pStmt2 = conn.prepareStatement(sql2);
 
 				// SQL文を完成させる
 				pStmt2.setInt(1, users.getId());
 				pStmt2.executeUpdate();
 
 
+				String sql3;
 				for(int newPrefectureId :prefectures) {
-					sql = "INSERT INTO user_prefecture VALUES (NULL, ?, ?)";
+					sql3 = "INSERT INTO user_prefecture VALUES (NULL, ?, ?)";
 
-					PreparedStatement pStmt3 = conn.prepareStatement(sql);
+					PreparedStatement pStmt3 = conn.prepareStatement(sql3);
 					// SQL文を完成させる
 					pStmt3.setInt(1, users.getId());
 					pStmt3.setInt(2, newPrefectureId);
