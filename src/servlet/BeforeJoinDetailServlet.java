@@ -42,7 +42,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 詳細を表示したいイベントのIDを取得
 		request.setCharacterEncoding("UTF-8");
-		int eventId = Integer.parseInt(request.getParameter("event_id"));
+		int eventId = Integer.parseInt((String)request.getParameter("event_id"));
 
 		EventDAO eventDAO = new EventDAO();
 

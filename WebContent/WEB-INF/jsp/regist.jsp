@@ -27,7 +27,7 @@
 	   	</div>
     </header>
 
-    <form method="post" action="/E4/RegistUserServlet" id="input">
+    <form method="post" action="/E4/RegistUser" id="input">
         <main>
             <div class="main-inner">
                 <h2>新規登録</h2><br>
