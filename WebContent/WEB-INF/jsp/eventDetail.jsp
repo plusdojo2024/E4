@@ -60,7 +60,7 @@
             </c:when>
           </c:choose>
       </p>
-      <form action="#" method="post">
+      <form action="/E4/EventDetail" method="post">
         <input type="hidden"  name="eventId" value="${requestScope.eventId}">
         <input type="hidden"  name="flag" value="flag">
         <button type="submit">参加する</button>

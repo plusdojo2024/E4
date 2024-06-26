@@ -37,7 +37,7 @@ public class CreateEventServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		if (session.getAttribute("userId") == null) {
 			response.sendRedirect("/E4/Login");
 			return;
 		}
@@ -54,7 +54,7 @@ public class CreateEventServlet extends HttpServlet {
 		String detail_address = request.getParameter("detail");
 		String location_name = request.getParameter("place");
 		int event_category = Integer.valueOf(request.getParameter("switch_2"));
-		int holding_userid = Integer.valueOf((String)session.getAttribute("id"));
+		int holding_userid =Integer.parseInt((String)session.getAttribute("userId"));
 //		int holding_userid = userid;
 		int status = 0;
 

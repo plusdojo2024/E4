@@ -26,7 +26,7 @@
 	      </nav>
 	   	</div>
     </header>
-    <form method="post" action="/E4/CreateEventServlet" id="input">
+    <form method="post" action="/E4/CreateEvent" id="input">
         <main>
             <div class="main-inner">
                 <h2>イベント作成</h2><br>

@@ -63,7 +63,7 @@ public class ProfileServlet extends HttpServlet {
 				user_profile.add(Gender);
 
 				request.setAttribute("user_profile", user_profile);
-
+				request.setAttribute("user_info", users);
 				// プロフィールページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");
 				dispatcher.forward(request, response);
