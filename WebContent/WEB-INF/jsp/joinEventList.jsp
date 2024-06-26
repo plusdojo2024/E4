@@ -8,6 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>参加イベント一覧ページ</title>
+	  <link rel="stylesheet" href="/E4/css/common.css">
 	<link rel="stylesheet" href="css/list.css">
 	<link rel="stylesheet" href="css/header.css">
 </head>

@@ -8,6 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/list.css">
 	<link rel="stylesheet" href="css/header.css">
 	<title>作成イベント一覧ページ</title>

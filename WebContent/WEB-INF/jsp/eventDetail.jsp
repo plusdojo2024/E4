@@ -32,7 +32,7 @@
     <div class="main-inner">
       <h3 class="title">イベント詳細</h3>
       <!-- メッセージエリア -->
-      <p id="message"></p>
+      <p id="message"><c:if test="${not empty error}">${error}</c:if></p>
       <!-- spanタグの中身をJSTLで書き換え -->
        <p class="event-detail">イベント名：<span id="eventName">${requestScope.detailEvent.eventName}</span></p>
       <p class="event-detail">イベント詳細</p>
@@ -60,7 +60,7 @@
             </c:when>
           </c:choose>
       </p>
-      <form action="/E4/EventDetail" method="post">
+      <form action="/E4/BeforeJoinDetail" method="post">
         <input type="hidden"  name="event_id" value="${requestScope.eventId}">
         <input type="hidden"  name="flag" value="flag">
         <button type="submit">参加する</button>

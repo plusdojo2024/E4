@@ -50,6 +50,10 @@ public class JoinDetailServlet extends HttpServlet {
 				response.sendRedirect("/E4/Login");
 				return;
 			}
+
+			// イベント詳細はイベントIDがないと表示ができない→トップページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/top.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	/**

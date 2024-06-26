@@ -35,6 +35,10 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 			response.sendRedirect("/E4/Login");
 			return;
 		}
+
+		// イベント詳細はイベントIDがないと表示ができない→トップページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/top.jsp");
+		dispatcher.forward(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -76,7 +80,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 
 		} else { // 参加ボタンからの遷移だったら
 			HttpSession session = request.getSession();
-			int userId = (int) session.getAttribute("id");
+			int userId = Integer.parseInt((String) session.getAttribute("userId"));
 			int updateResult = eventDAO.update(eventId, userId);
 			if (updateResult != 1) {
 				// 処理失敗

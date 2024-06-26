@@ -45,7 +45,7 @@
                      <div>
                          <span id="errormessage"></span>
                     </div>
-                    <table>
+                    <table class="profile-table">
                         <tr>
                             <td class="title">ニックネーム</td><td>${user_profile.get(0)}</td>
                         </tr>

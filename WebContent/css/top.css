@@ -19,15 +19,16 @@ body {
 
 .icon {
  position: absolute;
- top : 232px;
- left:80px;
+ top : 245px;
+ left: 230px;
 }
 
 /*天気予報の位置*/
+/* ここのleftで天気予報まるごと移せる */
 .weatherlocation {
   position: absolute;
-  left: 350px;
-  top: 30px;
+  left: 460px;
+  top: 45px;
 }
 /*天気予報*/
 .weatherForecast {
@@ -120,106 +121,53 @@ body {
   }
 
   /* 紺野追加 */
- .center {
- 	margin-left:160px;
- }
-.link-inner {
-	display: flex;
-	grid-template-columns:1fr 1fr;
-}
-.create-link {
-	background-image: url("/img/top_create.jsp");
-	background-repeat: no-repeat;
-	width: 15%;
-	height: 15%;
-}
-.admin-link {
-	background-image: url("/img/top_adminlist.jsp");
-	background-repeat: no-repeat;
-	width: 30%;
-}
-.join-link {
-	background-image: url("/img/top_joinlist.jsp");
-	background-repeat: no-repeat;
-	width: 30%;
+.top-img-inner {
+  max-width:1000px;
+/*   top:460px; */
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  margin-top: 25%;
+
 }
 
+.top-img {
+	border-radius: 2%;
+}
 
   /* 紺野追加ここまで */
 
   /*キャンプ画像、文字*/
-  .camp1 {
+/*   .camp1 {
     width: 400px;
     height: 400px;
     position:absolute;
     top:440px;
-    /*200*/
+
     left: 10px;
-  }
-  /*文字*/
-  .camp11 {
-    color:crimson;
-    position: absolute;
-    top: 630px;
-    left: 140px;
-  }
-
-  .camp2 {
-    width: 800px;
-    height: 200px;
-    position:absolute;
-    top:440px;
-    /*200*/
-    left: 410px;
-  }
-  /*文字*/
-  .camp22 {
-    color: crimson;
-    position: absolute;
-    top: 515px;
-    left: 750px;
-  }
-
-  .camp3 {
-    width: 800px;
-    height: 200px;
-    position:absolute;
-    top: 640px;
-    /*400*/
-    left: 410px;
-  }
-/*文字*/
-  .camp33 {
-    color: crimson;
-    position: absolute;
-    top: 715px;
-    left: 750px;
-  }
-
-  .camp4 {
-    width: 1200px;
-    height: 300px;
-    position: absolute;
-    left: 10px;
-    top: 1110px;
-    /*880*/
-  }
-  /*文字*/
-  .camp44 {
-    color:crimson;
-    position: absolute;
-    top: 1280px;
-    left: 600px;
-  }
+  } */
 
   /*通知エリア*/
   .textarea {
-    width: 1190px;
+    width: 1000px;
     height: 200px;
     resize: none;
     overflow-y: scroll;
     position: absolute;
-    top:870px;
+    top:1100px;
+    background-color: white;
 
   }
 
+  .notic-area {
+  	margin:2%;
+  }
+
+.footer {
+  position: absolute;
+  top:1400px;
+  right: 0;
+  left: 0;
+  padding: 3% 100%;
+  margin: 0 auto;
+}

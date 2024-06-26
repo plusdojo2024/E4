@@ -42,3 +42,9 @@ main {
   margin: 3%;
 }
 
+/* フォーム関係 */
+.form-textbox {
+	    border:2px solid;
+    width: 300px;
+    border-radius: 5px;
+}

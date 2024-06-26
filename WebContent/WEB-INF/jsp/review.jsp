@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>レビュー</title>
+  <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/review.css">
 </head>
@@ -31,45 +32,46 @@
       <h3 class="title">レビュー</h3>
       <!-- メッセージエリア -->
       <p id="message"></p>
-      <form action="#" method="post">
-        <p>評価</p>
+      <form action="/E4/Top" method="post">
         <!-- JSTLでニックネームを当てはめる -->
-        <p>ニックネームさんはいかがでしたか？(必須)</p>
-        <div class="evaluation-inner"><label>
-          <input type="radio" name="evaluation" value=""><img src="img/good.jpg" alt="">
-          <input type="radio" name="evaluation" value=""><img src="img/bad.jpg" alt="">
-        </label></div>
+        <div class="evaluation-inner">
+        <p class="evaluation-p">藤崎 里奈さんはいかがでしたか？(必須)</p>
+          <input type="radio" name="evaluation" value=""><img src="img/review/good.png" alt="good">
+          <input type="radio" name="evaluation" value=""><img src="img/review/bad.png" alt="bad">
+       </div>
+       <div class="reviewdetail-inner">
         <p>コメント</p>
-        <textarea name="comment" class="comment"></textarea>
+        <div  class="comment"><textarea name="comment"  class="comment-area"></textarea></div>
 
           <p>コミュニケーション</p>
           <div><label class="communication-inner">
-            <input class="communication" type="radio" name="communicationParam" value="1"><img class="communication-star" src="img/star_flame.png" alt="">
-            <input class="communication" type="radio" name="communicationParam" value="2"><img class="communication-star" src="img/star_flame.png" alt="">
-            <input class="communication" type="radio" name="communicationParam" value="3"><img class="communication-star" src="img/star_flame.png" alt="">
-            <input class="communication" type="radio" name="communicationParam" value="4"><img class="communication-star" src="img/star_flame.png" alt="">
-            <input class="communication" type="radio" name="communicationParam" value="5"><img class="communication-star" src="img/star_flame.png" alt="">
+            <input class="communication" type="radio" name="communicationParam" value="1"><img class="communication-star" src="img/review/star_flame.png" alt="">
+            <input class="communication" type="radio" name="communicationParam" value="2"><img class="communication-star" src="img/review/star_flame.png" alt="">
+            <input class="communication" type="radio" name="communicationParam" value="3"><img class="communication-star" src="img/review/star_flame.png" alt="">
+            <input class="communication" type="radio" name="communicationParam" value="4"><img class="communication-star" src="img/review/star_flame.png" alt="">
+            <input class="communication" type="radio" name="communicationParam" value="5"><img class="communication-star" src="img/review/star_flame.png" alt="">
           </label></div>
 
           <p>技量</p>
           <div><label class="technic-inner">
-            <input class="technic" type="radio" name="technicParam" value="1"><img class="technic-star" src="img/star_flame.png" alt="">
-            <input class="technic" type="radio" name="technicParam" value="2"><img class="technic-star" src="img/star_flame.png" alt="">
-            <input class="technic" type="radio" name="technicParam" value="3"><img class="technic-star" src="img/star_flame.png" alt="">
-            <input class="technic" type="radio" name="technicParam" value="4"><img class="technic-star" src="img/star_flame.png" alt="">
-            <input class="technic" type="radio" name="technicParam" value="5"><img class="technic-star" src="img/star_flame.png" alt="">
+            <input class="technic" type="radio" name="technicParam" value="1"><img class="technic-star" src="img/review/star_flame.png" alt="">
+            <input class="technic" type="radio" name="technicParam" value="2"><img class="technic-star" src="img/review/star_flame.png" alt="">
+            <input class="technic" type="radio" name="technicParam" value="3"><img class="technic-star" src="img/review/star_flame.png" alt="">
+            <input class="technic" type="radio" name="technicParam" value="4"><img class="technic-star" src="img/review/star_flame.png" alt="">
+            <input class="technic" type="radio" name="technicParam" value="5"><img class="technic-star" src="img/review/star_flame.png" alt="">
           </label></div>
 
           <p>料理</p>
           <div><label class="cook-inner">
-            <input class="cook" type="radio" name="cookParam" value="1"><img class="cook-star" src="img/star_flame.png" alt="">
-            <input class="cook" type="radio" name="cookParam" value="2"><img class="cook-star" src="img/star_flame.png" alt="">
-            <input class="cook" type="radio" name="cookParam" value="3"><img class="cook-star" src="img/star_flame.png" alt="">
-            <input class="cook" type="radio" name="cookParam" value="4"><img class="cook-star" src="img/star_flame.png" alt="">
-            <input class="cook" type="radio" name="cookParam" value="5"><img class="cook-star" src="img/star_flame.png" alt="">
+            <input class="cook" type="radio" name="cookParam" value="1"><img class="cook-star" src="img/review/star_flame.png" alt="">
+            <input class="cook" type="radio" name="cookParam" value="2"><img class="cook-star" src="img/review/star_flame.png" alt="">
+            <input class="cook" type="radio" name="cookParam" value="3"><img class="cook-star" src="img/review/star_flame.png" alt="">
+            <input class="cook" type="radio" name="cookParam" value="4"><img class="cook-star" src="img/review/star_flame.png" alt="">
+            <input class="cook" type="radio" name="cookParam" value="5"><img class="cook-star" src="img/review/star_flame.png" alt="">
           </label></div>
+          </div>
 
-        <input id="submit" type="submit" value="送信">
+        <div  class="review-submit"><input id="submit" type="submit"  value="送信"></div>
       </form>
     </div>
   </main>
@@ -93,21 +95,21 @@
         comStars[i].addEventListener("mouseover", (event) => { // マウスオーバー時の処理
           if (!comClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              comStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+              comStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         comStars[i].addEventListener("mouseout", (event) => { // カーソルが離れた時の処理
           if (!comClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              comStars[j].src = "img/star_flame.png"; // imgタグのsrc属性を書き換え
+              comStars[j].src = "img/review/star_flame.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         comStars[i].addEventListener("click", (event) => {
           comClicked = true; // フラグをtureに
           for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              comStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+              comStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
           }
         });
       }
@@ -121,21 +123,21 @@
         technicStars[i].addEventListener("mouseover", (event) => { // マウスオーバー時の処理
           if (!technicClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              technicStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+              technicStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         technicStars[i].addEventListener("mouseout", (event) => { // カーソルが離れた時の処理
           if (!technicClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              technicStars[j].src = "img/star_flame.png"; // imgタグのsrc属性を書き換え
+              technicStars[j].src = "img/review/star_flame.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         technicStars[i].addEventListener("click", (event) => {
           technicClicked = true; // フラグをtureに
           for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-            technicStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+            technicStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
           }
         });
       }
@@ -149,21 +151,21 @@
         cookStars[i].addEventListener("mouseover", (event) => { // マウスオーバー時の処理
           if (!cookClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              cookStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+              cookStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         cookStars[i].addEventListener("mouseout", (event) => { // カーソルが離れた時の処理
           if (!cookClicked) { // クリックされていないとき(フラグがfalseのとき)
             for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-              cookStars[j].src = "img/star_flame.png"; // imgタグのsrc属性を書き換え
+              cookStars[j].src = "img/review/star_flame.png"; // imgタグのsrc属性を書き換え
             }
           }
         });
         cookStars[i].addEventListener("click", (event) => {
           cookClicked = true; // フラグをtureに
           for (let j = 0; j <= i; j++) {// 一番左の星から上にカーソルがある星まで
-            cookStars[j].src = "img/star.png"; // imgタグのsrc属性を書き換え
+            cookStars[j].src = "img/review/star.png"; // imgタグのsrc属性を書き換え
           }
         });
       }

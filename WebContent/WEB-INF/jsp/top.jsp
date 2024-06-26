@@ -18,7 +18,6 @@
 	      </div>
 	      <nav class="header-nav">
 	          <ul class="list-nav">
-	              <li><a href="/E4/Top">トップに戻る</a></li>
 	              <li><a href="/E4/JoinEventList">参加イベント</a></li>
 	              <li><a href="/E4/CreateEvent">イベント作成</a></li>
 	              <li><a href="/E4/Profile">プロフィール</a></li>
@@ -276,21 +275,26 @@
 		<!--天気予報ここまで-->
 		<main class="main">
 		<!--画像でほかのページ移動-->
-			<a href="CreateEvent" class="create-link"><img src="img/top_create.jpg" class="camp1"><span class="camp11">イベント作成</span></a>
-			<a href="AdminEventList" class="admin-link"><img src="img/top_adminlist.jpg" class="camp2"><span class="camp22">作成イベント一覧</span></a>
-			<a href="JoinEventList" class="join-link"><img src="img/top_joinlist.jpg" class="camp3"><span class="camp33">参加イベント一覧</span></a>
-
+		<div class="top-img-inner">
+			<img class="top-img" src="/E4/img/topimage.png" alt="トップ画面" usemap="#top-link">
+			<map name="top-link">
+				<area shape="rect" coords="80, 35, 430, 175" href="/E4/JoinEventList" alt="参加イベント一覧へ">
+				<area shape="rect" coords="570, 35, 930, 175" href="/E4/AdminEventList" alt="作成イベント一覧へ">
+				<area shape="rect" coords="80, 190, 430, 330" href="/E4/CreateEvent" alt="イベント作成へ">
+				<area shape="rect" coords="580, 190, 930, 330" href="/E4/Icon" alt="実績・アイコン確認へ">
+			</map>
+		</div>
 		<!--通知エリア-->
 		<!--background = "img/notice.png"  -->
 
 		<div class="textarea">
-			<c:if test="${empty eventList}">
+		<div class="notic-area">
+			<%-- <c:if test="${empty eventList}">
 				<p>現在通知はありません</p>
-			</c:if>
-			<c:forEach var="Notic" items="${eventList}">
-				<p class="eventNotic">
-					イベント名：<span id="eventName">${Notic.eventName}</span>
-				</p>
+			</c:if> --%>
+			<p><a href="Review">イベントが終了しました！藤崎 里奈さんのレビューをお願いします！</a></p>
+			<%-- <c:forEach var="Notic" items="${eventList}"> --%>
+				<p class="eventNotic">イベント「${Notic.eventName}」の招待が届きました！</p>
 				<form method="post" action="BeforeJoinDetail">
 				<p class="eventNotic">
 					開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span>
@@ -298,13 +302,12 @@
 					<input type="hidden" name="event_id" value="${Notic.id}">
 				</p>
 				</form>
-				<p class="eventNotic">場所：<span id="locationName">${Notic.locationName}</span></p>
-			</c:forEach>
+			<%-- </c:forEach> --%>
+			</div>
 		</div>
-
-		<!--画像でほかのページ移動-->
-		<a href=""><img src="img/top_joinlist.jpg" class="camp4"><span
-			class="camp44">検索</span></a>
 	</main>
+	<footer class="footer">
+		<p>フッター</p>
+	</footer>
 </body>
 </html>

@@ -220,7 +220,7 @@
 
 	const getData = () => {
 	  const request = new XMLHttpRequest();
-	  request.open('POST', '/E4/JoinDetailServlet', true);
+	  request.open('POST', '/E4/AdminDetail', true);
 
 	  request.setRequestHeader('Content-Type', 'application/json');
 
