@@ -48,6 +48,11 @@ public class ProfileServlet extends HttpServlet {
 				String name = users.getName();
 				String birthDate = users.getBirthDate();
 				int gender = users.getGender();
+				String telnum = users.getTelNum();
+				int outlebel = users.getOutdoorLevel();
+				int prefecture_ID = users.getPrefectureId();
+				int eventcategori = users.getEventCategory();
+
 				String Gender;
 				if (gender == 0) {
 					Gender = "男性";
@@ -62,8 +67,15 @@ public class ProfileServlet extends HttpServlet {
 				user_profile.add(birthDate);
 				user_profile.add(Gender);
 
+				List<Integer> user_ProFile = new ArrayList<>();
+				user_ProFile.add(outlebel);
+				user_ProFile.add(prefecture_ID);
+				user_ProFile.add(eventcategori);
+
 				request.setAttribute("user_profile", user_profile);
-				request.setAttribute("user_info", users);
+				request.setAttribute("user_ProFile", user_ProFile);
+				request.setAttribute("telnum", telnum);
+
 				// プロフィールページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/profile.jsp");
 				dispatcher.forward(request, response);
@@ -80,7 +92,7 @@ public class ProfileServlet extends HttpServlet {
 				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
 				UsersDAO uDao = new UsersDAO();
-				int userid = Integer.parseInt((String)session.getAttribute("userIid"));
+				int userid = Integer.parseInt((String)session.getAttribute("userId"));
 				Users users = uDao.fetchUser(userid);
 
 				String name = users.getName();

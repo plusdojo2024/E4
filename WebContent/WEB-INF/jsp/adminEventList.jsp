@@ -52,7 +52,7 @@
                           <td>住所：${cardList_prefecture.get(admin.prefectureId)}${admin.detailAddress}</td>
                       </tr>
                       <tr>
-                          <td>募集レベル：${event_level.get(admin.eventCategory)}</td>
+                          <td>募集レベル：${event_level_admin.get(admin.eventCategory)}</td>
                       </tr>
                       <tr>
                           <td>現在の参加予定人数：${cardList_joinMember.get(admin.id)}人</td>

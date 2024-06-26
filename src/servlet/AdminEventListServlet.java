@@ -68,12 +68,12 @@ public class AdminEventListServlet extends HttpServlet {
 		request.setAttribute("cardList_joinMember", JoinMember);
 
 //		数値に対応した募集レベルのテキストのマップを作成する
-		Map<Integer, String> event_category = new HashMap<>();
-		event_category.put(0, "初心者歓迎");
-		event_category.put(1, "誰でも歓迎");
-		event_category.put(2, "ベテラン向け");
+		Map<Integer, String> event_category_admin = new HashMap<>();
+		event_category_admin.put(0, "初心者歓迎");
+		event_category_admin.put(1, "誰でも歓迎");
+		event_category_admin.put(2, "ベテラン向け");
 
-		request.setAttribute("event_level", event_category);
+		request.setAttribute("event_level_admin", event_category_admin);
 
 		// 作成イベント一覧ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/adminEventList.jsp");
