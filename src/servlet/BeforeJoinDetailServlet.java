@@ -46,7 +46,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 
 		EventDAO eventDAO = new EventDAO();
 
-		if (request.getParameter("flag") == null) { // リスト画面からの遷移だったら
+		if (request.getParameter("flag") == null) { // リスト画面・通知画面からの遷移だったら
 			// イベントのIDを元にDBからイベントの情報を取得
 			Event detailEvent = eventDAO.fetchParticipant(eventId);
 			// 住所の結合
@@ -68,6 +68,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 			request.setAttribute("detailEvent", detailEvent);
 			request.setAttribute("usersCount", usersCount);
 			request.setAttribute("address", address);
+			request.setAttribute("event_id", eventId);
 
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/eventDetail.jsp");

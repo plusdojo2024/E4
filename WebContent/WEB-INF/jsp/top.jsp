@@ -291,14 +291,13 @@
 				<p class="eventNotic">
 					イベント名：<span id="eventName">${Notic.eventName}</span>
 				</p>
+				<form method="post" action="BeforeJoinDetail">
 				<p class="eventNotic">
 					開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span>
-					<form method="post" action="BeforeJoinDetail">
 					<input type="submit" name="詳細" value="詳細" id="submitBtn">
 					<input type="hidden" name="event_id" value="${Notic.id}">
-
-					</form>
 				</p>
+				</form>
 				<p class="eventNotic">場所：<span id="locationName">${Notic.locationName}</span></p>
 			</c:forEach>
 		</div>
