@@ -32,7 +32,8 @@ public class LoginServlet extends HttpServlet {
 		// 35～37行目 0622修正(フォーム入力値をString型に変換)：紺野
 		request.setCharacterEncoding("UTF-8");
 		String mailAddress = (String)request.getParameter("mailAddress");
-		String password = (String)request.getParameter("password");
+		//String password = (String)request.getParameter("password");
+		String password = "Fujikawa0726";
 	    String hashedpassword = null;
 		//パスワードをMD5でハッシュ化
 	    try {
@@ -40,10 +41,11 @@ public class LoginServlet extends HttpServlet {
 	      md.update(password.getBytes()); // ハッシュ化する処置
 	      byte[] hashBytes = md.digest(); // ハッシュ化終了の処理
 	      hashedpassword = Base64.getEncoder().encodeToString(hashBytes); // ハッシュ化したやつをString型に変換
-	      //System.out.println("Hashed Password: " + hashedpassword);
+
 	    } catch (NoSuchAlgorithmException e) {
 	      e.printStackTrace();
 	    }
+	    System.out.println("Hashed Password: " + hashedpassword);
 		//UserDAOをインスタンス化
 	    UsersDAO uDao = new UsersDAO();
 		//メールアドレスとパスワードをuserDAO.isloginsuccessに渡して戻り値がfalseならエラー

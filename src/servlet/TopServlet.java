@@ -58,7 +58,7 @@ public class TopServlet extends HttpServlet {
 		request.setAttribute("eventList",eventList);
 		// アイコンのIDを取得
 		int iconId = users.getIconId();
-		String iconUrl= userDAO.searchIcon(iconId);
+		String iconUrl= userDAO.searchIcon(userId);
 		request.setAttribute("iconUrl",iconUrl);
 
 		//top.jspに遷移

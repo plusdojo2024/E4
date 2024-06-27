@@ -293,8 +293,8 @@
 				<p>現在通知はありません</p>
 			</c:if> --%>
 			<p><a href="Review">イベントが終了しました！藤崎 里奈さんのレビューをお願いします！</a></p>
-			<%-- <c:forEach var="Notic" items="${eventList}"> --%>
-				<p class="eventNotic">イベント「${Notic.eventName}」の招待が届きました！</p>
+		 <c:forEach var="Notic" items="${eventList}">
+				<p class="eventNotic">イベント「${Notic.eventName}の招待が届きました！</p>
 				<form method="post" action="BeforeJoinDetail">
 				<p class="eventNotic">
 					開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span>
@@ -302,7 +302,7 @@
 					<input type="hidden" name="event_id" value="${Notic.id}">
 				</p>
 				</form>
-			<%-- </c:forEach> --%>
+			</c:forEach>
 			</div>
 		</div>
 	</main>

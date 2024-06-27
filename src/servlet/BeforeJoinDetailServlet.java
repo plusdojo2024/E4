@@ -94,7 +94,7 @@ public class BeforeJoinDetailServlet extends HttpServlet {
 				// スコープに結果を詰める
 				request.setAttribute("result", updateResult);
 				// TOPページにフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/E4/Top");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/Top");
 				dispatcher.forward(request, response);
 			}
 		}

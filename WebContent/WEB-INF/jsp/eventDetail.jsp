@@ -61,7 +61,7 @@
           </c:choose>
       </p>
       <form action="/E4/BeforeJoinDetail" method="post">
-        <input type="hidden"  name="event_id" value="${requestScope.eventId}">
+        <input type="hidden"  name="event_id" value="${requestScope.event_id}">
         <input type="hidden"  name="flag" value="flag">
         <button type="submit">参加する</button>
       </form>

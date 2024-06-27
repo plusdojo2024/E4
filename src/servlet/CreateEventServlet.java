@@ -66,6 +66,8 @@ public class CreateEventServlet extends HttpServlet {
 			// 作成が成功したことを表示
 			boolean isCreateJudge = true;
 			request.setAttribute("isCreateJudge", isCreateJudge);
+			
+			
 		} else {
 			// 作成が失敗したことを表示
 			boolean isCreateJudge = false;
