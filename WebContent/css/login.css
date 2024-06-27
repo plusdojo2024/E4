@@ -15,6 +15,9 @@ align-items: center; */
 min-height: 100vh;
 background: #fff;
 }
+.logo {
+	margin-top:10%;
+}
 
 .loginbox {
   margin:5% auto;

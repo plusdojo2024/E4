@@ -46,7 +46,7 @@
         <p class="event-detail">住所：<span>${requestScope.address}</span></p>
         <p class="event-detail">場所名称：<span>${requestScope.detailEvent.locationName}</span></p>
       </div>
-      <div><p class="event-detail">以下地図エリアです</p><iframe src="" ></iframe></div>
+      <div><iframe  class="map" src="https://maps.google.co.jp/maps?output=embed&q=${requestScope.address}}"></iframe></div>
       <p class="event-detail">募集レベル：
           <c:choose>
             <c:when test="${requestScope.detailEvent.eventCategory == 1}">

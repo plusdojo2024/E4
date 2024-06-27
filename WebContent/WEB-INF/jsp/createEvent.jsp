@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>イベント作成ページ</title>
+	  <link rel="stylesheet" href="/E4/css/common.css">
 	<link rel="stylesheet" href="css/create_event.css">
 	<link rel="stylesheet" href="css/header.css">
 </head>

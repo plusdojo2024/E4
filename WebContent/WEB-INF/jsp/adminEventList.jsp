@@ -56,7 +56,9 @@
                           <td>募集レベル：${event_level_admin.get(admin.eventCategory)}</td>
                       </tr>
                       <tr>
-                          <td>現在の参加予定人数：${cardList_joinMember.get(admin.id)}人</td>
+                          <td>現在の参加予定人数：
+                          	<c:if test="${cardList_joinMember.get(admin.id) == 0 }">1人</c:if>
+                          	<c:if test="${cardList_joinMember.get(admin.id) > 0 }">${cardList_joinMember.get(admin.id)}人</c:if></td>
                       </tr>
                   </table>
 				</form>
