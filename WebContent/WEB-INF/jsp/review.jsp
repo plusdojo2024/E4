@@ -71,7 +71,7 @@
           </label></div>
           </div>
 
-        <div  class="review-submit"><input id="submit" type="submit"  value="送信"></div>
+        <div class="center"><input id="submit" type="submit"  value="送信" class="review-submit"></div>
       </form>
     </div>
   </main>

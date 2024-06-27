@@ -77,11 +77,11 @@ public class JoinDetailServlet extends HttpServlet {
 			String jsonText = br.readLine();
 			// 取り出したJSONテキストをUTF-8にエンコード？
 			jsonText = URLDecoder.decode(jsonText, "UTF-8");
-			System.out.println("jsonText：" + jsonText);
+			//System.out.println("jsonText：" + jsonText);
 
 			// JSONオブジェクトに変換
 			JSONObject receivedJson = new JSONObject(jsonText);
-			System.out.println("receivedJson：" + receivedJson);
+			//System.out.println("receivedJson：" + receivedJson);
 			//DBへの登録
 			// JSONオブジェクトからユーザーID、イベントID、チャット内容を保存
 			int  jsonuserId =Integer.parseInt(receivedJson.getString("user_id"));
@@ -120,12 +120,12 @@ public class JoinDetailServlet extends HttpServlet {
 				 chatJson.put("userName", userName);
 				 chatJson.put("content", chat.getContent());
 				 chatJson.put("userIcon", userIcon);
-				 System.out.println("chatjson:" + chatJson);
+				 //System.out.println("chatjson:" + chatJson);
 				 JsonArrayToSend.put(chatJson);
 			 }
 
-			 System.out.println(comChat);
-			 System.out.println(JsonArrayToSend);
+			 //System.out.println(comChat);
+			 //System.out.println(JsonArrayToSend);
 
 		    //httpヘッダー送信の登録
 			response.setContentType("application/json");
@@ -185,7 +185,7 @@ public class JoinDetailServlet extends HttpServlet {
 				 }
 				chatList.add(new Chat(name, iconNum, chat.getContent()));
 			 }
-			 System.out.println("chatList" + chatList);
+			 //System.out.println("chatList" + chatList);
 
 			// リクエストスコープに詰めてJSPに渡す
 			request.setAttribute("detailEvent", detailEvent);

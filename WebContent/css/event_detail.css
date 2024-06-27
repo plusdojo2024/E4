@@ -169,13 +169,19 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1%;
+  gap: 3%;
+}
+
+/* width: 100%;で残りスペースを埋める */
+.spacer {
+  width: 100%;
 }
 
 .achieve-list .modal-icon {
   /* これを指定しないとうまくダミーアイコン表示できないので入れてます */
   width: 20%;
   height: 20%;
+  margin-bottom: 3%
 }
 .modal-card__close {
   width: 15px;

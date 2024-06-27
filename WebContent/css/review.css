@@ -44,7 +44,16 @@ textarea {
 	margin: 0 2%;
 }
 
+.center {
+	text-align:center;
+}
+
 .review-submit {
 	margin-top: 3%;
-	text-align: center;
+	color: white;
+	padding: 1% 3%;
+    border:2px solid;
+    border-color: #000000;
+    border-radius: 10px;
+    background-color: #3e6e55;
 }

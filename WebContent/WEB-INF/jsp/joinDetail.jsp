@@ -147,6 +147,7 @@
 		              <img class="modal-icon"  src="${requestScope.iconUrl.get(Integer.valueOf(16))}" alt="アイコン">
 		            </c:otherwise>
 	          	</c:choose>
+	          	<div class="spacer"></div>
 	          	<!-- コミュニケーション -->
 	          	<c:choose>
 		            <c:when test="${userinfo.communicationParam >= 3000}">

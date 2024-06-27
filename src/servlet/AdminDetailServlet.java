@@ -76,7 +76,7 @@ public class AdminDetailServlet extends HttpServlet {
 			String jsonText = br.readLine();
 			// 取り出したJSONテキストをUTF-8にエンコード？
 			jsonText = URLDecoder.decode(jsonText, "UTF-8");
-			System.out.println("jsonText：" + jsonText);
+			//System.out.println("jsonText：" + jsonText);
 
 			// JSONオブジェクトに変換
 			JSONObject receivedJson = new JSONObject(jsonText);
@@ -87,9 +87,9 @@ public class AdminDetailServlet extends HttpServlet {
 			int  jsoneventId =Integer.parseInt(receivedJson.getString("event_id"));
 			String jsoncontent = receivedJson.getString("content");
 
-			System.out.println("jsonuserId：" + jsonuserId);
-			System.out.println("jsoneventId：" + jsoneventId);
-			System.out.println("jsoncontent：" + jsoncontent);
+			//System.out.println("jsonuserId：" + jsonuserId);
+			//System.out.println("jsoneventId：" + jsoneventId);
+			//System.out.println("jsoncontent：" + jsoncontent);
 			// 現在時刻を取得
 			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now =LocalDateTime.now();
@@ -122,8 +122,8 @@ public class AdminDetailServlet extends HttpServlet {
 				 JsonArrayToSend.put(chatJson);
 			 }
 
-			 System.out.println(comChat);
-			 System.out.println(JsonArrayToSend);
+			// System.out.println(comChat);
+			 //System.out.println(JsonArrayToSend);
 
 		    //httpヘッダー送信の登録
 			response.setContentType("application/json");
