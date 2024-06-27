@@ -29,15 +29,21 @@
 		<!--アイコン画像-->
 		<div class="center">
 		<div class="icon">
-			<a href="/E4/Icon"><img src="${iconUrl}" width="200px" height="200px"></a>
+   		 <c:choose>
+        <c:when test="${empty iconUrl}">
+            <a href="/E4/Icon"><img src="img/icon/com/com_initial" width="200px" height="200px"></a>
+        </c:when>
+        <c:otherwise>
+            <a href="/E4/Icon"><img src="${iconUrl}" width="200px" height="200px"></a>
+        </c:otherwise>
+    </c:choose>
+
 		</div>
 		<!--天気予報-->
 		<div class="weatherlocation">
 			<div id="location">
 				<span class="location">:${prefectureName}</span>
-				<a
-					href="https://www.jma.go.jp/bosai/forecast/" target="_blank"><span
-					class="tenki">天気予報</span></a>
+				<a href="https://www.jma.go.jp/bosai/forecast/" target="_blank"><span class="tenki">天気予報</span></a>
 			</div>
 			<p class="moji1">今日</p>
 			<p class="moji2">1日後</p>
@@ -294,14 +300,14 @@
 			</c:if> --%>
 			<p><a href="Review">イベントが終了しました！藤崎 里奈さんのレビューをお願いします！</a></p>
 		 <c:forEach var="Notic" items="${eventList}">
-				<p class="eventNotic">イベント「${Notic.eventName}の招待が届きました！</p>
+				<div><span class="eventNotic">イベント「${Notic.eventName}」の招待が届きました！</span><br>
 				<form method="post" action="BeforeJoinDetail">
-				<p class="eventNotic">
-					開催日程：<span id="holdingSchedule">${Notic.holdingSchedule}</span>
-					<input type="submit" name="詳細" value="詳細" id="submitBtn">
+				<span class="eventNotic">開催日程：${Notic.holdingSchedule}</span>
+					<input class="greenBtn"  type="submit" name="詳細" value="詳細" id="submitBtn">
 					<input type="hidden" name="event_id" value="${Notic.id}">
-				</p>
+
 				</form>
+				</div>
 			</c:forEach>
 			</div>
 		</div>

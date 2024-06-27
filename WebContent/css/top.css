@@ -171,3 +171,34 @@ body {
   padding: 3% 100%;
   margin: 0 auto;
 }
+
+.greenBtn {
+	margin: 0 2%;
+	color: white;
+    border-color: #000000;
+    border-radius: 10px;
+    background-color: #3e6e55;
+}
+
+.notic-area p, .notic-area div {
+	padding: 2%;
+	border-radius: 10px;
+	border: 2px solid #3e6e55
+}
+
+.notic-area a:link {
+	text-decoration: none;
+	color: black;
+}
+.notic-area a:hover {
+	text-decoration: underline;
+	color: black;
+}
+.notic-area a:active {
+	text-decoration: underline;
+	color: black;
+}
+.notic-area a:visited {
+	text-decoration: none;
+	color: black;
+}

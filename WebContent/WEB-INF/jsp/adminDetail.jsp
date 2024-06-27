@@ -78,7 +78,7 @@
             </c:when>
           </c:choose>
       </p>
-      <button type="button"  onclick="history.back()">一覧へ戻る</button>
+      <div><button  class="greenBtn"  type="button"  onclick="history.back()">一覧へ戻る</button></div>
      <!--  <a href="AdminEventList">一覧へ戻る</a> -->
     </div>
     <!-- モーダル部分 -->

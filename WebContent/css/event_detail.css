@@ -35,8 +35,6 @@
 }
 
 .admin-list .icon-img {
-	border: 3px solid #dcdbc5;
-	border-radius: 50%;
   /* これを指定しないとうまくダミーアイコン表示できないので入れてます */
   width: 20%;
   height: 20%;
@@ -49,16 +47,24 @@
 
 .communicationArea-inner {
   /* 中央揃え */
-  margin: 0 auto;
+  margin: 3% auto;
   /* 縦スクロールボックス */
   width: 90%;
   height: 200px;
   overflow-y: scroll;
 }
 
+.communicationArea-inner p {
+	margin-right: 1%;
+	padding: 1.5%;
+	border-radius: 10px;
+	border: 1px solid #3e6e55
+}
+
 .map {
 	width: 90%;
 	height: 300px;
+	margin: 1% auto;
 }
 /**
  * モーダル
@@ -199,3 +205,38 @@
 .modal-card__close::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
+
+.greenBtn {
+	margin: 1% auto;
+	color: white;
+	padding: 1%;
+    border:2px solid;
+    border-color: #000000;
+    border-radius: 10px;
+    background-color: #3e6e55;
+}
+
+.redBtn {
+	font-weight: bold;
+	margin: 1% auto;
+	padding: 1% 3%;
+	/* color: white; */
+    border: 4px solid #3e6e55;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.center {
+	text-align:center;
+}
+
+#send {
+	margin: 1%;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+    background-color: #3e6e55;
+    border-radius: 10px;
+    color: white;
+}
+

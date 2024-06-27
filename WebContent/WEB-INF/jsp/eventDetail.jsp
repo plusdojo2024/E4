@@ -63,9 +63,9 @@
       <form action="/E4/BeforeJoinDetail" method="post">
         <input type="hidden"  name="event_id" value="${requestScope.event_id}">
         <input type="hidden"  name="flag" value="flag">
-        <button type="submit">参加する</button>
+        <div class="center"><button type="submit"  class="redBtn">参加する</button></div>
       </form>
-      <button>戻る</button>
+      <div><button  class="greenBtn"  type="button"  onclick="history.back()"> 戻る</button></div>
     </div>
   </main>
   <footer></footer>
